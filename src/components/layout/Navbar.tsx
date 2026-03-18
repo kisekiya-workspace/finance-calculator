@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calculator, ChevronDown, Menu, X, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronDown, Menu, X, ChevronRight } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const CATEGORIES = [
@@ -69,6 +70,13 @@ export const Navbar = () => {
       <div className="container">
         <div className={styles.content}>
           <Link href="/" className={styles.logo}>
+            <Image 
+              src="/finance_sociials.png" 
+              alt="Sociials Finance" 
+              width={32} 
+              height={32} 
+              className={styles.logoImg}
+            />
             <span>Sociials / <span className={styles.accent}>FinanceCalc</span></span>
           </Link>
 

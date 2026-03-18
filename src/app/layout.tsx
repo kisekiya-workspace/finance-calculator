@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   description: "Highly accurate and free finance calculators for tax, compound interest, loans, and ROI. A Sociials project for financial clarity.",
   keywords: ["sociials", "financecalc", "income tax calculator 2026", "global tax calculator", "compound interest", "mortgage calculator"],
   authors: [{ name: "Sociials" }],
+  icons: {
+    icon: "/finance_sociials.png",
+    apple: "/finance_sociials.png",
+  },
   openGraph: {
     title: "Sociials / FinanceCalc",
     description: "Expert finance calculators for daily use.",
