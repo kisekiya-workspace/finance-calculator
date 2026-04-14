@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { JSONLD } from "@/components/ui/JSONLD";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://toolioz.com'),
@@ -76,6 +77,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VM8TJM1RER"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-VM8TJM1RER');
+          `}
+        </Script>
         <JSONLD data={orgJsonLd} />
         <Navbar />
         <Breadcrumbs />
