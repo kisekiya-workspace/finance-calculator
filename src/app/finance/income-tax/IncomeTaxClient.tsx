@@ -11,6 +11,7 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
 const COUNTRIES: { id: Country; name: string; currency: string; locale: string }[] = [
   { id: 'IN', name: 'India (FY 2026-27)', currency: 'INR', locale: 'en-IN' },
   { id: 'US', name: 'USA', currency: 'USD', locale: 'en-US' },

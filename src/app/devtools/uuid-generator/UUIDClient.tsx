@@ -7,6 +7,7 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
 export default function UUIDClient({ title, color }: { title?: string, color?: string }) {
   const [quantity, setQuantity] = useState<number>(10);
   const [hyphens, setHyphens] = useState<boolean>(true);

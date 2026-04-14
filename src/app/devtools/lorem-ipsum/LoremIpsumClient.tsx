@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/Input';
 import { Copy, Check, Type, FileText, Blocks, Code2 } from 'lucide-react';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 const LOREM_WORDS = [
   "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", 
   "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "ut", "enim", "ad", "minim", 

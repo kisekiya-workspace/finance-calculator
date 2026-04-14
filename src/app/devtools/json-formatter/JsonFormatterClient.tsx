@@ -10,6 +10,8 @@ import styles from './page.module.css';
 import yaml from 'js-yaml';
 import JsonToTS from 'json-to-ts';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function JsonFormatterClient() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');

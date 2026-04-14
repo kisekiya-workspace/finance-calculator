@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 import styles from './LayoutGenerator.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
 type GridArea = {
   id: string; // internal tracking ID
   name: string; // semantic dev name e.g. "header", "sidebar"

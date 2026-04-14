@@ -14,7 +14,7 @@ export const Breadcrumbs = () => {
   const pathSegments = pathname.split('/').filter(Boolean);
   
   // Construct breadcrumb items
-  const items = [
+  const items: { name: string; href: string; icon?: any }[] = [
     { name: 'Home', href: '/', icon: Home }
   ];
 
@@ -41,31 +41,48 @@ export const Breadcrumbs = () => {
     items.push({ name, href: currentLink, icon: undefined });
   });
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": `https://toolioz.com${item.href}`
+    }))
+  };
+
   return (
-    <nav aria-label="Breadcrumb" className={styles.container}>
-      <div className="container">
-        <ol className={styles.list}>
-          {items.map((item, index) => {
-            const isLast = index === items.length - 1;
-            
-            return (
-              <li key={item.href} className={styles.item}>
-                {index > 0 && <ChevronRight size={14} className={styles.separator} />}
-                {isLast ? (
-                  <span className={styles.current} aria-current="page">
-                    {item.name}
-                  </span>
-                ) : (
-                  <Link href={item.href} className={styles.link}>
-                    {item.icon && <item.icon size={14} className={styles.homeIcon} />}
-                    {item.name}
-                  </Link>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-    </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <nav aria-label="Breadcrumb" className={styles.container}>
+        <div className="container">
+          <ol className={styles.list}>
+            {items.map((item, index) => {
+              const isLast = index === items.length - 1;
+              
+              return (
+                <li key={item.href} className={styles.item}>
+                  {index > 0 && <ChevronRight size={14} className={styles.separator} />}
+                  {isLast ? (
+                    <span className={styles.current} aria-current="page">
+                      {item.name}
+                    </span>
+                  ) : (
+                    <Link href={item.href} className={styles.link}>
+                      {item.icon && <item.icon size={14} className={styles.homeIcon} />}
+                      {item.name}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </nav>
+    </>
   );
 };

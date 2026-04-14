@@ -7,6 +7,8 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import styles from './page.module.css';
 import { Check, Copy, Link as LinkIcon, Plus, Trash2 } from 'lucide-react';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 interface QueryParam {
     id: string;
     key: string;

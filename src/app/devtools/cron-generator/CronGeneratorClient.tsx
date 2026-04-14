@@ -9,6 +9,8 @@ import { CalendarClock, Copy, Check, Info } from 'lucide-react';
 import * as cronParser from 'cron-parser';
 import cronstrue from 'cronstrue';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function CronGeneratorClient() {
     const [cronString, setCronString] = useState('*/15 * * * *');
     const [copied, setCopied] = useState(false);

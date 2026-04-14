@@ -7,6 +7,8 @@ import { Input } from '@/components/ui/Input';
 import { Ruler, Weight, Thermometer, Database, ArrowRightLeft, Copy, Check } from 'lucide-react';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 type UnitCategory = 'length' | 'mass' | 'temperature' | 'data';
 
 const CONVERSIONS: Record<UnitCategory, any> = {

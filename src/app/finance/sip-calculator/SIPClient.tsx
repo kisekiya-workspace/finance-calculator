@@ -11,6 +11,7 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 import styles from '@/app/finance/compound-interest/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
 export default function SIPClient() {
   const [monthlyInvestment, setMonthlyInvestment] = useState<number>(5000);
   const [rate, setRate] = useState<number>(12);

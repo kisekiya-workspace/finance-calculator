@@ -7,6 +7,8 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import styles from './page.module.css';
 import { Key, AlertCircle, ShieldCheck } from 'lucide-react';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 // Help functions
 function base64UrlToBase64(str: string) {
     let base64 = str.replace(/-/g, '+').replace(/_/g, '/');

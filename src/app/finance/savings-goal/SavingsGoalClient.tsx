@@ -10,6 +10,8 @@ import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import styles from '@/app/finance/compound-interest/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function SavingsGoalClient() {
   const [target, setTarget] = useState<number>(1000000);
   const [rate, setRate] = useState<number>(10);

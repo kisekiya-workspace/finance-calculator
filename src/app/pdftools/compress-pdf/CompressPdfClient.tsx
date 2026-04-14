@@ -9,6 +9,8 @@ import { Upload, FileText, Download, ShieldCheck, Zap, Info, Settings, Loader2 }
 import { SEOSection } from '@/components/ui/SEOSection';
 import styles from '../merge-pdf/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function CompressPdfClient() {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);

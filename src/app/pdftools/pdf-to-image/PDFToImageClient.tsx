@@ -8,6 +8,8 @@ import { Upload, FileImage, Download, Zap, ShieldCheck, Info, Loader2, ImageIcon
 import { SEOSection } from '@/components/ui/SEOSection';
 import styles from '../merge-pdf/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function PDFToImageClient() {
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);

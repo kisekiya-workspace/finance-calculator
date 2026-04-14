@@ -9,6 +9,7 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 import styles from '../merge-pdf/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
 export default function ImageCompressorClient() {
   const [file, setFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string>('');

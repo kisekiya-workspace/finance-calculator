@@ -1,6 +1,7 @@
 import React from 'react';
 import MergePdfClient from './MergePdfClient';
 import type { Metadata } from 'next';
+import { JSONLD } from '@/components/ui/JSONLD';
 
 export const metadata: Metadata = {
   title: "Fast Online PDF Merger | Combine PDF Files Securely | Toolioz",

@@ -3,28 +3,31 @@ import { TOOLS } from '@/lib/tools';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://toolioz.com';
+  const lastModified = new Date('2026-04-14');
+
+  const trendingIds = TOOLS.filter(t => t.isTrending).map(t => t.id);
 
   const toolRoutes = TOOLS.map((tool) => ({
     url: `${baseUrl}${tool.href}`,
-    lastModified: new Date(),
+    lastModified,
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: trendingIds.includes(tool.id) ? 0.9 : 0.8,
   }));
 
   const staticRoutes = [
-    '',
-    '/finance',
-    '/devtools',
-    '/pdftools',
-    '/about',
-    '/contact',
-    '/privacy-policy',
-    '/terms',
-  ].map((route) => ({
+    { route: '', priority: 1.0, freq: 'daily' as const },
+    { route: '/finance', priority: 0.9, freq: 'weekly' as const },
+    { route: '/devtools', priority: 0.9, freq: 'weekly' as const },
+    { route: '/pdftools', priority: 0.9, freq: 'weekly' as const },
+    { route: '/about', priority: 0.5, freq: 'monthly' as const },
+    { route: '/contact', priority: 0.5, freq: 'monthly' as const },
+    { route: '/privacy-policy', priority: 0.3, freq: 'yearly' as const },
+    { route: '/terms', priority: 0.3, freq: 'yearly' as const },
+  ].map(({ route, priority, freq }) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 1.0,
+    lastModified,
+    changeFrequency: freq,
+    priority,
   }));
 
   return [...staticRoutes, ...toolRoutes];

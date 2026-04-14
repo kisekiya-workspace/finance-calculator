@@ -10,6 +10,8 @@ import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 const TAX_SLABS = [5, 12, 18, 28];
 
 export default function GSTClient() {

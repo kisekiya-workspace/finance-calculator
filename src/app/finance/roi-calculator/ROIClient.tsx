@@ -10,6 +10,8 @@ import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import styles from '@/app/finance/compound-interest/page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function ROIClient() {
   const [initial, setInitial] = useState<number>(1000);
   const [final, setFinal] = useState<number>(1500);

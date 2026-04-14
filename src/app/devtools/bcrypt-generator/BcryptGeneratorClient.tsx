@@ -9,6 +9,8 @@ import styles from './page.module.css';
 import { Asterisk, CheckCircle2, XCircle, Copy, Check, Loader2 } from 'lucide-react';
 import bcrypt from 'bcryptjs';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function BcryptGeneratorClient() {
     // Generator State
     const [plainText, setPlainText] = useState('');

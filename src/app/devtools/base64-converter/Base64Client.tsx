@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/Button';
 import { Binary, Copy, Trash2, SwitchCamera, Check, FileUp, Download } from 'lucide-react';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function Base64Client() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');

@@ -8,6 +8,8 @@ import { FileText, Plus, X, ShieldCheck, Zap, Download, FileUp, ArrowDownWideNar
 import { PDFDocument } from 'pdf-lib';
 import styles from './page.module.css';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 interface FileItem {
   id: string;
   file: File;

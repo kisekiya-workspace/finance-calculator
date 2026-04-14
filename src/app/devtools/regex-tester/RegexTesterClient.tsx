@@ -7,6 +7,8 @@ import { SEOSection } from '@/components/ui/SEOSection';
 import styles from './page.module.css';
 import { SearchCode, AlertCircle, Copy, Check } from 'lucide-react';
 
+import { FAQSchema } from '@/components/ui/FAQSchema';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function RegexTesterClient() {
     const [pattern, setPattern] = useState('([A-Z])\\w+');
     const [flags, setFlags] = useState('g');
