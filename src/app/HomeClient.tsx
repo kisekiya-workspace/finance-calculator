@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Search, TrendingUp, HomeIcon, Landmark, PiggyBank, Briefcase, Percent, CreditCard, Banknote, Car, Wallet, Calculator } from 'lucide-react';
@@ -104,7 +104,7 @@ export default function HomeClient() {
 
   return (
     <>
-      <Navbar />
+
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.heroContent}>
@@ -287,7 +287,7 @@ export default function HomeClient() {
             <div className={styles.footerBrand}>
               <div className={styles.logo}>
                 <Calculator className={styles.icon} />
-                <span>Sociials / FinanceCalc</span>
+                <span>Toolioz / FinanceCalc</span>
               </div>
               <p>Democratizing financial literacy with precision tools. Built for speed, privacy, and accuracy.</p>
             </div>
@@ -311,7 +311,7 @@ export default function HomeClient() {
             </div>
           </div>
           <div className={styles.footerBottom}>
-            <p>© 2026 Sociials / FinanceCalc. Empowering your financial future.</p>
+            <p>© 2026 Toolioz / FinanceCalc. Empowering your financial future.</p>
           </div>
         </div>
       </footer>

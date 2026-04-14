@@ -1,45 +1,56 @@
 'use client';
 
 import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
-import styles from '../compound-interest/page.module.css';
+import styles from '@/app/SecondaryPage.module.css';
 
 export default function AboutClient() {
   return (
-    <>
-      <Navbar />
-      <div className={styles.wrapper}>
-        <header className={styles.header}>
-          <div className="container">
-            <h1 className={styles.title}>About Sociials / FinanceCalc </h1>
-            <p className={styles.subtitle}>Our mission is to democratize financial literacy through precision tools.</p>
-          </div>
-        </header>
+    <div className={styles.wrapper}>
+      <header className={styles.header}>
+        <div className="container">
+          <h1 className={styles.title}>About <span style={{ color: 'var(--primary)' }}>Toolioz</span></h1>
+          <p className={styles.subtitle}>Our mission is to democratize professional utilities through precision engineering.</p>
+        </div>
+      </header>
 
-        <section className="container" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '4rem' }}>
-          <Card style={{ padding: '2.5rem', lineHeight: '1.8' }}>
+      <section className={styles.contentSection}>
+        <div className="container">
+          <Card className={styles.card}>
             <p>
-              Welcome to <strong>Sociials / FinanceCalc</strong>, your premier destination for highly accurate, modern, and minimal financial calculation tools.
-              In an increasingly complex economic landscape, we believe that everyone deserves access to the same precision logic used by professionals.
+              Welcome to <strong>Toolioz</strong>, your premier destination for highly accurate, modern, and minimal digital utilities.
+              In an increasingly complex landscape, we believe that everyone deserves access to the same precision logic used by professionals.
             </p>
-            <h2 style={{ marginTop: '2rem', fontSize: '1.5rem', fontWeight: '700' }}>Why We Exist</h2>
+            
+            <h2>Why We Exist</h2>
             <p>
-              Most online calculators are outdated, cluttered with ads, or use simplified formulas that don't account for real-world nuances.
-              FinanceCalc was built to change that. We combine beautiful, responsive design with a robust tax and math engine that accounts for
-              global regulations, including the latest 2026 tax budget changes for India, USA, and the UK.
+              Most online utilities are outdated, cluttered with ads, or use simplified logic that doesn't account for real-world nuances. 
+              ToolBox was built to change that. We combine beautiful, responsive design with a robust technical engine that accounts for 
+              global standards—from the latest 2026 tax budget changes to binary data encoding.
             </p>
-            <h2 style={{ marginTop: '2rem', fontSize: '1.5rem', fontWeight: '700' }}>Our Engineering</h2>
+            
+            <h2>Our Principles</h2>
+            <ul>
+              <li><strong>Accuracy Above All:</strong> Every calculation is double-checked against industry standards.</li>
+              <li><strong>Privacy First:</strong> We follow a zero-server approach. Your data never leaves your machine.</li>
+              <li><strong>Zero Clutter:</strong> No ads, no tracking, no account required. Just pure functionality.</li>
+            </ul>
+
+            <h2>Technical Infrastructure</h2>
             <p>
-              Every tool on this platform is engineered with precision. From our <strong>Compound Interest</strong> engine that handles
-              various frequencies to our <strong>Income Tax</strong> module that navigates complex global slabs, we prioritize accuracy above all else.
+              Toolioz is a part of the Toolioz ecosystem, dedicated to building software that empowers users to make informed life decisions.
+              Our platform uses modern browser-native technologies to process PDFs, format code, and calculate finances without ever needing an external server.
             </p>
-            <p style={{ marginTop: '2rem' }}>
-              Sociials / FinanceCalc is a part of the Sociials ecosystem, dedicated to building tools that empower users to make informed life decisions.
+            
+            <p className={styles.lastUpdated}>
+              Last Updated: April 2026
             </p>
           </Card>
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
   );
 }

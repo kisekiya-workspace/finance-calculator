@@ -1,0 +1,426 @@
+'use client';
+
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Copy, Check, RefreshCw, Plus, X } from 'lucide-react';
+import styles from './page.module.css';
+
+// --- Color Core Functions --- //
+function hexToRgb(hex: string) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+function rgbToHex(r: number, g: number, b: number) {
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+}
+
+function rgbToHsl(r: number, g: number, b: number) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function hslToRgb(h: number, s: number, l: number) {
+  h /= 360; s /= 100; l /= 100;
+  let r, g, b;
+
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p: number, q: number, t: number) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
+}
+
+function hslToHex(h: number, s: number, l: number) {
+  const rgb = hslToRgb(h, s, l);
+  return rgbToHex(rgb.r, rgb.g, rgb.b);
+}
+
+// --- Accessibility Methods --- //
+function getLuminance(r: number, g: number, b: number) {
+  const a = [r, g, b].map(function (v) {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+function getContrast(rgb1: {r:number, g:number, b:number}, rgb2: {r:number, g:number, b:number}) {
+  const lum1 = getLuminance(rgb1.r, rgb1.g, rgb1.b);
+  const lum2 = getLuminance(rgb2.r, rgb2.g, rgb2.b);
+  const brightest = Math.max(lum1, lum2);
+  const darkest = Math.min(lum1, lum2);
+  return (brightest + 0.05) / (darkest + 0.05);
+}
+
+// Ensure l is safely within 0-100
+function safeL(l: number) {
+  return Math.min(100, Math.max(0, l));
+}
+
+// --- Generator Logic --- //
+function shiftHue(h: number, amount: number) {
+  return (h + amount + 360) % 360;
+}
+
+type MeshNode = { id: string; hex: string; x: number; y: number; spread: number };
+
+export default function ColorClient({ title, color }: { title?: string, color?: string }) {
+  const [hex, setHex] = useState("#3B82F6");
+  const [rgb, setRgb] = useState({ r: 59, g: 130, b: 246 });
+  const [hsl, setHsl] = useState({ h: 217, s: 90, l: 60 });
+  const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+  const [hexError, setHexError] = useState(false);
+
+  // Visibility Tester State
+  const [textMode, setTextMode] = useState<'auto' | 'white' | 'black' | 'custom'>('auto');
+  const [customTextHex, setCustomTextHex] = useState("#FFFFFF");
+
+  // Mesh Gradient State
+  const [nodes, setNodes] = useState<MeshNode[]>([]);
+  
+  const generateRandomMesh = useCallback(() => {
+    const randomHex = () => '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    setNodes([
+      { id: '1', hex: randomHex(), x: 0, y: 0, spread: 50 },
+      { id: '2', hex: randomHex(), x: 100, y: 0, spread: 70 },
+      { id: '3', hex: randomHex(), x: 100, y: 100, spread: 50 },
+      { id: '4', hex: randomHex(), x: 0, y: 100, spread: 60 }
+    ]);
+  }, []);
+
+  useEffect(() => {
+    const savedHex = localStorage.getItem('toolioz_color_hex');
+    const savedNodes = localStorage.getItem('toolioz_mesh_nodes');
+    
+    if (savedHex) {
+      setHex(savedHex);
+      updateFromHex(savedHex);
+    }
+    
+    if (savedNodes) {
+      try {
+        setNodes(JSON.parse(savedNodes));
+      } catch (e) {
+        generateRandomMesh();
+      }
+    } else {
+      generateRandomMesh();
+    }
+  }, [generateRandomMesh]);
+
+  useEffect(() => {
+    localStorage.setItem('toolioz_color_hex', hex);
+  }, [hex]);
+
+  useEffect(() => {
+    if (nodes.length > 0) {
+      localStorage.setItem('toolioz_mesh_nodes', JSON.stringify(nodes));
+    }
+  }, [nodes]);
+
+  const handleHexChange = (val: string) => {
+    setHex(val);
+    const validHex = /^#?([0-9A-F]{3}){1,2}$/i.test(val);
+    setHexError(!validHex);
+    if (validHex) updateFromHex(val);
+  };
+
+  const updateFromHex = (val: string) => {
+    let cleanHex = val.replace("#", "");
+    if (cleanHex.length === 3) cleanHex = cleanHex.split('').map(c => c + c).join('');
+    const newRgb = hexToRgb(cleanHex);
+    if (newRgb) {
+      setRgb(newRgb);
+      setHsl(rgbToHsl(newRgb.r, newRgb.g, newRgb.b));
+      setHex("#" + cleanHex.toUpperCase());
+    }
+  };
+
+  const handleRgbChange = (r: number, g: number, b: number) => {
+    setRgb({ r, g, b });
+    setHex(rgbToHex(r, g, b));
+    setHsl(rgbToHsl(r, g, b));
+    setHexError(false);
+  };
+
+  const handleHslChange = (h: number, s: number, l: number) => {
+    setHsl({ h, s, l });
+    const newRgb = hslToRgb(h, s, l);
+    setRgb(newRgb);
+    setHex(rgbToHex(newRgb.r, newRgb.g, newRgb.b));
+    setHexError(false);
+  };
+
+  const copyToClipboard = (text: string, format: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedFormat(format);
+    setTimeout(() => setCopiedFormat(null), 2000);
+  };
+
+  // Mesh Logic
+  const updateNode = (id: string, field: keyof MeshNode, value: number | string) => {
+    setNodes(prev => prev.map(n => n.id === id ? { ...n, [field]: value } : n));
+  };
+  
+  const addNode = () => {
+    setNodes(prev => [...prev, { 
+      id: Date.now().toString(), 
+      hex: "#" + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0'), 
+      x: 50, y: 50, spread: 50 
+    }]);
+  };
+  
+  const removeNode = (id: string) => {
+    setNodes(prev => prev.filter(n => n.id !== id));
+  };
+
+  // --- Accessibility Calcs ---
+  // Background luminance determines whether white or black is naturally better
+  const bgLuminance = getLuminance(rgb.r, rgb.g, rgb.b);
+  const autoTextColorHex = bgLuminance > 0.179 ? '#000000' : '#FFFFFF';
+
+  let currentTextHex = '#FFFFFF';
+  if (textMode === 'auto') currentTextHex = autoTextColorHex;
+  else if (textMode === 'white') currentTextHex = '#FFFFFF';
+  else if (textMode === 'black') currentTextHex = '#000000';
+  else if (textMode === 'custom') currentTextHex = /^#?([0-9A-F]{3}){1,2}$/i.test(customTextHex) ? customTextHex : '#FFFFFF';
+
+  const textRgbObj = hexToRgb(currentTextHex) || { r: 255, g: 255, b: 255 };
+  const currentContrast = getContrast(rgb, textRgbObj).toFixed(2);
+  const passNormal = Number(currentContrast) >= 4.5;
+  const passLarge = Number(currentContrast) >= 3.0;
+
+  // --- UI Theme Tokens Engine ---
+  const themeTokens = useMemo(() => {
+    return [
+      { name: 'Primary', hex: hex },
+      { name: 'Secondary', hex: hslToHex(shiftHue(hsl.h, 30), hsl.s * 0.8, safeL(hsl.l - 10)) },
+      { name: 'Accent', hex: hslToHex(shiftHue(hsl.h, 150), Math.min(hsl.s + 20, 100), hsl.l) }, // Triadic Pop
+      { name: 'Surface', hex: hslToHex(hsl.h, hsl.s * 0.3, 95) }, // Off-white tint
+      { name: 'Background (Dark)', hex: hslToHex(hsl.h, hsl.s * 0.4, 10) }, // Deep dark map
+    ];
+  }, [hex, hsl]);
+
+  const TokenSwatch = ({ name, hx }: { name: string, hx: string }) => (
+    <div className={styles.themeToken}>
+      <span className={styles.tokenLabel}>{name}</span>
+      <div 
+        className={styles.tokenSwatch} 
+        style={{ backgroundColor: hx }}
+        onClick={() => { updateFromHex(hx); copyToClipboard(hx, hx); }}
+      >
+        <span className={styles.tokenBgLabel}>{copiedFormat === hx ? 'Copied' : hx}</span>
+      </div>
+    </div>
+  );
+
+  const bgImageCss = nodes.map(n => `radial-gradient(at ${n.x}% ${n.y}%, ${n.hex} 0px, transparent ${n.spread}%)`).join(',\n');
+  const fallbackColor = nodes[0]?.hex || hex;
+  const currentMeshStyle = { backgroundImage: bgImageCss, backgroundColor: fallbackColor + '55' };
+  const getMeshCSS = () => `background-image: ${bgImageCss.replace(/\n/g, ' ')};\nbackground-color: ${fallbackColor}55;`;
+
+  return (
+    <div className={styles.pageContainer}>
+      
+      <main className={styles.workspace}>
+        <header className={styles.seoHeader}>
+          <h1 className={styles.title}>{title || 'Color Format Suite'}</h1>
+          <p className={styles.description}>
+            Generate dynamic Web UI Themes, test Typographical Contrast legibility, and orchestrate Mesh Gradients seamlessly based on RGB, HEX or HSL input.
+          </p>
+        </header>
+
+        {/* --- Visibility/Legibility Tester --- */}
+        <section className={styles.visibilitySection}>
+          <div 
+            className={styles.visibilityWindow} 
+            style={{ backgroundColor: !hexError ? hex : '#374151' }}
+          >
+            <h2 className={styles.visibilityText} style={{ color: currentTextHex }}>
+              Accessibility Canvas
+            </h2>
+            <p className={styles.visibilitySubtext} style={{ color: currentTextHex, opacity: 0.9 }}>
+              This module simulates your typography resting on the generated background. Use this interface to organically detect reading friction before developers push code live to production environments.
+            </p>
+          </div>
+          
+          <div className={styles.visibilityControls}>
+            <div className={styles.textModeSelector}>
+              <span className={styles.textModeLabel}>Text Mode:</span>
+              <label className={styles.radioLabel}>
+                <input type="radio" checked={textMode === 'auto'} onChange={() => setTextMode('auto')} /> Auto
+              </label>
+              <label className={styles.radioLabel}>
+                <input type="radio" checked={textMode === 'white'} onChange={() => setTextMode('white')} /> White
+              </label>
+              <label className={styles.radioLabel}>
+                <input type="radio" checked={textMode === 'black'} onChange={() => setTextMode('black')} /> Black
+              </label>
+              <label className={styles.radioLabel}>
+                <input type="radio" checked={textMode === 'custom'} onChange={() => setTextMode('custom')} /> Custom
+                {textMode === 'custom' && (
+                  <input type="text" className={styles.customTextInput} value={customTextHex} onChange={e => setCustomTextHex(e.target.value)} maxLength={7} />
+                )}
+              </label>
+            </div>
+
+            <div className={styles.wcagBadges}>
+              <div className={styles.wcagBadge} title="Contrast Ratio Metric">
+                Ratio: {currentContrast}
+              </div>
+              <div className={styles.wcagBadge}>
+                Large Text: <span className={passLarge ? styles.wcagPass : styles.wcagFail}>{passLarge ? 'PASS' : 'FAIL'}</span>
+              </div>
+              <div className={styles.wcagBadge}>
+                Normal Text: <span className={passNormal ? styles.wcagPass : styles.wcagFail}>{passNormal ? 'PASS' : 'FAIL'}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- Primary Converters --- */}
+        <section className={styles.conversionGrid}>
+          {/* HEX Card */}
+          <div className={styles.colorCard}>
+            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>HEX</h2></div>
+            <div className={styles.copyArea}>
+              <input type="text" className={styles.colorInput} value={hex} onChange={(e) => handleHexChange(e.target.value)} maxLength={7} />
+              <button className={styles.copyBtn} onClick={() => copyToClipboard(hex.toUpperCase(), 'hex')}>
+                {copiedFormat === 'hex' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
+              </button>
+            </div>
+            {hexError && <div className={styles.errorText}>Invalid HEX format</div>}
+          </div>
+
+          {/* RGB Card */}
+          <div className={styles.colorCard}>
+            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>RGB</h2></div>
+            <div className={styles.copyArea}>
+              <input type="text" className={styles.colorInput} value={`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`} readOnly />
+              <button className={styles.copyBtn} onClick={() => copyToClipboard(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')}>
+                {copiedFormat === 'rgb' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
+              </button>
+            </div>
+            <div className={styles.sliders}>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>R</span><input type="range" min="0" max="255" value={rgb.r} className={styles.slider} onChange={(e) => handleRgbChange(Number(e.target.value), rgb.g, rgb.b)} /></div>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>G</span><input type="range" min="0" max="255" value={rgb.g} className={styles.slider} onChange={(e) => handleRgbChange(rgb.r, Number(e.target.value), rgb.b)} /></div>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>B</span><input type="range" min="0" max="255" value={rgb.b} className={styles.slider} onChange={(e) => handleRgbChange(rgb.r, rgb.g, Number(e.target.value))} /></div>
+            </div>
+          </div>
+
+          {/* HSL Card */}
+          <div className={styles.colorCard}>
+            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>HSL</h2></div>
+            <div className={styles.copyArea}>
+              <input type="text" className={styles.colorInput} value={`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`} readOnly />
+              <button className={styles.copyBtn} onClick={() => copyToClipboard(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')}>
+                {copiedFormat === 'hsl' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
+              </button>
+            </div>
+            <div className={styles.sliders}>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>H</span><input type="range" min="0" max="360" value={hsl.h} className={styles.slider} onChange={(e) => handleHslChange(Number(e.target.value), hsl.s, hsl.l)} /></div>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>S</span><input type="range" min="0" max="100" value={hsl.s} className={styles.slider} onChange={(e) => handleHslChange(hsl.h, Number(e.target.value), hsl.l)} /></div>
+              <div className={styles.sliderRow}><span className={styles.sliderLabel}>L</span><input type="range" min="0" max="100" value={hsl.l} className={styles.slider} onChange={(e) => handleHslChange(hsl.h, hsl.s, Number(e.target.value))} /></div>
+            </div>
+          </div>
+        </section>
+
+        {/* --- Web UI Theme System --- */}
+        <section className={styles.advancedSection}>
+          <h2 className={styles.advancedHeader}>Web UI Theme Generator</h2>
+          <div className={styles.themeGrid}>
+            {themeTokens.map(token => (
+              <TokenSwatch key={token.name} name={token.name} hx={token.hex} />
+            ))}
+          </div>
+        </section>
+
+        {/* --- Gradient Mesh Generator --- */}
+        <section className={styles.advancedSection}>
+          <h2 className={styles.advancedHeader}>Interactive Mesh Generator</h2>
+          
+          <div className={styles.meshContainer}>
+            <div className={styles.meshPreview} style={currentMeshStyle} />
+            
+            <div className={styles.nodesGrid}>
+              {nodes.map((node, i) => (
+                <div key={node.id} className={styles.nodeEditor}>
+                  <div className={styles.nodeHeader}>
+                    <span className={styles.nodeTitle}>Node {i + 1}</span>
+                    <input type="color" value={node.hex} onChange={(e) => updateNode(node.id, 'hex', e.target.value)} className={styles.nodeColorInput} />
+                  </div>
+                  <div className={styles.sliders}>
+                    <div className={styles.sliderRow}>
+                      <span className={styles.sliderLabel}>X%</span>
+                      <input type="range" min="0" max="100" value={node.x} onChange={(e)=>updateNode(node.id, 'x', Number(e.target.value))} className={styles.slider} />
+                    </div>
+                    <div className={styles.sliderRow}>
+                      <span className={styles.sliderLabel}>Y%</span>
+                      <input type="range" min="0" max="100" value={node.y} onChange={(e)=>updateNode(node.id, 'y', Number(e.target.value))} className={styles.slider} />
+                    </div>
+                    <div className={styles.sliderRow}>
+                      <span className={styles.sliderLabel}>Blur</span>
+                      <input type="range" min="10" max="100" value={node.spread} onChange={(e)=>updateNode(node.id, 'spread', Number(e.target.value))} className={styles.slider} />
+                    </div>
+                  </div>
+                  {nodes.length > 2 && (
+                    <button className={styles.actionBtn} style={{marginTop: '10px'}} onClick={() => removeNode(node.id)}>
+                      <X size={14} /> Remove Node
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.meshControls}>
+              <div className={styles.btnGroup}>
+                <button className={styles.actionBtn} onClick={addNode}>
+                  <Plus size={16} /> Add Node
+                </button>
+                <button className={styles.actionBtn} onClick={generateRandomMesh}>
+                  <RefreshCw size={16} /> Randomize Seeds
+                </button>
+              </div>
+
+              <button className={`${styles.actionBtn} ${styles.copyCSSBtn}`} onClick={() => copyToClipboard(getMeshCSS(), 'mesh')}>
+                {copiedFormat === 'mesh' ? <Check size={16} /> : <Copy size={16} />}
+                {copiedFormat === 'mesh' ? 'CSS Config Copied!' : 'Export Object CSS'}
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  );
+}

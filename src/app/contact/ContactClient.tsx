@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -11,7 +10,6 @@ import styles from '../compound-interest/page.module.css';
 export default function ContactClient() {
   return (
     <>
-      <Navbar />
       <div className={styles.wrapper}>
         <header className={styles.header}>
           <div className="container">
@@ -27,11 +25,11 @@ export default function ContactClient() {
                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <Mail style={{ color: 'var(--primary)' }} />
-                    <span>support@sociials.online</span>
+                    <span>support@toolioz.online</span>
                  </div>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                     <MessageCircle style={{ color: 'var(--primary)' }} />
-                    <span>@SociialsCorp (Twitter)</span>
+                    <span>@TooliozCorp (Twitter)</span>
                  </div>
                </div>
             </Card>

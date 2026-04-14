@@ -1,21 +1,62 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Navbar } from "@/components/layout/Navbar";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { JSONLD } from "@/components/ui/JSONLD";
 
 export const metadata: Metadata = {
-  title: "Sociials / FinanceCalc | Expert Finance Calculators",
-  description: "Highly accurate and free finance calculators for tax, compound interest, loans, and ROI. A Sociials project for financial clarity.",
-  keywords: ["sociials", "financecalc", "income tax calculator 2026", "global tax calculator", "compound interest", "mortgage calculator"],
-  authors: [{ name: "Sociials" }],
+  metadataBase: new URL('https://toolioz.com'),
+  title: {
+    default: "Toolioz | Professional Finance & Developer Utilities",
+    template: "%s | Toolioz"
+  },
+  description: "The ultimate developer and finance utility suite. Accurate tax calculators (Budget 2026), SIP planners, CSS grid generators, and secure PDF tools.",
+  keywords: [
+    "toolioz", 
+    "income tax calculator 2026 india", 
+    "sip calculator", 
+    "css grid generator pro", 
+    "v4 uuid generator", 
+    "secure pdf merge", 
+    "image compressor without data leak"
+  ],
+  authors: [{ name: "Toolioz Professional" }],
   icons: {
-    icon: "/finance_sociials.png",
-    apple: "/finance_sociials.png",
+    icon: "/finance_toolioz.png",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Sociials / FinanceCalc",
-    description: "Expert finance calculators for daily use.",
-    url: "https://finance.sociials.online",
-    siteName: "Sociials FinanceCalc",
+    title: "Toolioz | Expert Multi-Utility Platform",
+    description: "Free, high-performance tools for financial planning and software development.",
+    url: "https://toolioz.com",
+    siteName: "Toolioz",
+    images: [
+      {
+        url: "/og-main.png",
+        width: 1200,
+        height: 630,
+        alt: "Toolioz Utility Suite",
+      },
+    ],
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Toolioz | Professional Utilities",
+    description: "Finance, DevTools & PDF processing at your fingertips.",
+    images: ["/og-main.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -24,9 +65,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Toolioz",
+    "url": "https://toolioz.com",
+    "logo": "https://toolioz.com/finance_toolioz.png"
+  };
+
   return (
     <html lang="en">
       <body>
+        <JSONLD data={orgJsonLd} />
+        <Navbar />
         <main>{children}</main>
       </body>
     </html>

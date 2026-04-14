@@ -1,0 +1,256 @@
+.wrapper {
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.header {
+    padding: 6rem 0 3rem;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+}
+
+.title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.accent {
+    color: #8b5cf6;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mainCard {
+    padding: 2.5rem !important;
+}
+
+.resultBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #1e293b;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.cronDisplayWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.cronInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-family: 'Fira Code', monospace;
+    font-weight: 800;
+    color: #8b5cf6;
+    outline: none;
+    letter-spacing: 0.1em;
+}
+
+.errorText {
+    color: #ef4444;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.translationBox {
+    background: rgba(139, 92, 246, 0.1);
+    color: #c4b5fd;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 1.125rem;
+    font-weight: 600;
+    display: inline-block;
+    max-width: fit-content;
+}
+
+.copyBtn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+}
+
+.copyBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gridSystem {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.controlsGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+}
+
+.controlGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.controlGroup label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.select {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.select:focus {
+    border-color: #8b5cf6;
+}
+
+.timelineCard {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.timelineHeader {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.timelineList {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 2px solid rgba(139, 92, 246, 0.2);
+    margin-left: 0.5rem;
+    padding-left: 1rem;
+}
+
+.timelineItem {
+    position: relative;
+    padding: 0.75rem 0;
+}
+
+.timelineItem::before {
+    content: '';
+    position: absolute;
+    left: -1.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--bg-secondary);
+    border: 2px solid #8b5cf6;
+    border-radius: 50%;
+}
+
+.timelineItem:first-child::before {
+    background: #8b5cf6;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+.timelineDate {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+}
+
+.timelineTime {
+    font-family: 'Fira Code', monospace;
+    color: #8b5cf6;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+.presets {
+    margin-top: 2rem;
+}
+
+.presets h4 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.presetButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.presetBtn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+
+.presetBtn:hover {
+    border-color: #8b5cf6;
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.05);
+}
+
+@media (max-width: 992px) {
+    .resultBox {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .copyBtn {
+        align-self: flex-start;
+        margin-top: 0;
+    }
+
+    .gridSystem {
+        grid-template-columns: 1fr;
+    }
+}

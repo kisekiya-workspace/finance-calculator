@@ -1,0 +1,322 @@
+.wrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+}
+
+.header {
+  padding: 6rem 0 4rem;
+  background: radial-gradient(circle at 90% 20%, rgba(239, 68, 68, 0.05) 0%, transparent 40%);
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 100px;
+  color: #dc2626;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .title { font-size: 2.25rem; }
+  .dropzoneCard { padding: 1.5rem !important; }
+}
+
+.accent {
+  color: #ef4444;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.mainBox {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mainGrid.withFile {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+  .mainGrid.withFile {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dropzone / File List */
+.dropzoneCard {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem !important;
+  border-radius: var(--radius-xl) !important;
+  border: 2px dashed var(--border) !important;
+  background: var(--bg-secondary) !important;
+  transition: all 0.3s ease;
+}
+
+.previewViewGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .previewViewGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.emptyState {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.uploadIcon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+  color: #ef4444;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.emptyState h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.emptyState p {
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.uploadBtn {
+  background: #ef4444 !important;
+  border-radius: 100px !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.fileListLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.listHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.fileGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.fileItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+
+.fileOrder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.fileIcon {
+  color: #ef4444;
+}
+
+.fileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fileName {
+  font-weight: 700;
+  font-size: 0.9375rem;
+}
+
+.fileSize {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.removeBtn {
+  color: var(--text-tertiary);
+  transition: color 0.2s;
+}
+
+.removeBtn:hover {
+  color: #ef4444;
+}
+
+.listFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.mergeInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.mergeBtn, .processBtn {
+  background: #ef4444 !important;
+  padding-left: 2.5rem !important;
+  padding-right: 2.5rem !important;
+  height: 64px !important;
+  font-size: 1.125rem !important;
+  font-weight: 800 !important;
+  border-radius: 100px !important;
+}
+
+.optionsBox {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.resultCard {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: white !important;
+  padding: 3rem !important;
+  border-radius: var(--radius-xl) !important;
+  border: none !important;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.featureItem {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease;
+}
+
+.featureItem:hover {
+  transform: translateY(-5px);
+}
+
+.featureIcon {
+  margin-bottom: 1.5rem;
+}
+
+.featureItem h4 {
+  font-size: 1.125rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.featureItem p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Info Section fallback */
+.infoSection {
+  margin: 6rem auto;
+  padding-top: 4rem;
+  border-top: 1px solid var(--border);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.infoBox h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.infoBox p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.infoIcon {
+  margin-bottom: 1.5rem;
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .infoGrid, .features { grid-template-columns: 1fr; }
+  .listFooter { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .trustBranding { flex-direction: column; gap: 2rem; align-items: center; }
+}

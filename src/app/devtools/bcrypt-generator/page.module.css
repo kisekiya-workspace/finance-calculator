@@ -1,0 +1,190 @@
+.wrapper {
+    background-color: var(--bg-primary);
+    min-height: 100vh;
+}
+
+.header {
+    padding: 6rem 0 3rem;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+}
+
+.title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+}
+
+.accent {
+    color: #f59e0b;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.card {
+    padding: 2.5rem !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.iconWrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardHeader h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.input {
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.1);
+}
+
+.range {
+    width: 100%;
+    accent-color: #f59e0b;
+}
+
+.helperText {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-weight: 500;
+}
+
+.actionBtn {
+    margin-top: 1rem;
+    font-weight: 800;
+    height: 52px;
+}
+
+.resultBox {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    background: #1e293b;
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resultText {
+    flex: 1;
+    color: #e2e8f0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.875rem;
+    word-break: break-all;
+    user-select: all;
+}
+
+.copyBtn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    min-width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    margin-left: 1rem;
+    transition: all 0.2s;
+}
+
+.copyBtn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.checkerResult {
+    margin-top: auto;
+    padding-top: 2rem;
+}
+
+.neutralState {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-weight: 600;
+    border: 1px dashed var(--border);
+}
+
+.successState {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+}
+
+.errorState {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 700;
+}
+
+@media (max-width: 992px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

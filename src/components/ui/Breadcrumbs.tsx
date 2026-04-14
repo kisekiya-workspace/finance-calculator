@@ -1,0 +1,71 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { ChevronRight, Home } from 'lucide-react';
+import { CATEGORIES, TOOLS } from '@/lib/tools';
+import styles from './Breadcrumbs.module.css';
+
+export const Breadcrumbs = () => {
+  const pathname = usePathname();
+  if (pathname === '/') return null;
+
+  const pathSegments = pathname.split('/').filter(Boolean);
+  
+  // Construct breadcrumb items
+  const items = [
+    { name: 'Home', href: '/', icon: Home }
+  ];
+
+  let currentLink = '';
+  pathSegments.forEach((segment, index) => {
+    currentLink += `/${segment}`;
+    
+    // Check if segment is a category
+    const category = CATEGORIES.find(c => c.id === segment);
+    if (category) {
+      items.push({ name: category.title, href: currentLink, icon: undefined });
+      return;
+    }
+
+    // Check if segment is a tool
+    const tool = TOOLS.find(t => t.href === currentLink);
+    if (tool) {
+      items.push({ name: tool.title, href: currentLink, icon: undefined });
+      return;
+    }
+
+    // Fallback: capitalize segment
+    const name = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
+    items.push({ name, href: currentLink, icon: undefined });
+  });
+
+  return (
+    <nav aria-label="Breadcrumb" className={styles.container}>
+      <div className="container">
+        <ol className={styles.list}>
+          {items.map((item, index) => {
+            const isLast = index === items.length - 1;
+            
+            return (
+              <li key={item.href} className={styles.item}>
+                {index > 0 && <ChevronRight size={14} className={styles.separator} />}
+                {isLast ? (
+                  <span className={styles.current} aria-current="page">
+                    {item.name}
+                  </span>
+                ) : (
+                  <Link href={item.href} className={styles.link}>
+                    {item.icon && <item.icon size={14} className={styles.homeIcon} />}
+                    {item.name}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </nav>
+  );
+};

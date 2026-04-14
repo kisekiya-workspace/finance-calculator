@@ -39,15 +39,22 @@
   background-color: var(--border);
 }
 
-.ghost {
-  background: transparent;
-  color: var(--text-secondary);
-}
-
 .ghost:hover {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
+
+.outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.outline:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
 
 .sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
 .md { padding: 0.75rem 1.5rem; font-size: 1rem; }

@@ -1,0 +1,411 @@
+.appContainer {
+  background-color: var(--bg-primary); /* Uses global dark/light bg */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+}
+
+.workspace {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* SEO Layout Guidelines (Headers) */
+.seoHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  max-width: 700px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Controls Header */
+.controlsHeader {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  background: var(--bg-secondary);
+  padding: 1.5rem 2.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.controlLabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.controlInputWrapper {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.controlInputWrapper:focus-within {
+  border-color: var(--primary);
+}
+
+.controlInput {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  width: 25px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  appearance: textfield;
+}
+
+.controlInput::-webkit-outer-spin-button,
+.controlInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.spinnerArrows {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 2px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+/* Base Canvas for grid */
+.gridCanvasContainer {
+  position: relative;
+  display: grid;
+  user-select: none;
+  width: max-content;
+}
+
+.canvasScrollWrapper {
+  max-width: 100vw;
+  overflow-x: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.trackEditorTop {
+  display: grid;
+  margin-bottom: 10px;
+  margin-left: 42px; /* Alignment with pivot content */
+  width: max-content;
+}
+
+.canvasPivot {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+}
+
+.trackEditorLeft {
+  display: grid;
+  width: 32px;
+}
+
+.trackDefInput {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  min-width: 30px;
+  padding: 2px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.trackDefInput:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Background tracks */
+.trackCell {
+  background-color: transparent;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  font-weight: 300;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trackCell:hover {
+  background-color: rgba(37, 99, 235, 0.05); /* subtle primary tint */
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Overlay Areas */
+.gridArea {
+  position: relative;
+  box-sizing: border-box;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  z-index: 10;
+  overflow: hidden;
+}
+
+.areaNameInput {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  width: 90%;
+  pointer-events: auto;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+}
+
+.areaNameInput:focus {
+  outline: none;
+  border-bottom-color: var(--primary);
+}
+
+.areaNameInput::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  font-weight: 400;
+}
+
+.ghostArea {
+  position: relative;
+  box-sizing: border-box;
+  background-color: rgba(37, 99, 235, 0.1);
+  border: 2px dashed var(--primary);
+  border-radius: var(--radius-sm);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Delete Button */
+.deleteBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #ef4444; /* red error accent */
+  color: white;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+  border-bottom-left-radius: var(--radius-sm);
+  border-top-right-radius: 4px; /* Slightly less than radius-sm for nesting */
+  transition: background-color 0.2s;
+  z-index: 20;
+}
+
+.deleteBtn:hover {
+  background-color: #dc2626;
+}
+
+/* Resize handle */
+.resizeHandle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  cursor: se-resize;
+  z-index: 20;
+}
+
+.resizeHandle::after {
+  content: '';
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 10px;
+  height: 10px;
+  border-right: 3px solid var(--primary);
+  border-bottom: 3px solid var(--primary);
+  border-bottom-right-radius: 3px;
+  transition: opacity 0.2s;
+}
+
+.gridArea:hover .resizeHandle::after {
+  border-color: var(--primary-hover);
+}
+
+/* Actions Row */
+.actionsRow {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.resetBtn {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 8px 24px;
+  border-radius: var(--radius-xl);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.resetBtn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+/* Output Buttons */
+.outputRow {
+  display: flex;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.outputBtn {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.outputBtn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+.outputBtn:active {
+  transform: translateY(1px);
+}
+
+/* Modal output backdrop */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.codeModal {
+  width: 100%;
+  max-width: 700px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.codeModal pre {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  font-family: 'Consolas', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-height: 60vh;
+}
+
+.closeCodeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.closeCodeBtn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}

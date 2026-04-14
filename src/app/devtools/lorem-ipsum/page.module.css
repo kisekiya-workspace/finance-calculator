@@ -1,0 +1,184 @@
+.wrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 8rem 0 4rem;
+  background: radial-gradient(circle at 0% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.accent {
+  color: var(--primary);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.controlsCard {
+  padding: 2rem !important;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.controlGroup label {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  letter-spacing: 0.05em;
+}
+
+.typeSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.typeBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.typeBtn:hover {
+  background: white;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.activeType {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.activeType:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  display: none;
+}
+
+.checkboxCustom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  transition: all 0.2s;
+}
+
+.checkboxLabel input:checked + .checkboxCustom {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.outputCard {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+}
+
+.cardHeader {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardHeader h3 {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.scrollArea {
+  flex: 1;
+  padding: 3rem;
+  overflow-y: auto;
+  line-height: 1.8;
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  background-image: 
+    linear-gradient(rgba(37, 99, 235, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.02) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.outputText {
+  max-width: 800px;
+}
+
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+}

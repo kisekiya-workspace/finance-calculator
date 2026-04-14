@@ -3,11 +3,18 @@ import TermsClient from './TermsClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Sociials / FinanceCalc",
-  description: "Terms and conditions for using the Sociials / FinanceCalc platform and its financial calculation tools.",
+  title: "Terms of Service | Legal Framework | Toolioz",
+  description: "Read the terms and conditions for using Toolioz. Understand your rights and responsibilities when using our free utility tools.",
+  keywords: 'Terms of service, legal usage agreement, tool usage terms',
   alternates: {
-    canonical: 'https://finance.sociials.online/terms',
+    canonical: 'https://toolioz.com/terms',
   },
+  openGraph: {
+    title: 'Terms & Conditions of Usage | Toolioz',
+    description: 'Standard legal terms for accessing our free professional utility suite.',
+    url: 'https://toolioz.com/terms',
+    type: 'website',
+  }
 };
 
 export default function TermsPage() {

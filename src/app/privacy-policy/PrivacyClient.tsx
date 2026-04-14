@@ -1,53 +1,63 @@
 'use client';
 
 import React from 'react';
-import { Navbar } from '@/components/layout/Navbar';
+
+import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
-import styles from '../compound-interest/page.module.css';
+import styles from '@/app/SecondaryPage.module.css';
 
 export default function PrivacyClient() {
   return (
-    <>
-      <Navbar />
-      <div className={styles.wrapper}>
-        <header className={styles.header}>
-          <div className="container">
-            <h1 className={styles.title}>Privacy Policy</h1>
-            <p className={styles.subtitle}>How we handle your data at Sociials / FinanceCalc.</p>
-          </div>
-        </header>
+    <div className={styles.wrapper}>
 
-        <section className="container" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '4rem' }}>
-          <Card style={{ padding: '2.5rem', lineHeight: '1.8', fontSize: '0.925rem' }}>
-            <h2>1. Data Collection</h2>
+      <header className={styles.header}>
+        <div className="container">
+          <h1 className={styles.title}>Privacy Policy</h1>
+          <p className={styles.subtitle}>Our commitment to your data security and serverless processing.</p>
+        </div>
+      </header>
+
+      <section className={styles.contentSection}>
+        <div className="container">
+          <Card className={styles.card}>
+            <h2>1. Zero-Server Architecture</h2>
             <p>
-              We believe in "Privacy by Design." Sociials / FinanceCalc does not require any registration or personal identifiable information (PII) 
-              to use our calculators. All financial data you enter into our tools is processed locally or in memory and is **never** stored on our servers.
+              Your privacy is our core engineering principle. <strong>Toolioz</strong> is built as a serverless utility suite. 
+              This means that when you use our calculators, PDF tools, or developer utilities, your data never leaves your computer.
             </p>
 
-            <h2 style={{ marginTop: '1.5rem' }}>2. Cookies and Tracking</h2>
+            <h2>2. No Data Collection</h2>
             <p>
-              We use standard cookies to improve your user experience and for service-side analytics. 
-              We may utilize third-party services like Google AdSense and Google Analytics, which use cookies to serve ads based on your visit to this and other sites on the Internet.
+              We do not collect, store, or transmit any sensitive data. Whether you are pasting financial records or uploading PDFs for merging, 
+              the processing happens entirely in your browser's memory using JavaScript.
             </p>
 
-            <h2 style={{ marginTop: '1.5rem' }}>3. AdSense Policy</h2>
+            <h2>3. Cookies and Analytics</h2>
             <p>
-              Google uses cookies to serve ads on our site. Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our sites and/or other sites on the Internet. 
-              Users may opt out of personalized advertising by visiting Ads Settings.
+              We use minimal, privacy-focused analytics to understand how our tools are used and to improve the interface. 
+              We do not use tracking cookies for advertising or secondary data harvesting.
             </p>
 
-            <h2 style={{ marginTop: '1.5rem' }}>4. Third-Party Links</h2>
+            <h2>4. Security</h2>
             <p>
-              Our site may contain links to external sites. We are not responsible for the privacy practices or the content of such sites.
+              Since your data is processed locally, it is as secure as your own device. We recommend using an updated, modern browser 
+              (like Chrome, Firefox, or Edge) to ensure you have the latest security patches for local data handling.
             </p>
 
-            <p style={{ marginTop: '2rem', fontStyle: 'italic' }}>
-              Last Updated: March 2026
+            <h2>5. Third-Party Links</h2>
+            <p>
+              Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content 
+              and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
+            </p>
+
+            <p className={styles.lastUpdated}>
+              Last Updated: April 2026
             </p>
           </Card>
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
   );
 }

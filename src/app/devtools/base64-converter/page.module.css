@@ -1,0 +1,169 @@
+.wrapper {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 8rem 0 4rem;
+  background: radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 100px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.accent {
+  color: var(--primary);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.toolGrid {
+  display: grid;
+  grid-template-columns: 1fr 150px 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.card {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem !important;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardHeader h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fileBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fileBtn:hover {
+  background: white;
+  border-color: var(--primary);
+}
+
+.textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  outline: none;
+}
+
+.textarea:focus {
+  background: rgba(37, 99, 235, 0.02);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.processBtn {
+  width: 100%;
+  height: 60px;
+  border-radius: 100px;
+  font-size: 1.125rem;
+}
+
+.switchBtn {
+  border-radius: 100px;
+}
+
+.outputBox {
+  flex: 1;
+  background: #1e293b;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  overflow: auto;
+  position: relative;
+}
+
+.pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.error {
+  color: #fb7185;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .toolGrid {
+    grid-template-columns: 1fr;
+  }
+  .controls {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .processBtn {
+    width: 200px;
+  }
+}

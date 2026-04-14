@@ -1,0 +1,208 @@
+.pageContainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.workspace {
+  flex: 1;
+  padding: 40px 20px;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.seoHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 1.8rem;
+  }
+}
+
+.description {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.controlsPanel {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 640px) {
+  .controlsPanel {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+  }
+  .toggleContainer {
+    flex-direction: column;
+  }
+  .numberInput {
+    width: 100%;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.numberInput {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  width: 100px;
+  transition: border-color 0.2s;
+}
+
+.numberInput:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.toggleContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.generateBtn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.generateBtn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.outputPanel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.outputHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-primary);
+}
+
+.outputMeta {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.copyArea {
+  position: relative;
+  flex: 1;
+}
+
+.textArea {
+  width: 100%;
+  height: 400px;
+  padding: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: 'Consolas', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.textArea:focus {
+  outline: none;
+}
+
+.copyOverlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: var(--radius-xl);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.copyBtn:hover {
+  background: var(--bg-secondary);
+  border-color: var(--text-secondary);
+}
+
+.copyBtn.copied {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
