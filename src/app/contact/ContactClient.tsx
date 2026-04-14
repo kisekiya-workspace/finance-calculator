@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Mail, MessageCircle } from 'lucide-react';
-import styles from '../compound-interest/page.module.css';
+import styles from '@/app/SecondaryPage.module.css';
 
 export default function ContactClient() {
   return (
