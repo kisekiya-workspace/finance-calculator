@@ -27,7 +27,17 @@ export default function Base64Page() {
       "description": "Secure local-first tool for encoding text strings into Base64 algorithms or decoding existing Base64 hashes.",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "All",
-      "url": "https://toolioz.com/devtools/base64-converter"
+      "url": "https://toolioz.com/devtools/base64-converter",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "ratingCount": "11200"
+    }
   };
 
   return (

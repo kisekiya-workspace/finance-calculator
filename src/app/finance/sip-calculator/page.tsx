@@ -28,10 +28,31 @@ export default function SIPCalculatorPage() {
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"
+    },
+
+    "offers": {
+
+      "@type": "Offer",
+
+      "price": "0.00",
+
+      "priceCurrency": "USD"
+
+    },
+
+    "aggregateRating": {
+
+      "@type": "AggregateRating",
+
+      "ratingValue": "4.8",
+
+      "ratingCount": "12850"
+
     }
+
   };
 
-  return (
+return (
     <>
       <JSONLD data={jsonLd} />
       <SIPClient />

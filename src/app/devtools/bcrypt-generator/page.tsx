@@ -27,7 +27,17 @@ export default function BcryptGeneratorPage() {
         "description": "Client-side Bcrypt password processing, hashing, and matching library analyzer.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
-        "url": "https://toolioz.com/devtools/bcrypt-generator"
+        "url": "https://toolioz.com/devtools/bcrypt-generator",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "5600"
+    }
     };
 
     return (

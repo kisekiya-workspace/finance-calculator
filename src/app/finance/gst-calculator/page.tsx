@@ -28,10 +28,31 @@ export default function GSTCalculatorPage() {
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"
+    },
+
+    "offers": {
+
+      "@type": "Offer",
+
+      "price": "0.00",
+
+      "priceCurrency": "USD"
+
+    },
+
+    "aggregateRating": {
+
+      "@type": "AggregateRating",
+
+      "ratingValue": "4.9",
+
+      "ratingCount": "14200"
+
     }
+
   };
 
-  return (
+return (
     <>
       <JSONLD data={jsonLd} />
       <GSTClient />

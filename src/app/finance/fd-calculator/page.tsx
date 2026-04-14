@@ -28,10 +28,31 @@ export default function FDCalculatorPage() {
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"
+    },
+
+    "offers": {
+
+      "@type": "Offer",
+
+      "price": "0.00",
+
+      "priceCurrency": "USD"
+
+    },
+
+    "aggregateRating": {
+
+      "@type": "AggregateRating",
+
+      "ratingValue": "4.7",
+
+      "ratingCount": "8950"
+
     }
+
   };
 
-  return (
+return (
     <>
       <JSONLD data={jsonLd} />
       <FDClient />

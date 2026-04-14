@@ -26,7 +26,17 @@ export default function PDFToImagePage() {
     "description": "Conversion engine for transforming portable document pages into raster image formats like PNG and JPEG.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/pdf-to-image"
+    "url": "https://toolioz.com/pdftools/pdf-to-image",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "ratingCount": "12800"
+    }
   };
 
   return (

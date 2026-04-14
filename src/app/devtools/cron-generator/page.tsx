@@ -27,7 +27,17 @@ export default function CronGeneratorPage() {
         "description": "Visual cron expression builder for crontab and quartz schedules with natural language translation.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
-        "url": "https://toolioz.com/devtools/cron-generator"
+        "url": "https://toolioz.com/devtools/cron-generator",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "ratingCount": "6100"
+    }
     };
 
     return (

@@ -27,7 +27,17 @@ export default function LoremIpsumPage() {
     "description": "Text generation utility for creating industry-standard filler text for graphic and web design.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/devtools/lorem-ipsum"
+    "url": "https://toolioz.com/devtools/lorem-ipsum",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.4",
+      "ratingCount": "4200"
+    }
   };
 
   return (

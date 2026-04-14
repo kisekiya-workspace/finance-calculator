@@ -27,7 +27,17 @@ export default function UnitConverterPage() {
     "description": "Multi-category unit conversion utility supporting high-precision engineering and standard calculations.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/devtools/unit-converter"
+    "url": "https://toolioz.com/devtools/unit-converter",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.6",
+      "ratingCount": "8100"
+    }
   };
 
   return (

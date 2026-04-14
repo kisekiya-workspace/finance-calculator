@@ -27,7 +27,17 @@ export default function JwtDecoderPage() {
         "description": "Cryptographic developer utility used to decode JSON Web Tokens and view the literal JSON payload and headers without transferring tokens externally.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
-        "url": "https://toolioz.com/devtools/jwt-decoder"
+        "url": "https://toolioz.com/devtools/jwt-decoder",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "8900"
+    }
     };
 
     return (

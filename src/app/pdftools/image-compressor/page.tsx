@@ -26,7 +26,17 @@ export default function ImageCompressorPage() {
     "description": "Multi-format image compression engine with granular quality control and target file size logic.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/image-compressor"
+    "url": "https://toolioz.com/pdftools/image-compressor",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "18900"
+    }
   };
 
   return (

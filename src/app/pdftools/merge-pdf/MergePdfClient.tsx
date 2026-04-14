@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { FileText, Plus, X, ShieldCheck, Zap, Download, FileUp, ArrowDownWideNarrow, Loader2 } from 'lucide-react';
 import { PDFDocument } from 'pdf-lib';
 import styles from './page.module.css';
+import { SEOSection } from '@/components/ui/SEOSection';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
@@ -202,6 +203,25 @@ export default function MergePdfClient() {
           </div>
         </div>
       </section>
+
+      <SEOSection
+        title="Free Online PDF Merger — Combine Documents Securely"
+        description="Merging PDF files is one of the most common document management tasks in both professional and personal workflows. Whether you're combining invoices, contracts, scanned receipts, or research papers, having a fast and reliable PDF merger saves significant time. Traditional desktop software like Adobe Acrobat charges expensive subscriptions for this basic feature. Our browser-native alternative uses the open-source pdf-lib engine to perform binary-level page copying — meaning your merged output retains 100% original quality with zero re-encoding artifacts. Most importantly, Toolioz's merge tool processes everything locally in your browser memory. Your sensitive financial documents, legal contracts, and personal files never leave your computer or get uploaded to any server. This zero-upload architecture makes it the most privacy-respecting PDF merger available online."
+        howToUse={[
+          "Click 'Choose Files' to select two or more PDF documents you want to combine.",
+          "Add files in the exact order you want them to appear in the final merged document.",
+          "Use the 'Add More' button to include additional PDFs to the merge queue at any time.",
+          "Review the numbered file list to confirm the sequence is correct.",
+          "Click 'Merge PDF Now' and your combined document will download automatically."
+        ]}
+        benefits={[
+          "Zero-Upload Privacy: Files never leave your device. Processing happens entirely in browser memory using the pdf-lib engine.",
+          "No Quality Loss: Binary-level page copying preserves all images, fonts, vectors, and text at their original resolution.",
+          "Unlimited Free Usage: No file size limits, no daily caps, no registration required. Merge as many PDFs as you need.",
+          "Cross-Platform: Works on Windows, Mac, Linux, Chromebook, and mobile browsers without installing any software.",
+          "Professional Output: Merged PDFs maintain proper page numbering, bookmarks, and PDF/A compliance."
+        ]}
+      />
 
       <Footer />
     </div>

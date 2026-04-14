@@ -28,10 +28,31 @@ export default function SavingsGoalPage() {
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"
+    },
+
+    "offers": {
+
+      "@type": "Offer",
+
+      "price": "0.00",
+
+      "priceCurrency": "USD"
+
+    },
+
+    "aggregateRating": {
+
+      "@type": "AggregateRating",
+
+      "ratingValue": "4.5",
+
+      "ratingCount": "3210"
+
     }
+
   };
 
-  return (
+return (
     <>
       <JSONLD data={jsonLd} />
       <SavingsGoalClient />

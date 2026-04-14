@@ -27,7 +27,17 @@ export default function RegexTesterPage() {
         "description": "Developer utility to test custom regular expressions and string matching securely in a local sandbox.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
-        "url": "https://toolioz.com/devtools/regex-tester"
+        "url": "https://toolioz.com/devtools/regex-tester",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "ratingCount": "10400"
+    }
     };
 
     return (

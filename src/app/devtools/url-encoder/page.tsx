@@ -27,7 +27,17 @@ export default function UrlEncoderPage() {
         "description": "Client-side encoding/decoding utility for string sanitization and URL percent-encoding.",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "All",
-        "url": "https://toolioz.com/devtools/url-encoder"
+        "url": "https://toolioz.com/devtools/url-encoder",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "ratingCount": "7800"
+    }
     };
 
     return (

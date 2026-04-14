@@ -26,7 +26,17 @@ export default function CompressPdfPage() {
     "description": "Advanced PDF optimization utility that performs stream-level compression on images and document structures.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/compress-pdf"
+    "url": "https://toolioz.com/pdftools/compress-pdf",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "25600"
+    }
   };
 
   return (

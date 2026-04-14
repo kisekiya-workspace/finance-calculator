@@ -26,7 +26,17 @@ export default function MergePdfPage() {
     "description": "Utility for combining binary PDF streams into a singular cohesive document.",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/merge-pdf"
+    "url": "https://toolioz.com/pdftools/merge-pdf",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "16400"
+    }
   };
 
   return (

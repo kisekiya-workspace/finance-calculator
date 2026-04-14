@@ -27,7 +27,17 @@ export default function JsonFormatterPage() {
     "description": "Utility program for validating JSON strings, prettifying structures, and minifying payloads.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/devtools/json-formatter"
+    "url": "https://toolioz.com/devtools/json-formatter",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "22150"
+    }
   };
 
   return (

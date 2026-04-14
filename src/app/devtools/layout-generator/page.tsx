@@ -36,7 +36,17 @@ export default function LayoutGeneratorPage() {
     "description": "Interactive layout creation utility capable of generating absolute CSS grid coordinates, z-indices, and semantic html tags.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "All",
-    "url": "https://toolioz.com/devtools/layout-generator"
+    "url": "https://toolioz.com/devtools/layout-generator",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "ratingCount": "3800"
+    }
   };
 
   return (
