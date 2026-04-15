@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, Menu, X, ChevronRight, LayoutGrid, Landmark, Code, FileText, ExternalLink } from 'lucide-react';
 import { CATEGORIES as TOOL_CATEGORIES, TOOLS } from '@/lib/tools';
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import styles from './Navbar.module.css';
 
 const MAIN_NAV = [
@@ -183,7 +182,6 @@ export const Navbar = () => {
           </div>
         </div>
       </nav>
-      <Breadcrumbs />
     </>
   );
 };
