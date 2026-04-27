@@ -5,7 +5,6 @@ import { Copy, Hash, RefreshCw, Check } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
-import styles from './page.module.css';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 export default function UUIDClient({ title, color }: { title?: string, color?: string }) {
@@ -84,22 +83,22 @@ export default function UUIDClient({ title, color }: { title?: string, color?: s
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className="flex min-h-screen flex-col">
       
-      <main className={styles.workspace}>
-        <header className={styles.seoHeader}>
-          <h1 className={styles.title}>{title || 'Bulk UUID Generator'}</h1>
-          <p className={styles.description}>
+      <main className="mx-auto w-full max-w-[900px] flex-1 px-5 py-10">
+        <header className="mb-12 text-center">
+          <h1 className="mb-4 text-[1.8rem] font-extrabold text-[var(--text-primary)] sm:text-[2.5rem]">{title || 'Bulk UUID Generator'}</h1>
+          <p className="text-[1.1rem] leading-relaxed text-[var(--text-secondary)]">
             Generate unlimited cryptographically secure version-4 unique identifiers instantly in your browser. Configure hyphenation and casing, and copy bulk batches for your database logic.
           </p>
         </header>
 
-        <section className={styles.controlsPanel}>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Quantity</label>
+        <section className="mb-8 flex flex-col items-stretch justify-between gap-5 rounded-[var(--radius-lg)] border border-[var(--glass-border)] bg-[var(--glass)] p-5 backdrop-blur-[12px] sm:flex-row sm:items-center sm:p-[30px]">
+          <div className="flex flex-col gap-2">
+            <label className="text-[0.85rem] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">Quantity</label>
             <input 
               type="number" 
-              className={styles.numberInput} 
+              className="w-full rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)] px-[15px] py-[10px] font-[var(--font-sans)] text-[1rem] text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--primary)] sm:w-[100px]" 
               value={quantity} 
               onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
               min={1} 
@@ -107,8 +106,8 @@ export default function UUIDClient({ title, color }: { title?: string, color?: s
             />
           </div>
 
-          <div className={styles.toggleContainer}>
-            <label className={styles.toggleLabel}>
+          <div className="flex flex-col gap-5 sm:flex-row">
+            <label className="flex cursor-pointer items-center gap-2.5 text-[0.95rem] text-[var(--text-primary)]">
               <input 
                 type="checkbox" 
                 checked={hyphens} 
@@ -117,7 +116,7 @@ export default function UUIDClient({ title, color }: { title?: string, color?: s
               Include Hyphens
             </label>
 
-            <label className={styles.toggleLabel}>
+            <label className="flex cursor-pointer items-center gap-2.5 text-[0.95rem] text-[var(--text-primary)]">
               <input 
                 type="checkbox" 
                 checked={uppercase} 
@@ -127,28 +126,28 @@ export default function UUIDClient({ title, color }: { title?: string, color?: s
             </label>
           </div>
 
-          <button className={styles.generateBtn} onClick={handleGenerate}>
+          <button className="cursor-pointer rounded-[var(--radius-sm)] border-none bg-[var(--primary)] px-[30px] py-[12px] text-[1rem] font-semibold text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all hover:-translate-y-[2px] hover:bg-[var(--primary-hover)]" onClick={handleGenerate}>
             <RefreshCw size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'text-bottom' }} />
             Generate New Batch
           </button>
         </section>
 
-        <section className={styles.outputPanel}>
-          <div className={styles.outputHeader}>
-            <span className={styles.outputMeta}>Generated {output ? output.split('\n').length : 0} UUIDs</span>
+        <section className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--bg-secondary)]">
+          <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-primary)] px-[20px] py-[15px]">
+            <span className="text-[0.9rem] font-medium text-[var(--text-secondary)]">Generated {output ? output.split('\n').length : 0} UUIDs</span>
           </div>
           
-          <div className={styles.copyArea}>
+          <div className="relative flex-1">
             <textarea 
-              className={styles.textArea} 
+              className="h-[400px] w-full resize-y border-none bg-transparent p-[20px] font-['Consolas',monospace] text-[0.95rem] leading-relaxed text-[var(--text-primary)] outline-none" 
               value={output} 
               readOnly 
               aria-label="Generated UUIDs"
             />
             
-            <div className={styles.copyOverlay}>
+            <div className="absolute right-[15px] top-[15px]">
               <button 
-                className={`${styles.copyBtn} ${copied ? styles.copied : ''}`} 
+                className={`flex cursor-pointer items-center gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] px-[16px] py-[8px] text-[0.85rem] font-medium shadow-sm transition-all ${copied ? '!border-[#10b981] !bg-[#10b981] text-white' : 'bg-[var(--bg-primary)] text-[var(--text-primary)] hover:border-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]'}`} 
                 onClick={handleCopy}
               >
                 {copied ? <Check size={16} /> : <Copy size={16} />}

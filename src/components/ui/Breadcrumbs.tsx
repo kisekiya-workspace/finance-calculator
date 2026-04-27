@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 import { CATEGORIES, TOOLS } from '@/lib/tools';
-import styles from './Breadcrumbs.module.css';
 
 export const Breadcrumbs = () => {
   const pathname = usePathname();
@@ -58,23 +57,26 @@ export const Breadcrumbs = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <nav aria-label="Breadcrumb" className={styles.container}>
-        <div className="container">
-          <ol className={styles.list}>
+      <nav aria-label="Breadcrumb" className="border-b border-[var(--border)] bg-[var(--bg-secondary)] py-4">
+        <div className="mx-auto max-w-6xl px-6">
+          <ol className="flex flex-wrap items-center">
             {items.map((item, index) => {
               const isLast = index === items.length - 1;
               
               return (
-                <li key={item.href} className={styles.item}>
-                  {index > 0 && <ChevronRight size={14} className={styles.separator} />}
+                <li key={item.href} className="flex items-center text-[0.8125rem]">
+                  {index > 0 && <ChevronRight size={14} className="mx-3 text-[var(--text-tertiary)]" />}
                   {isLast ? (
-                    <span className={styles.current} aria-current="page">
+                    <span className="font-semibold text-[var(--text-primary)]" aria-current="page">
                       {item.name}
                     </span>
                   ) : (
-                    <Link href={item.href} className={styles.link}>
-                      {item.icon && <item.icon size={14} className={styles.homeIcon} />}
-                      {item.name}
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-1.5 text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+                    >
+                      {item.icon && <item.icon size={14} className="mb-px" />}
+                      <span className={item.icon ? 'hidden sm:inline' : ''}>{item.name}</span>
                     </Link>
                   )}
                 </li>

@@ -3,20 +3,20 @@
 import React from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
-import styles from '@/app/SecondaryPage.module.css';
+import { secondaryPageStyles as styles } from '@/app/SecondaryPage.styles';
 
 export default function AboutClient() {
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
-        <div className="container">
+        <div className="mx-auto max-w-6xl px-6">
           <h1 className={styles.title}>About <span style={{ color: 'var(--primary)' }}>Toolioz</span></h1>
           <p className={styles.subtitle}>Our mission is to democratize professional utilities through precision engineering.</p>
         </div>
       </header>
 
       <section className={styles.contentSection}>
-        <div className="container">
+        <div className="mx-auto max-w-6xl px-6">
           <Card className={styles.card}>
             <p>
               Welcome to <strong>Toolioz</strong>, your premier destination for highly accurate, modern, and minimal digital utilities.

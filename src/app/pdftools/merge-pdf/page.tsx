@@ -1,42 +1,53 @@
 import React from 'react';
-import MergePdfClient from './MergePdfClient';
 import type { Metadata } from 'next';
 import { JSONLD } from '@/components/ui/JSONLD';
+import MergePdfClient from './MergePdfClient';
 
 export const metadata: Metadata = {
-  title: "Fast Online PDF Merger | Combine PDF Files Securely | Toolioz",
-  description: "Merge multiple PDF documents into a single professional file in seconds. High-speed, private, and 100% client-side PDF merging utility.",
-  keywords: 'Merge PDF online free, combine pdf documents, join pdf files fast, secure pdf merger, multi-pdf tools',
+  title: 'Merge PDF Online | Combine PDF Files | Toolioz',
+  description:
+    'Merge multiple PDF files into one document with validated backend processing and preserved page order.',
   alternates: {
     canonical: 'https://toolioz.com/pdftools/merge-pdf',
   },
   openGraph: {
-    title: 'Combine PDF Files Instantly | Toolioz',
-    description: 'Merge and reorder PDF documents with our intuitive browser-native interface.',
+    title: 'Merge PDF Online | Toolioz',
+    description: 'Upload multiple PDFs, merge in order, and download one combined document.',
     url: 'https://toolioz.com/pdftools/merge-pdf',
     type: 'website',
-  }
+    images: [
+      {
+        url: '/tooliozLogo.png',
+        width: 512,
+        height: 512,
+        alt: 'Toolioz PDF merge tool',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Merge PDF Online | Toolioz',
+    description: 'Reliable backend PDF merge with clear validation and download-ready output.',
+    images: ['/tooliozLogo.png'],
+  },
 };
 
 export default function MergePdfPage() {
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "High-Speed PDF Merger",
-    "description": "Utility for combining binary PDF streams into a singular cohesive document.",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/merge-pdf",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Toolioz PDF Merger',
+    description:
+      'Backend PDF merge utility for combining multiple documents while preserving selected order.',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'All',
+    isAccessibleForFree: true,
+    url: 'https://toolioz.com/pdftools/merge-pdf',
+    provider: {
+      '@type': 'Organization',
+      name: 'Toolioz',
+      url: 'https://toolioz.com',
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "16400"
-    }
   };
 
   return (

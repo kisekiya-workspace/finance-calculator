@@ -1,16 +1,25 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { FileText, Plus, X, ShieldCheck, Zap, Download, FileUp, ArrowDownWideNarrow, Loader2 } from 'lucide-react';
-import { PDFDocument } from 'pdf-lib';
-import styles from './page.module.css';
+import {
+  FileText,
+  Plus,
+  X,
+  ShieldCheck,
+  Zap,
+  Download,
+  FileUp,
+  ArrowDownWideNarrow,
+  Loader2,
+  Server,
+} from 'lucide-react';
 import { SEOSection } from '@/components/ui/SEOSection';
-
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
+
 interface FileItem {
   id: string;
   file: File;
@@ -18,9 +27,35 @@ interface FileItem {
   size: string;
 }
 
+interface MergeResult {
+  blob: Blob;
+  mergedCount: number;
+  outputName: string;
+}
+
+const FAQS = [
+  {
+    question: 'How many PDFs can I merge in one go?',
+    answer:
+      'You can merge multiple files in one request. Keep the total upload size reasonable for best performance.',
+  },
+  {
+    question: 'What happens to page order?',
+    answer:
+      'The merged output follows the exact order shown in your selected list.',
+  },
+  {
+    question: 'Can I merge password-protected PDFs?',
+    answer:
+      'Not directly. Please unlock protected PDFs before uploading them for merging.',
+  },
+];
+
 export default function MergePdfClient() {
   const [files, setFiles] = useState<FileItem[]>([]);
   const [isMerging, setIsMerging] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [result, setResult] = useState<MergeResult | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formatFileSize = (bytes: number) => {
@@ -28,156 +63,205 @@ export default function MergePdfClient() {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
-    const newFiles: FileItem[] = selectedFiles.map(file => ({
-      id: Math.random().toString(36).substr(2, 9),
+    const newFiles: FileItem[] = selectedFiles.map((file) => ({
+      id: `${file.name}-${file.size}-${crypto.randomUUID()}`,
       file,
       name: file.name,
-      size: formatFileSize(file.size)
+      size: formatFileSize(file.size),
     }));
-    setFiles(prev => [...prev, ...newFiles]);
+    setFiles((prev) => [...prev, ...newFiles]);
+    setErrorMessage(null);
+    setResult(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const removeFile = (id: string) => {
-    setFiles(files.filter(f => f.id !== id));
+    setFiles((prev) => prev.filter((file) => file.id !== id));
   };
 
   const startMerge = async () => {
     if (files.length < 2) return;
 
     setIsMerging(true);
-    try {
-      const mergedPdf = await PDFDocument.create();
+    setErrorMessage(null);
+    setResult(null);
 
-      for (const fileItem of files) {
-        const fileContent = await fileItem.file.arrayBuffer();
-        const pdf = await PDFDocument.load(fileContent);
-        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        copiedPages.forEach((page) => mergedPdf.addPage(page));
+    try {
+      const formData = new FormData();
+      files.forEach((item) => {
+        formData.append('files', item.file);
+      });
+
+      const response = await fetch('/api/pdf/merge', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        let message = 'Failed to merge PDF files.';
+        try {
+          const payload = (await response.json()) as { error?: string };
+          if (payload.error) message = payload.error;
+        } catch {
+          // no-op
+        }
+        throw new Error(message);
       }
 
-      const pdfBytes = await mergedPdf.save();
-      const blob = new Blob([pdfBytes as any], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
+      const blob = await response.blob();
+      const mergedCount = Number(response.headers.get('x-merged-files')) || files.length;
 
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `merged_${Date.now()}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+      setResult({
+        blob,
+        mergedCount,
+        outputName: `merged_${Date.now()}.pdf`,
+      });
     } catch (error) {
-      console.error('Merge failed:', error);
-      alert('Failed to merge PDFs. Please ensure all files are valid PDF documents.');
+      const message = error instanceof Error ? error.message : 'Unable to merge files right now.';
+      setErrorMessage(message);
     } finally {
       setIsMerging(false);
     }
   };
 
+  const downloadResult = () => {
+    if (!result) return;
+
+    const url = URL.createObjectURL(result.blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = result.outputName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   return (
-    <div className={styles.wrapper}>
-      <header className={styles.header}>
+    <div className="min-h-screen bg-[var(--bg-primary)]">
+      <header className="border-b border-[var(--border)] bg-[var(--bg-secondary)] py-16 pb-12 text-center md:py-24 md:pb-16">
         <div className="container">
-          <div className={styles.badge}>PDF Suite Professional</div>
-          <h1 className={styles.title}>Merge <span className={styles.accent}>PDF</span> Files</h1>
-          <p className={styles.subtitle}>Combine multiple PDF documents into one professional file. Secure, fast, and stays in your browser.</p>
+          <div className="mb-8 inline-flex rounded-full border border-[rgba(239,68,68,0.2)] bg-[rgba(239,68,68,0.1)] px-4 py-2 text-[0.875rem] font-bold text-[#dc2626]">PDF Suite Professional</div>
+          <h1 className="mb-4 text-[2.25rem] font-black sm:text-[3.5rem]">
+            Merge <span className="text-[#ef4444]">PDF</span> Files
+          </h1>
+          <p className="mx-auto max-w-[700px] text-[1.25rem] text-[var(--text-secondary)]">
+            Combine multiple PDF documents into one file using secure backend processing.
+          </p>
         </div>
       </header>
 
       <main className="container section">
-        <div className={styles.mainBox}>
-          <Card className={styles.dropzoneCard}>
+        <div className="mx-auto max-w-[900px]">
+          <Card className="!flex min-h-[400px] flex-col !rounded-[var(--radius-xl)] !border-2 !border-dashed !border-[var(--border)] !bg-[var(--bg-secondary)] !p-6 transition-all duration-300 sm:!p-10">
             <input
               type="file"
               multiple
-              accept=".pdf"
+              accept=".pdf,application/pdf"
               onChange={handleFileSelect}
               ref={fileInputRef}
               style={{ display: 'none' }}
             />
             {files.length === 0 ? (
-              <div className={styles.emptyState}>
-                <div className={styles.uploadIcon}>
+              <div className="flex flex-1 flex-col items-center justify-center text-center">
+                <div className="mb-8 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white text-[#ef4444] shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
                   <FileUp size={48} />
                 </div>
-                <h3>Select PDF Files</h3>
-                <p>or click to browse your documents</p>
-                <Button size="lg" className={styles.uploadBtn} onClick={() => fileInputRef.current?.click()}>
+                <h3 className="mb-2 text-[1.5rem] font-extrabold">Select PDF Files</h3>
+                <p className="mb-10 text-[var(--text-secondary)]">or click to browse your documents</p>
+                <Button size="lg" className="!rounded-full !bg-[#ef4444] !px-8" onClick={() => fileInputRef.current?.click()}>
                   <Plus size={20} /> Choose Files
                 </Button>
               </div>
             ) : (
-              <div className={styles.fileListLayout}>
-                <div className={styles.listHeader}>
-                  <h3>Selected Files ({files.length})</h3>
+              <div className="flex flex-col gap-8">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-[1.25rem] font-extrabold">Selected Files ({files.length})</h3>
                   <Button variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
                     <Plus size={16} /> Add More
                   </Button>
                 </div>
 
-                <div className={styles.fileGrid}>
+                <div className="grid grid-cols-1 gap-4">
                   {files.map((file, index) => (
-                    <div key={file.id} className={styles.fileItem}>
-                      <div className={styles.fileOrder}>{index + 1}</div>
-                      <FileText size={24} className={styles.fileIcon} />
-                      <div className={styles.fileInfo}>
-                        <span className={styles.fileName}>{file.name}</span>
-                        <span className={styles.fileSize}>{file.size}</span>
+                    <div key={file.id} className="relative flex items-center gap-4 rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-4 sm:gap-6 sm:p-5">
+                      <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--bg-secondary)] text-[0.75rem] font-bold text-[var(--text-secondary)]">{index + 1}</div>
+                      <FileText size={24} className="text-[#ef4444]" />
+                      <div className="flex flex-1 flex-col">
+                        <span className="text-[0.9375rem] font-bold">{file.name}</span>
+                        <span className="text-[0.75rem] text-[var(--text-secondary)]">{file.size}</span>
                       </div>
-                      <button className={styles.removeBtn} onClick={() => removeFile(file.id)}>
+                      <button className="text-[var(--text-tertiary)] transition-colors duration-200 hover:text-[#ef4444]" onClick={() => removeFile(file.id)}>
                         <X size={16} />
                       </button>
                     </div>
                   ))}
                 </div>
 
-                <div className={styles.listFooter}>
-                  <div className={styles.mergeInfo}>
+                {errorMessage && (
+                  <p className="mt-4 font-semibold text-[var(--error)]">{errorMessage}</p>
+                )}
+
+                {result && (
+                  <div className="mt-4 rounded-xl bg-[rgba(16,185,129,0.12)] p-3 font-semibold text-[var(--text-primary)]">
+                    Successfully merged {result.mergedCount} files.
+                  </div>
+                )}
+
+                <div className="mt-4 flex flex-col items-center justify-between gap-6 border-t border-[var(--border)] pt-8 md:flex-row md:gap-0">
+                  <div className="flex items-center gap-3 text-[0.875rem] text-[var(--text-secondary)]">
                     <ArrowDownWideNarrow size={20} />
                     <span>Files will be merged in the order shown above.</span>
                   </div>
-                  <Button
-                    size="lg"
-                    className={styles.mergeBtn}
-                    onClick={startMerge}
-                    disabled={isMerging || files.length < 2}
-                  >
-                    {isMerging ? (
-                      <>
-                        <Loader2 className="animate-spin" size={20} style={{ marginRight: '10px' }} />
-                        Merging Files...
-                      </>
-                    ) : (
-                      <>
-                        Merge PDF Now
-                        <Download size={20} style={{ marginLeft: '10px' }} />
-                      </>
+                  <div className="flex w-full justify-end gap-3 md:w-auto">
+                    <Button
+                      size="lg"
+                      className="w-full !h-14 !rounded-full !bg-[#ef4444] !px-10 !text-[1rem] !font-extrabold sm:!h-16 sm:!text-[1.125rem] md:w-auto"
+                      onClick={startMerge}
+                      disabled={isMerging || files.length < 2}
+                    >
+                      {isMerging ? (
+                        <>
+                          <Loader2 className="mr-2.5 animate-spin" size={20} />
+                          Merging Files...
+                        </>
+                      ) : (
+                        <>
+                          Merge PDF Now
+                          <Server className="ml-2.5" size={20} />
+                        </>
+                      )}
+                    </Button>
+                    {result && (
+                      <Button size="lg" variant="outline" onClick={downloadResult} className="w-full md:w-auto !h-14 sm:!h-16">
+                        <Download className="mr-2.5" size={20} />
+                        Download
+                      </Button>
                     )}
-                  </Button>
+                  </div>
                 </div>
               </div>
             )}
           </Card>
 
-          <div className={styles.trustBranding}>
-            <div className={styles.trustItem}>
-              <ShieldCheck size={24} />
+          <div className="mt-12 flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-16">
+            <div className="flex items-start gap-4 max-w-[300px]">
+              <ShieldCheck size={32} className="text-[#ef4444] shrink-0" />
               <div>
-                <h5>Secure Processing</h5>
-                <p>Files never leave your computer. We use local browser memory for binary merging.</p>
+                <h5 className="mb-2 font-bold text-[1.125rem]">Validated Uploads</h5>
+                <p className="text-[0.875rem] text-[var(--text-secondary)]">Each file is validated as PDF with clear limits and structured error handling.</p>
               </div>
             </div>
-            <div className={styles.trustItem}>
-              <Zap size={24} />
+            <div className="flex items-start gap-4 max-w-[300px]">
+              <Zap size={32} className="text-[#ef4444] shrink-0" />
               <div>
-                <h5>Instant Results</h5>
-                <p>Binary-level merging optimized for large document sets.</p>
+                <h5 className="mb-2 font-bold text-[1.125rem]">Server-Side Merge</h5>
+                <p className="text-[0.875rem] text-[var(--text-secondary)]">Documents are merged on backend APIs to handle larger multi-file batches reliably.</p>
               </div>
             </div>
           </div>
@@ -185,43 +269,58 @@ export default function MergePdfClient() {
       </main>
 
       <section className="container section">
-        <div className={styles.infoGrid}>
-          <div className={styles.infoBox}>
-            <div className={styles.infoIcon}><FileText size={24} /></div>
-            <h4>Why Merge PDFs?</h4>
-            <p>Combine multiple reports, invoices, or scanned documents into a single, easy-to-manage file for sharing or archiving.</p>
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-12">
+          <div>
+            <div className="mb-6 text-[#ef4444]">
+              <FileText size={32} />
+            </div>
+            <h4 className="mb-4 text-[1.25rem] font-bold">Why Merge PDFs?</h4>
+            <p className="leading-[1.6] text-[var(--text-secondary)]">
+              Combine reports, invoices, or contracts into one clean file for faster sharing and simpler document
+              management.
+            </p>
           </div>
-          <div className={styles.infoBox}>
-            <div className={styles.infoIcon}><ShieldCheck size={24} /></div>
-            <h4>Local Binary Processing</h4>
-            <p>Unlike other online tools, we process your PDF on your machine using the <strong>pdf-lib</strong> engine. Your sensitive data stays under your control.</p>
+          <div>
+            <div className="mb-6 text-[#ef4444]">
+              <ShieldCheck size={32} />
+            </div>
+            <h4 className="mb-4 text-[1.25rem] font-bold">Safer Processing</h4>
+            <p className="leading-[1.6] text-[var(--text-secondary)]">
+              The merge pipeline validates each file and rejects invalid or encrypted uploads with clear messages.
+            </p>
           </div>
-          <div className={styles.infoBox}>
-            <div className={styles.infoIcon}><ArrowDownWideNarrow size={24} /></div>
-            <h4>Easy Sorting</h4>
-            <p>The output PDF will follow your exact specified order. Simply add files in the sequence you need them to appear.</p>
+          <div>
+            <div className="mb-6 text-[#ef4444]">
+              <ArrowDownWideNarrow size={32} />
+            </div>
+            <h4 className="mb-4 text-[1.25rem] font-bold">Exact Ordering</h4>
+            <p className="leading-[1.6] text-[var(--text-secondary)]">The output PDF follows your selected sequence exactly, page-for-page.</p>
           </div>
         </div>
       </section>
 
       <SEOSection
-        title="Free Online PDF Merger — Combine Documents Securely"
-        description="Merging PDF files is one of the most common document management tasks in both professional and personal workflows. Whether you're combining invoices, contracts, scanned receipts, or research papers, having a fast and reliable PDF merger saves significant time. Traditional desktop software like Adobe Acrobat charges expensive subscriptions for this basic feature. Our browser-native alternative uses the open-source pdf-lib engine to perform binary-level page copying — meaning your merged output retains 100% original quality with zero re-encoding artifacts. Most importantly, Toolioz's merge tool processes everything locally in your browser memory. Your sensitive financial documents, legal contracts, and personal files never leave your computer or get uploaded to any server. This zero-upload architecture makes it the most privacy-respecting PDF merger available online."
+        title="PDF Merge Tool"
+        description="Merge multiple PDF files with a backend workflow built for reliability. Upload your documents, preserve ordering, and download one unified PDF."
         howToUse={[
-          "Click 'Choose Files' to select two or more PDF documents you want to combine.",
-          "Add files in the exact order you want them to appear in the final merged document.",
-          "Use the 'Add More' button to include additional PDFs to the merge queue at any time.",
-          "Review the numbered file list to confirm the sequence is correct.",
-          "Click 'Merge PDF Now' and your combined document will download automatically."
+          'Add two or more PDF files to the queue.',
+          'Review the file order in the selected list.',
+          'Click Merge PDF Now to process on the backend.',
+          'Download the merged PDF once processing completes.',
         ]}
         benefits={[
-          "Zero-Upload Privacy: Files never leave your device. Processing happens entirely in browser memory using the pdf-lib engine.",
-          "No Quality Loss: Binary-level page copying preserves all images, fonts, vectors, and text at their original resolution.",
-          "Unlimited Free Usage: No file size limits, no daily caps, no registration required. Merge as many PDFs as you need.",
-          "Cross-Platform: Works on Windows, Mac, Linux, Chromebook, and mobile browsers without installing any software.",
-          "Professional Output: Merged PDFs maintain proper page numbering, bookmarks, and PDF/A compliance."
+          'Reliable server-side merging for larger batches.',
+          'PDF validation and clear error responses.',
+          'Exact page order preservation across input files.',
+          'Quick output for sharing and archival workflows.',
         ]}
       />
+
+      <FAQSchema faqs={FAQS} />
+
+      <section className="container section !pt-0">
+        <RelatedTools currentToolId="merge-pdf" categoryId="pdftools" />
+      </section>
 
       <Footer />
     </div>

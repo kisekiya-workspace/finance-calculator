@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import styles from './FAQSchema.module.css';
+import { ChevronDown } from 'lucide-react';
 
 interface FAQItem {
   question: string;
@@ -34,34 +34,41 @@ export const FAQSchema: React.FC<FAQSchemaProps> = ({ faqs }) => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className={styles.section}>
-        <div className="container">
-          <h2 className={styles.heading}>Frequently Asked Questions</h2>
-          <div className={styles.list}>
+      <section className="border-t border-[var(--border)] py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="mb-8 text-center text-2xl font-bold text-[var(--text-primary)]">
+            Frequently Asked Questions
+          </h2>
+          <div className="mx-auto flex max-w-4xl flex-col gap-2">
             {faqs.map((faq, i) => (
               <div 
                 key={i} 
-                className={`${styles.item} ${openIndex === i ? styles.open : ''}`}
+                className={[
+                  'overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] transition-colors duration-200',
+                  openIndex === i ? 'border-[var(--primary)]' : 'hover:border-[var(--primary)]',
+                ].join(' ')}
               >
                 <button
-                  className={styles.question}
+                  className="flex w-full items-center justify-between gap-4 bg-[var(--bg-secondary)] px-5 py-4 text-left text-[0.95rem] font-semibold leading-6 text-[var(--text-primary)] sm:px-6"
                   onClick={() => setOpenIndex(openIndex === i ? null : i)}
                   aria-expanded={openIndex === i}
                 >
                   <span>{faq.question}</span>
-                  <svg 
-                    className={styles.chevron} 
-                    width="20" height="20" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
+                  <ChevronDown
+                    size={20}
+                    className={[
+                      'shrink-0 text-[var(--text-secondary)] transition-transform duration-200',
+                      openIndex === i ? 'rotate-180' : '',
+                    ].join(' ')}
+                  />
                 </button>
-                <div className={styles.answer}>
-                  <p>{faq.answer}</p>
+                <div
+                  className={[
+                    'overflow-hidden px-5 transition-all duration-300 sm:px-6',
+                    openIndex === i ? 'max-h-96 pb-6' : 'max-h-0 pb-0',
+                  ].join(' ')}
+                >
+                  <p className="text-[0.9rem] leading-7 text-[var(--text-secondary)]">{faq.answer}</p>
                 </div>
               </div>
             ))}

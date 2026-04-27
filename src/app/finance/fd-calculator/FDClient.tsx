@@ -4,36 +4,45 @@ import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
-import { calculateFD } from '@/lib/formulas';
-import { Info, Banknote, ShieldCheck } from 'lucide-react';
+import { calculateCompoundInterest } from '@/lib/formulas';
+import { Info, Banknote, ShieldCheck, AlertTriangle } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from '@/app/finance/compound-interest/page.module.css';
+import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function FDClient() {
   const [principal, setPrincipal] = useState<number>(100000);
-  const [rate, setRate] = useState<number>(7);
+  const [rate, setRate] = useState<number>(7.1);
   const [years, setYears] = useState<number>(5);
+  const [compoundFreq, setCompoundFreq] = useState<number>(4); // Quarterly default
   const [result, setResult] = useState<number>(0);
 
   useEffect(() => {
-    const maturityVal = calculateFD(principal, rate / 100, years);
+    const maturityVal = calculateCompoundInterest(principal, rate / 100, compoundFreq, years);
     setResult(maturityVal);
-  }, [principal, rate, years]);
+  }, [principal, rate, years, compoundFreq]);
 
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(val);
   };
+
+  const interestEarned = result - principal;
+  // TDS threshold: ₹40,000 for regular, ₹50,000 for senior citizens
+  const annualInterest = interestEarned / (years || 1);
+  const tdsApplicable = annualInterest > 40000;
 
   return (
     <>
       <div className={styles.wrapper}>
         <header className={styles.header}>
           <div className="container">
-            <h1 className={styles.title}>Fixed Deposit (FD)</h1>
-            <p className={styles.subtitle}>Secure your future with guaranteed returns on fixed deposits.</p>
+            <h1 className={styles.title}>Fixed Deposit (FD) Calculator 2026</h1>
+            <p className={styles.subtitle}>Calculate maturity value with selectable compounding frequency. Updated for 2026 bank rates.</p>
+            <div className="mx-auto mt-6 max-w-[700px] rounded-lg border border-[#fbbf24] bg-[#fffbeb] px-4 py-3 text-left text-[0.8rem] leading-[1.6] text-[#92400e]">
+              <strong>⚠️ Disclaimer:</strong> Interest rates shown are <strong>illustrative defaults</strong> and may not match your bank&apos;s current rates. Actual maturity values depend on your bank, tenure, and deposit amount. This calculator is for <strong>assumption &amp; planning purposes only</strong>. Verify with your bank before investing.
+            </div>
           </div>
         </header>
 
@@ -42,7 +51,7 @@ export default function FDClient() {
             <Card className={styles.inputCard}>
               <div className={styles.inputGroup}>
                 <Input 
-                  label="Principal Amount" 
+                  label="Deposit Amount" 
                   type="number" 
                   value={principal} 
                   onChange={(e) => setPrincipal(Number(e.target.value))}
@@ -62,6 +71,19 @@ export default function FDClient() {
                   onChange={(e) => setYears(Number(e.target.value))}
                   suffix="years"
                 />
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-[var(--text-secondary)]">Compounding Frequency</label>
+                  <select 
+                    className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-3 text-base text-[var(--text-primary)] outline-none transition-all duration-200 focus:border-[var(--primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.1)]"
+                    value={compoundFreq}
+                    onChange={(e) => setCompoundFreq(Number(e.target.value))}
+                  >
+                    <option value={1}>Annually</option>
+                    <option value={2}>Half-Yearly (Semi-Annual)</option>
+                    <option value={4}>Quarterly (Most Common)</option>
+                    <option value={12}>Monthly</option>
+                  </select>
+                </div>
               </div>
             </Card>
 
@@ -72,7 +94,7 @@ export default function FDClient() {
                 <div className={styles.stats}>
                   <div className={styles.statItem}>
                     <span className={styles.statLabel}>Total Interest</span>
-                    <span className={styles.statVal}>{formatCurrency(result - principal)}</span>
+                    <span className={styles.statVal}>{formatCurrency(interestEarned)}</span>
                   </div>
                   <div className={styles.statItem}>
                     <span className={styles.statLabel}>Investment</span>
@@ -91,9 +113,19 @@ export default function FDClient() {
               <div className={styles.infoBox}>
                 <div className={styles.infoIcon} style={{ color: '#0369a1' }}><Info size={20} /></div>
                 <p className={styles.infoText}>
-                  A Fixed Deposit (FD) is a financial instrument provided by banks or NBFCs which provides investors a higher rate of interest than a regular savings account.
+                  A Fixed Deposit (FD) is a financial instrument provided by banks or NBFCs which provides investors a higher rate of interest than a regular savings account. Interest is typically compounded quarterly in India.
                 </p>
               </div>
+
+              {/* TDS Warning */}
+              {tdsApplicable && (
+                <div className="mt-4 flex items-start gap-3 rounded-lg border border-[#fbbf24] bg-[#fffbeb] p-4">
+                  <AlertTriangle size={18} className="mt-0.5 shrink-0 text-[#d97706]" />
+                  <p className="m-0 text-[0.8rem] leading-[1.6] text-[#92400e]">
+                    <strong>TDS Note:</strong> Your estimated annual interest of {formatCurrency(annualInterest)} exceeds ₹40,000. TDS at 10% may be deducted by the bank (threshold is ₹50,000 for senior citizens). Submit Form 15G/15H to avoid TDS if your total income is below the taxable limit.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -108,8 +140,8 @@ For many, FDs serve as an emergency fund or a way to save for specific future mi
           howToUse={[
             "Enter the Principal Deposit Amount you wish to invest in the bank.",
             "Input the Annual Interest Rate offered by the financial institution (Bank/NBFC).",
-            "Select the Tenure or duration of the deposit in years or months.",
-            "Determine the compounding frequency (our calculator defaults to quarterly compounding for accuracy).",
+            "Select the Tenure or duration of the deposit in years.",
+            "Choose the Compounding Frequency (quarterly is the most common in India).",
             "Instantly view the Final Maturity Amount you will receive at the end of the term.",
             "Check the Total Interest Earned—this is the profit your money has generated over the period."
           ]}
@@ -122,6 +154,71 @@ For many, FDs serve as an emergency fund or a way to save for specific future mi
           ]}
           formula="A = P(1 + r/n)^(nt)"
         />
+        <RelatedTools currentToolId="fd-calculator" categoryId="finance" />
+
+        {/* Tax & TDS Section */}
+        <div className="mx-auto mt-12 max-w-[900px]">
+          <Card className="!p-8 border-l-4 border-l-[#0284c7] bg-[#f0f9ff]">
+            <h2 className="mb-6 text-[1.4rem] font-bold text-[#0369a1] flex items-center gap-2">
+              <ShieldCheck className="text-[#0284c7]" /> 💸 Tax & TDS on Fixed Deposits (2026-27)
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#0369a1]">TDS (Tax Deducted at Source)</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#0369a1]/80">
+                  <li><strong>Limit:</strong> If interest exceeds <strong>₹40,000</strong> (₹50,000 for seniors), bank deducts <strong>10% TDS</strong>.</li>
+                  <li><strong>Without PAN:</strong> If you don&apos;t provide PAN, bank will deduct <strong>20% TDS</strong>.</li>
+                  <li><strong>Form 15G/15H:</strong> Submit these if your total annual income is below the taxable limit to avoid TDS.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#0369a1]">Final Income Tax</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#0369a1]/80">
+                  <li><strong>Slab Rate:</strong> Interest earned is added to your total income and taxed at your <strong>Income Tax Slab</strong> (10%, 20%, 30%).</li>
+                  <li><strong>Tax-Saving FD:</strong> 5-year FDs qualify for deduction under Section 80C (up to ₹1.5L) in the old regime.</li>
+                  <li><strong>Post-Tax Yield:</strong> Always calculate your post-tax return. A 7% FD in the 30% slab yields only 4.9%.</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Real-World Tips Section */}
+        <section className="mx-auto max-w-[900px] px-6 py-12">
+          <Card className="!p-8">
+            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🏦 Fixed Deposit Tips — What Banks Won&apos;t Tell You</h2>
+            
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">📋 Important FD Terms</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>TDS (Tax Deducted at Source):</strong> Banks deduct 10% TDS if your interest exceeds ₹40,000/year (₹50,000 for senior citizens). Submit Form 15G/15H if your total income is below taxable limit.</li>
+                <li><strong>Premature Withdrawal Penalty:</strong> Typically 0.5–1% rate reduction on the applicable rate. Some banks charge a flat penalty too.</li>
+                <li><strong>Cumulative vs Non-Cumulative:</strong> Cumulative FDs reinvest interest (better for wealth building). Non-cumulative pays interest monthly/quarterly (better for regular income).</li>
+                <li><strong>DICGC Insurance:</strong> Deposits up to ₹5 lakh per bank are insured by DICGC. Split large amounts across banks for full protection.</li>
+              </ul>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">⚡ Smart FD Strategies</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>FD Laddering:</strong> Instead of one ₹10L FD, make 5 × ₹2L FDs with 1–5 year tenures. You get liquidity every year AND higher rates on longer tenures.</li>
+                <li><strong>Tax-Saver FD:</strong> 5-year lock-in FD gives Section 80C deduction up to ₹1.5 lakh. But interest is fully taxable — compare with ELSS mutual funds.</li>
+                <li><strong>Small Finance Banks:</strong> Offer 0.5–1.5% higher rates than SBI/HDFC. Still covered by DICGC insurance up to ₹5L.</li>
+                <li><strong>Senior Citizen Advantage:</strong> Most banks offer 0.25–0.5% extra rate for senior citizens. Some super senior citizen (80+) schemes offer even more.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">💡 Pro Tips</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li>✅ If your tax slab is 30%, your <strong>post-tax FD return</strong> at 7% is only ~4.9%. Compare with debt mutual funds which have indexation benefit.</li>
+                <li>✅ <strong>Never break an FD</strong> for small needs — take a loan against FD instead (costs only 1–2% above FD rate).</li>
+                <li>✅ Book FDs when rates are at their peak. RBI rate cut cycles mean FD rates will drop — lock in high rates for longer tenures.</li>
+                <li>✅ Check if your bank offers <strong>auto-sweep facility</strong> — it keeps money in savings but auto-converts to FD for better returns.</li>
+              </ul>
+            </div>
+          </Card>
+        </section>
       <Footer />
     </div>
     </>

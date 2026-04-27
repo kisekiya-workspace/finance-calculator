@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './Card.module.css';
 
 interface CardProps {
   children: React.ReactNode;
@@ -17,9 +16,11 @@ export const Card: React.FC<CardProps> = ({
   style
 }) => {
   const cardClass = [
-    styles.card,
-    hoverable ? styles.hoverable : '',
-    className
+    'overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--bg-primary)] p-6 transition-all duration-200 ease-out',
+    hoverable
+      ? 'cursor-pointer hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-[var(--shadow-lg)]'
+      : '',
+    className,
   ].join(' ');
 
   return (

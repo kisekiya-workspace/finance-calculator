@@ -1,60 +1,75 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
-import { Search, Code, ShieldCheck, Zap, Terminal } from 'lucide-react';
+import { Search, ShieldCheck, Zap, Terminal } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import Link from 'next/link';
 import { TOOLS } from '@/lib/tools';
-import styles from './DevToolsClient.module.css';
 
 export default function DevToolsClient() {
   const [search, setSearch] = useState('');
 
-  const devTools = TOOLS.filter(t => t.category === 'devtools');
-  const filteredTools = devTools.filter(tool => 
-    tool.title.toLowerCase().includes(search.toLowerCase()) || 
-    tool.desc.toLowerCase().includes(search.toLowerCase())
+  const devTools = useMemo(
+    () =>
+      TOOLS
+        .filter((t) => t.category === 'devtools')
+        .sort(
+          (a, b) =>
+            Number(Boolean(b.isTrending)) - Number(Boolean(a.isTrending)) ||
+            a.title.localeCompare(b.title),
+        ),
+    [],
+  );
+
+  const normalizedSearch = search.trim().toLowerCase();
+  const filteredTools = useMemo(
+    () =>
+      devTools.filter(
+        (tool) =>
+          tool.title.toLowerCase().includes(normalizedSearch) ||
+          tool.desc.toLowerCase().includes(normalizedSearch),
+      ),
+    [devTools, normalizedSearch],
   );
 
   return (
-    <div className={styles.categoryWrapper}>
-      
-      <section className={styles.hero}>
-        <div className={styles.heroGlow} />
+    <div className="min-h-screen bg-[var(--bg-primary)]">
+      <section className="relative overflow-hidden bg-[radial-gradient(circle_at_90%_80%,rgba(245,158,11,0.05)_0%,transparent_40%)] py-24 pb-16 text-center md:py-32 md:pb-24">
+        <div className="absolute left-1/2 top-[-20%] h-full w-full -translate-x-1/2 bg-[radial-gradient(circle,rgba(245,158,11,0.08)_0%,transparent_70%)]" />
         <div className="container">
-          <div className={styles.heroContent}>
-            <div className={styles.badge}>Dev Productivity Suite</div>
-            <h1 className={styles.title}>Essential <span className={styles.accent}>Developer</span> Utilities</h1>
-            <p className={styles.subtitle}>
+          <div className="relative z-10 mx-auto max-w-[850px]">
+            <div className="mb-8 inline-flex rounded-full border border-[rgba(245,158,11,0.2)] bg-[rgba(245,158,11,0.1)] px-4 py-2 text-[0.8125rem] font-bold uppercase tracking-[0.05em] text-[#d97706]">Dev Productivity Suite</div>
+            <h1 className="mb-6 text-[clamp(2.5rem,8vw,4.5rem)] font-black leading-[1.1] tracking-[-0.02em]">Essential <span className="text-[#f59e0b]">Developer</span> Utilities</h1>
+            <p className="mb-14 text-[1.125rem] leading-[1.6] text-[var(--text-secondary)] md:text-[1.35rem]">
               Accelerate your workflow with precision tools for data formatting, 
               validation, and transformation. Built for developers who value privacy and speed.
             </p>
             
-            <div className={styles.searchContainer}>
-              <div className={styles.searchBox}>
+            <div className="mx-auto mb-12 max-w-[650px]">
+              <div className="rounded-[var(--radius-xl)] border border-[var(--border)] bg-white p-2 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.08)] transition-all duration-300 focus-within:-translate-y-[2px] focus-within:border-[#f59e0b] focus-within:shadow-[0_15px_45px_-10px_rgba(245,158,11,0.15)]">
                 <Input
-                  placeholder="Search for a dev tool (e.g. JSON, Base64, SQL)"
-                  prefix={<Search size={22} className={styles.searchIcon} />}
-                  className={styles.search}
+                  placeholder="Search tools (e.g. cURL, JWT, JSON diff, regex)"
+                  prefix={<Search size={22} />}
+                  className="!border-none !text-[1.125rem]"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
             </div>
 
-            <div className={styles.heroTrust}>
-              <div className={styles.trustItem}>
-                <ShieldCheck size={18} />
+            <div className="flex flex-col items-center justify-center gap-4 text-[0.875rem] font-semibold text-[var(--text-secondary)] md:flex-row md:gap-10">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-[#10b981]" />
                 <span>100% Client-Side</span>
               </div>
-              <div className={styles.trustItem}>
-                <Zap size={18} />
+              <div className="flex items-center gap-2">
+                <Zap size={18} className="text-[#10b981]" />
                 <span>Instant Feedback</span>
               </div>
-              <div className={styles.trustItem}>
-                <Terminal size={18} />
+              <div className="flex items-center gap-2">
+                <Terminal size={18} className="text-[#10b981]" />
                 <span>Developer-First UI</span>
               </div>
             </div>
@@ -62,31 +77,39 @@ export default function DevToolsClient() {
         </div>
       </section>
 
-      <section className={`${styles.gridSection} section`}>
+      <section className="section py-24">
         <div className="container">
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>
+          <div className="mb-16">
+            <h2 className="text-[2.5rem] font-extrabold tracking-[-0.01em]">
               {search ? `Search Results for "${search}"` : 'Development Toolkit'}
             </h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">
+              {filteredTools.length} practical tools focused on debugging, API workflows, security, and data transformation.
+            </p>
           </div>
-          <div className={styles.grid}>
-            {filteredTools.map((tool) => (
-              <Link key={tool.id} href={tool.href} className={styles.cardLink}>
-                <Card hoverable className={styles.toolCard}>
-                  <div className={styles.iconWrapper} style={{ backgroundColor: `${tool.color}15`, color: tool.color }}>
-                    <tool.icon size={28} />
-                  </div>
-                  <div className={styles.cardContent}>
-                    <h3 className={styles.toolTitle}>{tool.title}</h3>
-                    <p className={styles.toolDesc}>{tool.desc}</p>
-                  </div>
-                  {tool.isTrending && (
-                    <div className={styles.trendingBadge}>New</div>
-                  )}
-                </Card>
-              </Link>
-            ))}
-          </div>
+          {filteredTools.length === 0 ? (
+            <Card className="!p-8 text-center">
+              <h3 className="mb-2 text-[1.125rem]">No matching tools found</h3>
+              <p className="text-[var(--text-secondary)]">Try searching for `json`, `hash`, `curl`, `jwt`, or `regex`.</p>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] md:gap-8">
+              {filteredTools.map((tool) => (
+                <Link key={tool.id} href={tool.href} className="block">
+                  <Card hoverable className="relative !flex h-full flex-col gap-6 !rounded-[var(--radius-xl)] !p-6 md:!p-10">
+                    <div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[16px]" style={{ backgroundColor: `${tool.color}15`, color: tool.color }}>
+                      <tool.icon size={28} />
+                    </div>
+                    <div>
+                      <h3 className="mb-3 text-[1.35rem] font-extrabold">{tool.title}</h3>
+                      <p className="text-[1rem] leading-[1.6] text-[var(--text-secondary)]">{tool.desc}</p>
+                    </div>
+                    {tool.isTrending && <div className="absolute right-6 top-6 rounded-full bg-[#fdf2f2] px-3 py-1.5 text-[0.625rem] font-extrabold uppercase tracking-[0.05em] text-[#991b1b]">Top Pick</div>}
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

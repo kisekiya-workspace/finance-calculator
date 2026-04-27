@@ -4,15 +4,15 @@ import CompoundInterestClient from './CompoundInterestClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Compound Interest Calculator | Daily, Monthly & Yearly Yield | Toolioz",
-  description: "Calculate your investment growth with various compounding frequencies. Elite tool for daily compound interest with future value tracking in 2026.",
-  keywords: 'Compound interest calculator daily, investment growth engine, high yield compounding tool, periodic deposits calculator, wealth growth visualizer',
+  title: "Compound Interest Calculator 2026 | Rule of 72 & Wealth Planner | Toolioz",
+  description: "Calculate compound interest with monthly/daily compounding. Learn the Rule of 72, wealth building secrets, and how to beat inflation with the power of compounding in 2026.",
+  keywords: 'compound interest calculator with monthly contributions, rule of 72 calculator india, daily compounding interest tool, wealth building secrets 2026, power of compounding examples, compound interest vs simple interest, effective annual rate calculator, monthly investment growth estimator, financial freedom calculator',
   alternates: {
     canonical: 'https://toolioz.com/finance/compound-interest',
   },
   openGraph: {
-    title: 'Advanced Compound Interest Engine | Toolioz',
-    description: 'Visualize your wealth growth patterns with granular compounding adjustments.',
+    title: 'Compound Interest Calculator 2026 — The 8th Wonder of the World | Toolioz',
+    description: 'Master the power of compounding. Calculate future wealth, learn the rule of 72, and get pro tips on frequency and consistency.',
     url: 'https://toolioz.com/finance/compound-interest',
     type: 'website',
   }
@@ -24,7 +24,7 @@ export default function CompoundInterestPage() {
     "@type": "FinancialCalculator",
     "name": "Compound Interest Calculator",
     "description": "Calculate compound interest with various frequencies.",
-    "url": "https://finance.toolioz.online/compound-interest",
+    "url": "https://toolioz.com/finance/compound-interest",
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"

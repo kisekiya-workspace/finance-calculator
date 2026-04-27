@@ -1,14 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { X, ChevronUp, ChevronDown, Plus, Trash2, Copy, Code, Download, Layers, Move, Settings2, Columns, Rows } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, ChevronUp, ChevronDown } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
 import { RelatedTools } from '@/components/ui/RelatedTools';
-import styles from './LayoutGenerator.module.css';
 
-import { FAQSchema } from '@/components/ui/FAQSchema';
 type GridArea = {
   id: string; // internal tracking ID
   name: string; // semantic dev name e.g. "header", "sidebar"
@@ -18,7 +14,13 @@ type GridArea = {
   rowEnd: number;
 };
 
-export default function LayoutGeneratorClient({ title, color }: { title?: string, color?: string }) {
+export default function LayoutGeneratorClient({
+  title = 'Advanced CSS Grid Builder',
+  color,
+}: {
+  title?: string;
+  color?: string;
+}) {
   const [columns, setColumns] = useState(5);
   const [rows, setRows] = useState(5);
   const [colDefs, setColDefs] = useState<string[]>([]);
@@ -169,17 +171,17 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
 
   // Number spinner components matching screenshot specs
   const NumberInput = ({ label, value, setter }: { label: string, value: number, setter: (v: number) => void }) => (
-    <div className={styles.controlGroup}>
-      <label className={styles.controlLabel}>{label}</label>
-      <div className={styles.controlInputWrapper}>
+    <div className="flex flex-col items-center gap-2">
+      <label className="text-[0.85rem] font-medium uppercase tracking-widest text-[var(--text-secondary)]">{label}</label>
+      <div className="flex items-center gap-2.5 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-1.5 transition-colors focus-within:border-[var(--primary)]">
         <input 
           type="number" 
-          className={styles.controlInput} 
+          className="w-[25px] appearance-none border-none bg-transparent text-center text-[1.1rem] font-semibold text-[var(--text-primary)] outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none" 
           value={value} 
           onChange={(e) => setter(Number(e.target.value) || 1)}
           min={1} max={20}
         />
-        <div className={styles.spinnerArrows}>
+        <div className="flex cursor-pointer flex-col rounded-sm bg-transparent p-0.5">
           <ChevronUp size={12} color="#1a1b1e" onClick={() => setter(Math.min(value + 1, 20))} />
           <ChevronDown size={12} color="#1a1b1e" onClick={() => setter(Math.max(value - 1, 1))} />
         </div>
@@ -273,45 +275,51 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
   };
 
   return (
-    <div className={styles.appContainer}>
+    <div className="flex min-h-screen flex-col bg-[var(--bg-primary)] text-[var(--text-primary)]">
       
-      <main className={styles.workspace}>
+      <main className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col items-center overflow-x-hidden px-5 py-10 md:py-[40px]">
         {/* SEO Semantic Header Structure */}
-        <header className={styles.seoHeader}>
-          <h1 className={styles.title} id="layout-generator-title">Advanced CSS Grid Builder</h1>
-          <p className={styles.description} id="layout-generator-desc">
+        <header className="mb-10 max-w-[700px] text-center">
+          <h1
+            className="mb-4 text-[2rem] md:text-[2.5rem] font-extrabold tracking-tight text-[var(--text-primary)]"
+            id="layout-generator-title"
+            style={color ? { color } : undefined}
+          >
+            {title}
+          </h1>
+          <p className="text-[1rem] md:text-[1.1rem] leading-relaxed text-[var(--text-secondary)]" id="layout-generator-desc">
             Construct semantic, pixel-perfect CSS Grid layouts with overlapping hierarchy control. Drag tracks visually and export robust, responsive HTML5 templates in seconds.
           </p>
         </header>
 
         {/* Top Controls */}
-        <section className={styles.controlsHeader} aria-labelledby="grid-settings">
+        <section className="mb-6 md:mb-10 flex w-full flex-wrap justify-center gap-4 md:gap-[30px] rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--bg-secondary)] p-4 md:px-10 md:py-6 shadow-[var(--shadow-md)]" aria-labelledby="grid-settings">
           <NumberInput label="Columns" value={columns} setter={setColumns} />
           <NumberInput label="Rows" value={rows} setter={setRows} />
           <NumberInput label="Gap(px)" value={gap} setter={setGap} />
         </section>
 
         {/* Track Editors */}
-        <div className={styles.canvasScrollWrapper}>
-          <div className={styles.trackEditorTop} style={{ gridTemplateColumns: containerStyle.gridTemplateColumns, gap: containerStyle.gap }}>
+        <div className="flex w-full flex-col items-center overflow-x-auto py-5 [scrollbar-color:var(--border)_transparent] [scrollbar-width:thin]">
+          <div className="mb-2.5 ml-[38px] md:ml-[42px] grid w-max" style={{ gridTemplateColumns: containerStyle.gridTemplateColumns, gap: containerStyle.gap }}>
             {colDefs.map((def, i) => (
-              <input key={`col-def-${i}`} className={styles.trackDefInput} value={def} onChange={(e) => updateColDef(i, e.target.value)} title={`Column ${i+1}`} />
+              <input key={`col-def-${i}`} className="h-full w-full min-w-[30px] rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-0.5 text-center text-[0.75rem] font-medium text-[var(--text-primary)] transition-all focus:border-[var(--primary)] focus:bg-[var(--bg-primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.2)] focus:outline-none" value={def} onChange={(e) => updateColDef(i, e.target.value)} title={`Column ${i+1}`} />
             ))}
           </div>
           
-          <div className={styles.canvasPivot}>
-            <div className={styles.trackEditorLeft} style={{ gridTemplateRows: containerStyle.gridTemplateRows, gap: containerStyle.gap }}>
+          <div className="flex w-max gap-1.5 md:gap-2.5">
+            <div className="grid w-[28px] md:w-[32px]" style={{ gridTemplateRows: containerStyle.gridTemplateRows, gap: containerStyle.gap }}>
               {rowDefs.map((def, i) => (
-                <input key={`row-def-${i}`} className={styles.trackDefInput} value={def} onChange={(e) => updateRowDef(i, e.target.value)} title={`Row ${i+1}`} />
+                <input key={`row-def-${i}`} className="h-full w-full min-w-[30px] rounded border border-[var(--border)] bg-[var(--bg-secondary)] p-0.5 text-center text-[0.75rem] font-medium text-[var(--text-primary)] transition-all focus:border-[var(--primary)] focus:bg-[var(--bg-primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.2)] focus:outline-none" value={def} onChange={(e) => updateRowDef(i, e.target.value)} title={`Row ${i+1}`} />
               ))}
             </div>
 
             {/* CSS Grid Canvas */}
-            <div className={styles.gridCanvasContainer} style={containerStyle}>
+            <div className="relative grid w-max select-none" style={containerStyle}>
               {tracks.map((cell, idx) => (
                 <div 
                   key={`track-${idx}`}
-                  className={styles.trackCell}
+                  className="flex cursor-pointer items-center justify-center rounded-[var(--radius-sm)] border border-dashed border-[var(--border)] bg-transparent text-[1.2rem] font-light text-[var(--text-secondary)] transition-all hover:border-[var(--primary)] hover:bg-[rgba(37,99,235,0.05)] hover:text-[var(--primary)]"
                   style={{ gridColumn: `${cell.c} / ${cell.c + 1}`, gridRow: `${cell.r} / ${cell.r + 1}` }}
                   onClick={() => handleCreateArea(cell.c, cell.r)}
                 >
@@ -322,7 +330,7 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
               {areas.map(area => (
                 <div 
                   key={`area-${area.id}`}
-                  className={styles.gridArea}
+                  className="group relative z-10 flex items-center justify-center overflow-hidden rounded-[var(--radius-sm)] border-2 border-[var(--primary)] bg-[var(--glass)] text-[1.25rem] font-semibold text-[var(--text-primary)] shadow-[0_4px_20px_-2px_rgba(0,0,0,0.2)] backdrop-blur-[12px]"
                   id={`visual-area-${area.id}`}
                   style={{ 
                     gridColumn: `${area.colStart} / ${area.colEnd}`, 
@@ -331,7 +339,7 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
                 >
                   <input 
                     type="text"
-                    className={styles.areaNameInput}
+                    className="pointer-events-auto w-[90%] min-w-0 max-w-full overflow-hidden text-ellipsis whitespace-nowrap border-none border-b border-dashed border-b-transparent bg-transparent text-center text-[clamp(0.8rem,1.2vw,1.1rem)] font-semibold text-[var(--text-primary)] transition-colors focus:border-b-[var(--primary)] focus:outline-none placeholder:font-normal placeholder:text-[var(--text-secondary)] placeholder:opacity-50"
                     value={area.name}
                     onChange={(e) => handleRenameArea(area.id, e.target.value)}
                     onClick={(e) => e.stopPropagation()}
@@ -339,7 +347,7 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
                     aria-label="Grid Area CSS Class Name"
                   />
                   <div 
-                    className={styles.deleteBtn} 
+                    className="absolute right-0 top-0 z-20 flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-bl-[var(--radius-sm)] rounded-tr-[4px] bg-[#ef4444] text-[0.7rem] text-white transition-colors hover:bg-[#dc2626]" 
                     onClick={(e) => handleDeleteArea(e, area.id)}
                     aria-label="Delete Area"
                     role="button"
@@ -348,7 +356,7 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
                     <X size={12} />
                   </div>
                   <div 
-                    className={styles.resizeHandle} 
+                    className="absolute bottom-0 right-0 z-20 h-[20px] w-[20px] cursor-se-resize after:absolute after:bottom-[6px] after:right-[6px] after:h-[10px] after:w-[10px] after:rounded-br-[3px] after:border-b-3 after:border-r-3 after:border-[var(--primary)] after:transition-opacity after:duration-200 group-hover:after:border-[var(--primary-hover)]" 
                     onPointerDown={(e) => startResize(e, area.id)} 
                   />
                 </div>
@@ -356,7 +364,7 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
 
               {activeDrag && (
                 <div 
-                  className={styles.ghostArea}
+                  className="pointer-events-none relative z-0 rounded-[var(--radius-sm)] border-2 border-dashed border-[var(--primary)] bg-[rgba(37,99,235,0.1)]"
                   style={{
                     gridColumn: `${areas.find(a => a.id === activeDrag.id)?.colStart} / ${activeDrag.newColEnd}`,
                     gridRow: `${areas.find(a => a.id === activeDrag.id)?.rowStart} / ${activeDrag.newRowEnd}`,
@@ -368,22 +376,22 @@ export default function LayoutGeneratorClient({ title, color }: { title?: string
         </div>
 
         {/* Actions */}
-        <div className={styles.actionsRow} style={{ maxWidth: columns * 100 + (columns - 1) * gap }}>
-           <button className={styles.resetBtn} onClick={resetGrid}>Reset</button>
+        <div className="mt-5 flex w-full justify-center px-2">
+           <button className="cursor-pointer rounded-[var(--radius-xl)] border border-[var(--border)] bg-transparent px-6 py-2 text-[0.9rem] font-medium text-[var(--text-secondary)] transition-all hover:border-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]" onClick={resetGrid}>Reset</button>
         </div>
 
-        <div className={styles.outputRow}>
-          <button className={styles.outputBtn} onClick={() => setShowCode(showCode === 'html' ? null : 'html')}>Copy HTML</button>
-          <button className={styles.outputBtn} onClick={() => setShowCode(showCode === 'css' ? null : 'css')}>Copy CSS</button>
+        <div className="mt-[30px] md:mt-[50px] flex w-full flex-wrap justify-center gap-3">
+          <button className="w-full sm:w-auto cursor-pointer rounded-[var(--radius-sm)] border-none bg-[var(--primary)] px-8 py-3 text-[1rem] font-semibold text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all hover:-translate-y-[1px] hover:bg-[var(--primary-hover)] active:translate-y-[1px]" onClick={() => setShowCode(showCode === 'html' ? null : 'html')}>Copy HTML</button>
+          <button className="w-full sm:w-auto cursor-pointer rounded-[var(--radius-sm)] border-none bg-[var(--primary)] px-8 py-3 text-[1rem] font-semibold text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all hover:-translate-y-[1px] hover:bg-[var(--primary-hover)] active:translate-y-[1px]" onClick={() => setShowCode(showCode === 'css' ? null : 'css')}>Copy CSS</button>
         </div>
 
         {showCode && (
-          <div className={styles.modalBackdrop} onClick={() => setShowCode(null)}>
-            <div className={styles.codeModal} onClick={e => e.stopPropagation()}>
-              <button className={styles.closeCodeBtn} onClick={() => setShowCode(null)}>
+          <div className="fixed left-0 top-0 z-[9999] flex h-screen w-screen items-center justify-center bg-[rgba(0,0,0,0.7)] p-4 backdrop-blur-[4px]" onClick={() => setShowCode(null)}>
+            <div className="relative max-h-[90vh] w-[min(700px,calc(100vw-2rem))] overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-primary)] p-5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]" onClick={e => e.stopPropagation()}>
+              <button className="absolute right-[15px] top-[15px] flex cursor-pointer items-center justify-center rounded-full border-none bg-transparent p-1.5 text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]" onClick={() => setShowCode(null)}>
                  <X size={20} />
               </button>
-              <pre>
+              <pre className="max-h-[calc(90vh-90px)] max-w-full overflow-auto whitespace-pre rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-secondary)] p-5 font-mono text-[0.95rem] leading-relaxed text-[var(--text-primary)]">
                 {showCode === 'html' ? generateHTML() : generateCSS()}
               </pre>
             </div>

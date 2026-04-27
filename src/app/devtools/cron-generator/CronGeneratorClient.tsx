@@ -4,13 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from './page.module.css';
 import { CalendarClock, Copy, Check, Info } from 'lucide-react';
-import * as cronParser from 'cron-parser';
+import { CronExpressionParser } from 'cron-parser';
 import cronstrue from 'cronstrue';
-
-import { FAQSchema } from '@/components/ui/FAQSchema';
-import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function CronGeneratorClient() {
     const [cronString, setCronString] = useState('*/15 * * * *');
     const [copied, setCopied] = useState(false);
@@ -29,9 +25,8 @@ export default function CronGeneratorClient() {
             // Generate Human Readable translation
             const humanText = cronstrue.toString(cronString, { verbose: true });
 
-            // Generate Upcoming Executions
-            // @ts-ignore
-            const interval = cronParser.parseExpression(cronString);
+            // Generate Upcoming Executions (cron-parser v5 API)
+            const interval = CronExpressionParser.parse(cronString);
             const dates = [];
             for (let i = 0; i < 5; i++) {
                 const obj = interval.next().toDate();
@@ -44,10 +39,11 @@ export default function CronGeneratorClient() {
             setTranslation(humanText);
             setNextDates(dates);
             setError(null);
-        } catch (e: any) {
+        } catch (e: unknown) {
+            const message = e instanceof Error ? e.message : 'Invalid cron expression';
             setTranslation('--');
             setNextDates([]);
-            setError(e.message || 'Invalid cron expression');
+            setError(message);
         }
     }, [cronString]);
 
@@ -64,45 +60,45 @@ export default function CronGeneratorClient() {
 
     return (
         <>
-            <div className={styles.wrapper}>
-                <header className={styles.header}>
+            <div className="min-h-screen bg-[var(--bg-primary)]">
+                <header className="bg-[radial-gradient(circle_at_50%_0%,rgba(139,92,246,0.05)_0%,transparent_50%)] py-12 text-center md:py-24">
                     <div className="container">
-                        <h1 className={styles.title}>Advanced Cron <span className={styles.accent}>Engine</span></h1>
-                        <p className={styles.subtitle}>Build valid cron syntax, see plain English translations, and preview execution timelines safely.</p>
+                        <h1 className="mb-4 text-[clamp(2.5rem,5vw,4rem)] font-black text-[var(--text-primary)]">Advanced Cron <span className="text-[#8b5cf6]">Engine</span></h1>
+                        <p className="text-xl text-[var(--text-secondary)]">Build valid cron syntax, see plain English translations, and preview execution timelines safely.</p>
                     </div>
                 </header>
 
                 <section className="container section">
-                    <div className={styles.container}>
-                        <Card className={styles.mainCard}>
-                            <div className={styles.resultBox}>
-                                <div className={styles.cronDisplayWrap}>
+                    <div className="mx-auto max-w-[1000px]">
+                        <Card className="!p-6 md:!p-10">
+                            <div className="mb-6 flex flex-col items-start justify-between gap-6 rounded-[var(--radius-lg)] bg-[#1e293b] p-6 lg:flex-row lg:p-8">
+                                <div className="flex w-full flex-col gap-4">
                                     <input
                                         type="text"
                                         value={cronString}
                                         onChange={(e) => setCronString(e.target.value)}
-                                        className={styles.cronInput}
+                                        className="w-full border-none bg-transparent font-mono text-[clamp(2rem,4vw,3rem)] font-extrabold tracking-[0.1em] text-[#8b5cf6] outline-none"
                                         spellCheck="false"
                                     />
                                     {error ? (
-                                        <div className={styles.errorText}>
+                                        <div className="mt-2 text-sm font-semibold text-[#ef4444]">
                                             Error: {error}
                                         </div>
                                     ) : (
-                                        <div className={styles.translationBox}>
+                                        <div className="inline-block max-w-fit rounded-[var(--radius-sm)] bg-[rgba(139,92,246,0.1)] px-4 py-3 text-lg font-semibold text-[#c4b5fd]">
                                             &quot;{translation}&quot;
                                         </div>
                                     )}
                                 </div>
-                                <button className={styles.copyBtn} onClick={copyToClipboard} disabled={!!error}>
+                                <button className="mt-0 flex shrink-0 cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border-none bg-[rgba(255,255,255,0.1)] px-5 py-3 font-bold text-white transition-all duration-200 hover:bg-[rgba(255,255,255,0.2)] lg:mt-2" onClick={copyToClipboard} disabled={!!error}>
                                     {copied ? <Check size={20} color="#10b981" /> : <Copy size={20} />}
                                     <span>{copied ? 'Copied' : 'Copy'}</span>
                                 </button>
                             </div>
 
-                            <div className={styles.gridSystem}>
-                                <div className={styles.timelineCard}>
-                                    <h3 className={styles.timelineHeader}>
+                            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[2fr_1fr]">
+                                <div className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] p-6">
+                                    <h3 className="mb-4 flex items-center gap-2 text-base font-extrabold text-[var(--text-primary)]">
                                         <CalendarClock size={20} color="#8b5cf6" />
                                         Next 5 Executions
                                     </h3>
@@ -111,11 +107,11 @@ export default function CronGeneratorClient() {
                                             Fix the cron syntax error to preview upcoming executions.
                                         </div>
                                     ) : (
-                                        <div className={styles.timelineList}>
+                                        <div className="ml-2 flex flex-col gap-0 border-l-2 border-[rgba(139,92,246,0.2)] pl-4">
                                             {nextDates.map((nd, idx) => (
-                                                <div key={idx} className={styles.timelineItem}>
-                                                    <div className={styles.timelineDate}>{nd.date}</div>
-                                                    <div className={styles.timelineTime}>{nd.time}</div>
+                                                <div key={idx} className="relative py-3 before:absolute before:-left-[1.4rem] before:top-1/2 before:h-[12px] before:w-[12px] before:-translate-y-1/2 before:rounded-full before:border-2 before:border-[#8b5cf6] before:bg-[var(--bg-secondary)] before:content-[''] first:before:bg-[#8b5cf6] first:before:shadow-[0_0_10px_rgba(139,92,246,0.4)]">
+                                                    <div className="text-[0.9375rem] font-bold text-[var(--text-primary)]">{nd.date}</div>
+                                                    <div className="mt-1 font-mono text-[0.8125rem] font-bold text-[#8b5cf6]">{nd.time}</div>
                                                 </div>
                                             ))}
                                         </div>
@@ -123,16 +119,16 @@ export default function CronGeneratorClient() {
                                 </div>
 
                                 <div>
-                                    <div className={styles.presets}>
-                                        <h4>Common Presets</h4>
-                                        <div className={styles.presetButtons}>
-                                            <button onClick={() => setPreset('0 0 * * *')} className={styles.presetBtn}>Daily at Midnight</button>
-                                            <button onClick={() => setPreset('0 12 * * *')} className={styles.presetBtn}>Daily at Noon</button>
-                                            <button onClick={() => setPreset('0 * * * *')} className={styles.presetBtn}>Top of every Hour</button>
-                                            <button onClick={() => setPreset('0 0 * * 1')} className={styles.presetBtn}>Every Monday Midnight</button>
-                                            <button onClick={() => setPreset('0 0 1 * *')} className={styles.presetBtn}>1st of the Month</button>
-                                            <button onClick={() => setPreset('*/5 * * * *')} className={styles.presetBtn}>Every 5 Minutes</button>
-                                            <button onClick={() => setPreset('0 0 * * 1-5')} className={styles.presetBtn}>Weekdays (Mon-Fri)</button>
+                                    <div className="mt-0 lg:mt-0">
+                                        <h4 className="mb-4 text-base font-extrabold text-[var(--text-primary)]">Common Presets</h4>
+                                        <div className="flex flex-wrap gap-4">
+                                            <button onClick={() => setPreset('0 0 * * *')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Daily at Midnight</button>
+                                            <button onClick={() => setPreset('0 12 * * *')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Daily at Noon</button>
+                                            <button onClick={() => setPreset('0 * * * *')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Top of every Hour</button>
+                                            <button onClick={() => setPreset('0 0 * * 1')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Every Monday Midnight</button>
+                                            <button onClick={() => setPreset('0 0 1 * *')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">1st of the Month</button>
+                                            <button onClick={() => setPreset('*/5 * * * *')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Every 5 Minutes</button>
+                                            <button onClick={() => setPreset('0 0 * * 1-5')} className="cursor-pointer rounded-full border border-[var(--border)] bg-transparent px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition-all duration-200 hover:border-[#8b5cf6] hover:bg-[rgba(139,92,246,0.05)] hover:text-[#8b5cf6]">Weekdays (Mon-Fri)</button>
                                         </div>
                                     </div>
 

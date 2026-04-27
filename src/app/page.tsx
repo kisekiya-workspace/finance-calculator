@@ -16,6 +16,21 @@ export const metadata: Metadata = {
     url: 'https://toolioz.com',
     siteName: 'Toolioz',
     type: 'website',
+    images: [
+      {
+        url: '/tooliozLogo.png',
+        width: 512,
+        height: 512,
+        alt: 'Toolioz logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Toolioz Utilities',
+    description:
+      'Finance calculators, developer tools, and PDF utilities built for fast workflows.',
+    images: ['/tooliozLogo.png'],
   }
 };
 

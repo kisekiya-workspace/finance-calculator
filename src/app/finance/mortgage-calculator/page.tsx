@@ -4,15 +4,15 @@ import MortgageClient from './MortgageClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Mortgage Affordability Calculator 2026 | FHA & VA Loan EMI | Toolioz",
-  description: "Calculate monthly mortgage payments, including PMI, taxes, and insurance. Easy FHA mortgage affordability tool for 2026 property planning.",
-  keywords: 'Mortgage calculator monthly payments, fha loan calculator, va loan emi tool, pmi insurance calculator, home affordability engine',
+  title: "Mortgage Calculator 2026 | Monthly Payment & Hidden Costs Guide | Toolioz",
+  description: "Calculate monthly mortgage payments for 15 or 30 year terms. Learn about PMI, closing costs, the 28/36 rule, and hidden expenses before buying your first home.",
+  keywords: 'mortgage calculator 2026, how much house can i afford calculator, 15 year vs 30 year mortgage comparison, first time home buyer calculator, mortgage payment with pmi, closing costs calculator, 28 36 rule mortgage, home loan emi calculator usa, monthly house payment estimator',
   alternates: {
     canonical: 'https://toolioz.com/finance/mortgage-calculator',
   },
   openGraph: {
-    title: 'Professional Mortgage Repayment Calculator | Toolioz',
-    description: 'Detailed breakdown of principal, interest, taxes and insurance for home buyers.',
+    title: 'Mortgage Calculator 2026 — What Banks Don\'t Tell You | Toolioz',
+    description: 'Calculate EMI, compare 15 vs 30 year terms, and learn about PMI, closing costs, and the real cost of homeownership.',
     url: 'https://toolioz.com/finance/mortgage-calculator',
     type: 'website',
   }

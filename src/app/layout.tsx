@@ -1,52 +1,53 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { JSONLD } from "@/components/ui/JSONLD";
-import Script from "next/script";
+import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
+import './globals.css';
+import { Navbar } from '@/components/layout/Navbar';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { JSONLD } from '@/components/ui/JSONLD';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://toolioz.com'),
   title: {
-    default: "Toolioz | Professional Finance & Developer Utilities",
-    template: "%s | Toolioz"
+    default: 'Toolioz | Finance, Dev, and PDF Utilities',
+    template: '%s | Toolioz',
   },
-  description: "The ultimate developer and finance utility suite. Accurate tax calculators (Budget 2026), SIP planners, CSS grid generators, and secure PDF tools.",
-  keywords: [
-    "toolioz", 
-    "income tax calculator 2026 india", 
-    "sip calculator", 
-    "css grid generator pro", 
-    "v4 uuid generator", 
-    "secure pdf merge", 
-    "image compressor without data leak"
-  ],
-  authors: [{ name: "Toolioz Professional" }],
+  description:
+    'A practical suite of finance calculators, developer tools, and PDF utilities built for fast daily workflows.',
+  applicationName: 'Toolioz',
+  alternates: {
+    canonical: 'https://toolioz.com',
+  },
+  authors: [{ name: 'Toolioz Team' }],
   icons: {
-    icon: "/finance_toolioz.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: '/tooliozLogo.svg', type: 'image/svg+xml' },
+      { url: '/tooliozLogo.png', type: 'image/png' },
+    ],
+    apple: '/tooliozLogo.png',
   },
+  manifest: '/manifest.webmanifest',
   openGraph: {
-    title: "Toolioz | Expert Multi-Utility Platform",
-    description: "Free, high-performance tools for financial planning and software development.",
-    url: "https://toolioz.com",
-    siteName: "Toolioz",
+    title: 'Toolioz | Finance, Dev, and PDF Utilities',
+    description:
+      'Use lightweight web tools for financial planning, developer workflows, and PDF management.',
+    url: 'https://toolioz.com',
+    siteName: 'Toolioz',
+    locale: 'en_US',
+    type: 'website',
     images: [
       {
-        url: "/og-main.png",
-        width: 1200,
-        height: 630,
-        alt: "Toolioz Utility Suite",
+        url: '/tooliozLogo.png',
+        width: 512,
+        height: 512,
+        alt: 'Toolioz utilities logo',
       },
     ],
-    locale: "en_US",
-    type: "website",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Toolioz | Professional Utilities",
-    description: "Finance, DevTools & PDF processing at your fingertips.",
-    images: ["/og-main.png"],
+    card: 'summary_large_image',
+    title: 'Toolioz Utilities',
+    description: 'Finance calculators, developer tools, and PDF utilities in one place.',
+    images: ['/tooliozLogo.png'],
   },
   robots: {
     index: true,
@@ -54,11 +55,17 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
+      'max-video-preview': -1,
     },
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#2563eb',
 };
 
 export default function RootLayout({
@@ -67,11 +74,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const orgJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Toolioz",
-    "url": "https://toolioz.com",
-    "logo": "https://toolioz.com/finance_toolioz.png"
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Toolioz',
+    url: 'https://toolioz.com',
+    logo: 'https://toolioz.com/tooliozLogo.png',
   };
 
   return (
@@ -86,7 +93,6 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-VM8TJM1RER');
           `}
         </Script>

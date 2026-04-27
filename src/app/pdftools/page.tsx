@@ -15,7 +15,21 @@ export const metadata: Metadata = {
     description: 'Manage, compress, and merge PDF files with advanced browser-native algorithms.',
     url: 'https://toolioz.com/pdftools',
     type: 'website',
-  }
+    images: [
+      {
+        url: '/tooliozLogo.png',
+        width: 512,
+        height: 512,
+        alt: 'Toolioz PDF Tools',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PDF Tools | Toolioz',
+    description: 'Merge, compress, and convert PDFs quickly and securely.',
+    images: ['/tooliozLogo.png'],
+  },
 };
 
 export default function PDFToolsLandingPage() {

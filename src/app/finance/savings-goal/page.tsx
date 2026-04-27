@@ -4,15 +4,15 @@ import SavingsGoalClient from './SavingsGoalClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Savings Goal Calculator | Reach Your Target Amount by 2026 | Toolioz",
-  description: "Calculate how much you need to save monthly to reach your financial goals. Perfect for house down payment or emergency fund targets in 2026.",
-  keywords: 'Savings goal calculator, monthly savings target tool, emergency fund planner, down payment calculator, wealth building tool',
+  title: "Savings Goal Calculator 2026 | Monthly Target & 50/30/20 Budget | Toolioz",
+  description: "Calculate how much to save monthly for a house, car, or emergency fund. Includes 50/30/20 budgeting rule, goal-based investing strategies, and sinking fund tips.",
+  keywords: 'savings goal calculator, how much to save per month for house, emergency fund calculator india, 50 30 20 rule calculator, down payment savings calculator, child education fund calculator, monthly savings target tool, financial goal planner, sinking fund calculator',
   alternates: {
     canonical: 'https://toolioz.com/finance/savings-goal',
   },
   openGraph: {
-    title: 'Financial Milestone Savings Planner | Toolioz',
-    description: 'Determine exactly how much you need to set aside to hit your big ticket milestones.',
+    title: 'Savings Goal Calculator 2026 — Monthly Target & Budgeting Tips | Toolioz',
+    description: 'Calculate monthly savings needed for your goals. Get tips on 50/30/20 budgeting, emergency funds, and goal-based investing.',
     url: 'https://toolioz.com/finance/savings-goal',
     type: 'website',
   }

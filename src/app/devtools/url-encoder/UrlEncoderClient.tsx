@@ -4,7 +4,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from './page.module.css';
+
 import { Check, Copy, Link as LinkIcon, Plus, Trash2 } from 'lucide-react';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
@@ -23,7 +23,7 @@ export default function UrlEncoderClient() {
     const [outputVal, setOutputVal] = useState('');
 
     // Builder State
-    const [baseUrl, setBaseUrl] = useState('https://toolioz.online/api/v1/search');
+    const [baseUrl, setBaseUrl] = useState('https://toolioz.com/api/v1/search');
     const [params, setParams] = useState<QueryParam[]>([
         { id: '1', key: 'q', value: 'url encoder' },
         { id: '2', key: 'sort', value: 'desc' },
@@ -112,33 +112,33 @@ export default function UrlEncoderClient() {
 
     return (
         <>
-            <div className={styles.wrapper}>
-                <header className={styles.header}>
+            <div className="min-h-screen bg-[var(--bg-primary)]">
+                <header className="bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.05)_0%,transparent_50%)] py-12 text-center md:py-24">
                     <div className="container">
-                        <h1 className={styles.title}>Visual URL <span className={styles.accent}>Builder</span></h1>
-                        <p className={styles.subtitle}>Parse, manipulate query strings visually, and encode components securely.</p>
+                        <h1 className="mb-4 text-[clamp(2.5rem,5vw,4rem)] font-black">Visual URL <span className="text-[#3b82f6]">Builder</span></h1>
+                        <p className="text-xl text-[var(--text-secondary)]">Parse, manipulate query strings visually, and encode components securely.</p>
                     </div>
                 </header>
 
                 <section className="container section">
-                    <div className={styles.container}>
-                        <Card className={styles.card}>
+                    <div className="mx-auto max-w-[1000px]">
+                        <Card className="!p-6 md:!p-10">
 
-                            <div className={styles.modeToggleWrap}>
+                            <div className="mb-10 flex flex-wrap items-center justify-center gap-4">
                                 <button
-                                    className={`${styles.modeBtn} ${mode === 'builder' ? styles.activeMode : ''}`}
+                                    className={`cursor-pointer rounded-full border-2 border-transparent px-8 py-3 text-base font-bold transition-all hover:bg-opacity-80 ${mode === 'builder' ? 'border-[#3b82f6] bg-[rgba(59,130,246,0.1)] text-[#3b82f6]' : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)]'}`}
                                     onClick={() => setMode('builder')}
                                 >
                                     URL Builder & Parser
                                 </button>
                                 <button
-                                    className={`${styles.modeBtn} ${mode === 'encode' ? styles.activeMode : ''}`}
+                                    className={`cursor-pointer rounded-full border-2 border-transparent px-8 py-3 text-base font-bold transition-all hover:bg-opacity-80 ${mode === 'encode' ? 'border-[#3b82f6] bg-[rgba(59,130,246,0.1)] text-[#3b82f6]' : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)]'}`}
                                     onClick={() => { setMode('encode'); handleBasicInput(inputVal, 'encode'); }}
                                 >
                                     String Encode
                                 </button>
                                 <button
-                                    className={`${styles.modeBtn} ${mode === 'decode' ? styles.activeMode : ''}`}
+                                    className={`cursor-pointer rounded-full border-2 border-transparent px-8 py-3 text-base font-bold transition-all hover:bg-opacity-80 ${mode === 'decode' ? 'border-[#3b82f6] bg-[rgba(59,130,246,0.1)] text-[#3b82f6]' : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)]'}`}
                                     onClick={() => { setMode('decode'); handleBasicInput(inputVal, 'decode'); }}
                                 >
                                     String Decode
@@ -146,46 +146,46 @@ export default function UrlEncoderClient() {
                             </div>
 
                             {mode === 'builder' ? (
-                                <div className={styles.builderLayout}>
-                                    <div className={styles.builderSection}>
-                                        <div className={styles.panelHeader}>
-                                            <h3>Base URL (Origin & Path)</h3>
+                                <div className="flex flex-col gap-8">
+                                    <div className="rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-6">
+                                        <div className="mb-4 flex items-center justify-between">
+                                            <h3 className="text-base font-extrabold uppercase tracking-widest text-[var(--text-secondary)]">Base URL (Origin & Path)</h3>
                                         </div>
                                         <input
                                             type="text"
-                                            className={`${styles.input} ${styles.fullInput}`}
+                                            className="mb-4 w-full rounded-sm border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3.5 font-['Fira_Code',monospace] text-[0.9375rem] text-[var(--text-primary)] outline-none transition-colors focus:border-[#3b82f6]"
                                             placeholder="https://example.com/api..."
                                             value={baseUrl}
                                             onChange={(e) => handleBaseUrlChange(e.target.value)}
                                         />
 
-                                        <div className={styles.panelHeader} style={{ marginTop: '1.5rem' }}>
-                                            <h3>Query Parameters</h3>
-                                            <button className={styles.addBtn} onClick={addParam}>
+                                        <div className="mb-4 mt-6 flex items-center justify-between">
+                                            <h3 className="text-base font-extrabold uppercase tracking-widest text-[var(--text-secondary)]">Query Parameters</h3>
+                                            <button className="flex cursor-pointer items-center gap-2 rounded-full border-none bg-[rgba(16,185,129,0.1)] px-4 py-2 text-[0.8125rem] font-bold text-[#10b981] transition-colors hover:bg-[rgba(16,185,129,0.2)]" onClick={addParam}>
                                                 <Plus size={16} /> Add Key
                                             </button>
                                         </div>
 
-                                        <div className={styles.queryParamsList}>
-                                            {params.length === 0 && <span className={styles.placeholder} style={{ display: 'block', marginBottom: '1rem' }}>No parameters added yet.</span>}
+                                        <div>
+                                            {params.length === 0 && <span className="mb-4 block italic text-[#64748b]">No parameters added yet.</span>}
                                             {params.map(param => (
-                                                <div key={param.id} className={styles.builderRow}>
+                                                <div key={param.id} className="mb-4 grid grid-cols-[1fr_auto] items-center gap-4 md:grid-cols-[1fr_1fr_auto]">
                                                     <input
                                                         type="text"
-                                                        className={styles.input}
+                                                        className="col-span-2 w-full rounded-sm border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3.5 font-['Fira_Code',monospace] text-[0.9375rem] text-[var(--text-primary)] outline-none transition-colors focus:border-[#3b82f6] md:col-span-1"
                                                         placeholder="Key (e.g. search)"
                                                         value={param.key}
                                                         onChange={(e) => updateParam(param.id, 'key', e.target.value)}
                                                     />
                                                     <input
                                                         type="text"
-                                                        className={styles.input}
+                                                        className="col-span-1 w-full rounded-sm border border-[var(--border)] bg-[var(--bg-primary)] px-4 py-3.5 font-['Fira_Code',monospace] text-[0.9375rem] text-[var(--text-primary)] outline-none transition-colors focus:border-[#3b82f6]"
                                                         placeholder="Value (automatically encoded)"
                                                         value={param.value}
                                                         onChange={(e) => updateParam(param.id, 'value', e.target.value)}
                                                     />
                                                     <button
-                                                        className={styles.removeBtn}
+                                                        className="col-span-1 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-none bg-[rgba(239,68,68,0.1)] text-[#ef4444] transition-all hover:bg-[#ef4444] hover:text-white"
                                                         onClick={() => removeParam(param.id)}
                                                         title="Remove Parameter"
                                                     >
@@ -196,27 +196,27 @@ export default function UrlEncoderClient() {
                                         </div>
                                     </div>
 
-                                    <div className={styles.panel}>
-                                        <div className={styles.panelHeader}>
-                                            <h3>Final Generated & Encoded URL</h3>
-                                            <button className={styles.copyBtn} onClick={() => copyToClipboard(builtUrl)}>
+                                    <div className="flex flex-col">
+                                        <div className="mb-4 flex items-center justify-between">
+                                            <h3 className="text-base font-extrabold uppercase tracking-widest text-[var(--text-secondary)]">Final Generated & Encoded URL</h3>
+                                            <button className="flex cursor-pointer items-center gap-2 border-none bg-none text-[0.8125rem] font-bold text-[var(--text-secondary)] transition-colors hover:text-[#3b82f6]" onClick={() => copyToClipboard(builtUrl)}>
                                                 {copied ? <Check size={16} color="#3b82f6" /> : <Copy size={16} />}
                                                 <span>{copied ? 'Copied' : 'Copy'}</span>
                                             </button>
                                         </div>
-                                        <div className={styles.outputArea} style={{ minHeight: '150px' }}>
+                                        <div className="relative flex-1 break-all rounded-md border border-[var(--border)] bg-[#1e293b] p-6 font-['Fira_Code',monospace] text-[0.9375rem] leading-relaxed text-[#e2e8f0] min-h-[150px]">
                                             {builtUrl}
                                         </div>
                                     </div>
                                 </div>
                             ) : (
-                                <div className={styles.panels}>
-                                    <div className={styles.panel}>
-                                        <div className={styles.panelHeader}>
-                                            <h3>Input {mode === 'encode' ? 'Text' : 'Encoded String'}</h3>
+                                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                                    <div className="flex flex-col">
+                                        <div className="mb-4 flex items-center justify-between">
+                                            <h3 className="text-base font-extrabold uppercase tracking-widest text-[var(--text-secondary)]">Input {mode === 'encode' ? 'Text' : 'Encoded String'}</h3>
                                         </div>
                                         <textarea
-                                            className={styles.textarea}
+                                            className="min-h-[200px] flex-1 resize-y rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-6 font-['Fira_Code',monospace] text-[0.9375rem] leading-relaxed text-[var(--text-primary)] outline-none transition-colors focus:border-[#3b82f6] md:min-h-[250px]"
                                             placeholder={mode === 'encode' ? 'Paste raw URI component or text...' : 'Paste encoded string...'}
                                             value={inputVal}
                                             onChange={(e) => handleBasicInput(e.target.value, mode)}
@@ -224,16 +224,16 @@ export default function UrlEncoderClient() {
                                         />
                                     </div>
 
-                                    <div className={styles.panel}>
-                                        <div className={styles.panelHeader}>
-                                            <h3>Output {mode === 'encode' ? 'Encoded' : 'Decoded Text'}</h3>
-                                            <button className={styles.copyBtn} onClick={() => copyToClipboard(outputVal)}>
+                                    <div className="flex flex-col">
+                                        <div className="mb-4 flex items-center justify-between">
+                                            <h3 className="text-base font-extrabold uppercase tracking-widest text-[var(--text-secondary)]">Output {mode === 'encode' ? 'Encoded' : 'Decoded Text'}</h3>
+                                            <button className="flex cursor-pointer items-center gap-2 border-none bg-none text-[0.8125rem] font-bold text-[var(--text-secondary)] transition-colors hover:text-[#3b82f6]" onClick={() => copyToClipboard(outputVal)}>
                                                 {copied ? <Check size={16} color="#3b82f6" /> : <Copy size={16} />}
                                                 <span>{copied ? 'Copied' : 'Copy'}</span>
                                             </button>
                                         </div>
-                                        <div className={styles.outputArea}>
-                                            {outputVal || <span className={styles.placeholder}>Result will appear here...</span>}
+                                        <div className="relative min-h-[200px] flex-1 break-all rounded-md border border-[var(--border)] bg-[#1e293b] p-6 font-['Fira_Code',monospace] text-[0.9375rem] leading-relaxed text-[#e2e8f0] md:min-h-[250px]">
+                                            {outputVal || <span className="italic text-[#64748b]">Result will appear here...</span>}
                                         </div>
                                     </div>
                                 </div>

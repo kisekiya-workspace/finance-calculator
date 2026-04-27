@@ -5,55 +5,46 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Mail, MessageCircle } from 'lucide-react';
-import styles from '@/app/SecondaryPage.module.css';
+import { secondaryPageStyles as styles } from '@/app/SecondaryPage.styles';
 
 export default function ContactClient() {
   return (
     <>
       <div className={styles.wrapper}>
         <header className={styles.header}>
-          <div className="container">
+          <div className="mx-auto max-w-6xl px-6">
             <h1 className={styles.title}>Contact Us</h1>
-            <p className={styles.subtitle}>We'd love to hear your feedback or suggestions for new tools.</p>
+            <p className={styles.subtitle}>We&apos;d love to hear your feedback or suggestions for new tools.</p>
           </div>
         </header>
 
-        <section className="container" style={{ maxWidth: '800px', margin: '0 auto', paddingBottom: '4rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-            <Card style={{ padding: '2rem' }}>
-               <h2 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: '700' }}>Get in Touch</h2>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <Mail style={{ color: 'var(--primary)' }} />
-                    <span>support@toolioz.online</span>
-                 </div>
-                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <MessageCircle style={{ color: 'var(--primary)' }} />
-                    <span>@TooliozCorp (Twitter)</span>
-                 </div>
-               </div>
-            </Card>
-
-            <Card style={{ padding: '2rem' }}>
-              <h2 style={{ marginBottom: '1rem', fontSize: '1.25rem', fontWeight: '700' }}>Quick Message</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <Input label="Your Name" placeholder="John Doe" />
-                <Input label="Email" type="email" placeholder="john@example.com" />
-                <textarea 
-                  placeholder="How can we help you?" 
-                  style={{ 
-                    width: '100%', 
-                    padding: '1rem', 
-                    borderRadius: 'var(--radius-md)', 
-                    border: '1px solid var(--border)',
-                    minHeight: '120px',
-                    fontFamily: 'inherit'
-                  }} 
-                />
-                <Button fullWidth>Send Message</Button>
+        <section className="mx-auto grid max-w-[800px] gap-8 px-6 pb-16 md:grid-cols-2">
+          <Card className="p-8">
+            <h2 className="mb-4 text-xl font-bold">Get in Touch</h2>
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-4">
+                <Mail className="text-[var(--primary)]" />
+                <span>support@toolioz.com</span>
               </div>
-            </Card>
-          </div>
+              <div className="flex items-center gap-4">
+                <MessageCircle className="text-[var(--primary)]" />
+                <span>@TooliozCorp (Twitter)</span>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-8">
+            <h2 className="mb-4 text-xl font-bold">Quick Message</h2>
+            <div className="flex flex-col gap-4">
+              <Input label="Your Name" placeholder="John Doe" />
+              <Input label="Email" type="email" placeholder="john@example.com" />
+              <textarea
+                placeholder="How can we help you?"
+                className="min-h-[120px] w-full rounded-[var(--radius-md)] border border-[var(--border)] p-4 outline-none transition-all duration-200 focus:border-[var(--primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.1)]"
+              />
+              <Button fullWidth>Send Message</Button>
+            </div>
+          </Card>
         </section>
       </div>
     </>

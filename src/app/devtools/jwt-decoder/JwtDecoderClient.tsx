@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from './page.module.css';
+
 import { Key, AlertCircle, ShieldCheck } from 'lucide-react';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
@@ -118,9 +118,9 @@ export default function JwtDecoderClient() {
             const isExpired = payload.exp < now;
             const expDate = new Date(payload.exp * 1000).toLocaleString();
             expNode = (
-                <div className={`${styles.timePill} ${isExpired ? styles.pillExpired : styles.pillActive}`}>
-                    <span>Expiration (exp)</span>
-                    <span>{expDate} {isExpired ? '(Expired)' : '(Valid)'}</span>
+                <div className={`flex min-w-[140px] flex-1 flex-col rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3`}>
+                    <span className="mb-1 text-xs font-bold uppercase text-[var(--text-secondary)]">Expiration (exp)</span>
+                    <span className={`text-sm font-semibold ${isExpired ? 'text-[#ef4444]' : 'text-[#10b981]'}`}>{expDate} {isExpired ? '(Expired)' : '(Valid)'}</span>
                 </div>
             );
         }
@@ -128,9 +128,9 @@ export default function JwtDecoderClient() {
         if (payload.iat) {
             const iatDate = new Date(payload.iat * 1000).toLocaleString();
             iatNode = (
-                <div className={styles.timePill}>
-                    <span>Issued At (iat)</span>
-                    <span>{iatDate}</span>
+                <div className="flex min-w-[140px] flex-1 flex-col rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3">
+                    <span className="mb-1 text-xs font-bold uppercase text-[var(--text-secondary)]">Issued At (iat)</span>
+                    <span className="text-sm font-semibold text-[var(--text-primary)]">{iatDate}</span>
                 </div>
             );
         }
@@ -140,9 +140,9 @@ export default function JwtDecoderClient() {
             iatNode = (
                 <>
                     {iatNode}
-                    <div className={styles.timePill}>
-                        <span>Not Before (nbf)</span>
-                        <span>{nbfDate}</span>
+                    <div className="flex min-w-[140px] flex-1 flex-col rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3">
+                        <span className="mb-1 text-xs font-bold uppercase text-[var(--text-secondary)]">Not Before (nbf)</span>
+                        <span className="text-sm font-semibold text-[var(--text-primary)]">{nbfDate}</span>
                     </div>
                 </>
             );
@@ -151,7 +151,7 @@ export default function JwtDecoderClient() {
         if (!expNode && !iatNode) return null;
 
         return (
-            <div className={styles.timePills}>
+            <div className="mt-4 flex flex-wrap gap-3">
                 {iatNode}
                 {expNode}
             </div>
@@ -160,24 +160,24 @@ export default function JwtDecoderClient() {
 
     return (
         <>
-            <div className={styles.wrapper}>
-                <header className={styles.header}>
+            <div className="min-h-screen bg-[var(--bg-primary)]">
+                <header className="bg-[radial-gradient(circle_at_50%_0%,rgba(244,63,94,0.05)_0%,transparent_50%)] py-16 text-center md:py-24">
                     <div className="container">
-                        <h1 className={styles.title}>Advanced JWT <span className={styles.accent}>Debugger</span></h1>
-                        <p className={styles.subtitle}>Decode tokens, verify HS256 signatures, and inspect payload schemas accurately.</p>
+                        <h1 className="mb-4 text-4xl font-black md:text-6xl">Advanced JWT <span className="text-[#f43f5e]">Debugger</span></h1>
+                        <p className="text-xl text-[var(--text-secondary)]">Decode tokens, verify HS256 signatures, and inspect payload schemas accurately.</p>
                     </div>
                 </header>
 
                 <section className="container section">
-                    <div className={styles.grid}>
-                        <div className={styles.inputCol}>
-                            <Card className={styles.card}>
-                                <div className={styles.cardHeader}>
-                                    <Key className={styles.icon} />
-                                    <h3>Encoded Token</h3>
+                    <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 lg:grid-cols-2">
+                        <div>
+                            <Card className="flex h-full flex-col">
+                                <div className="mb-6 flex items-center gap-3">
+                                    <Key className="text-[#f43f5e]" />
+                                    <h3 className="text-lg font-extrabold uppercase tracking-widest">Encoded Token</h3>
                                 </div>
                                 <textarea
-                                    className={styles.textarea}
+                                    className="mb-6 min-h-[200px] w-full flex-1 resize-none break-all rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-6 font-mono text-[0.9375rem] leading-relaxed text-[var(--text-primary)] outline-none transition-colors focus:border-[#f43f5e] lg:min-h-[300px]"
                                     placeholder="Paste your JWT here (ey...)"
                                     value={token}
                                     onChange={(e) => setToken(e.target.value)}
@@ -185,16 +185,16 @@ export default function JwtDecoderClient() {
                                 />
 
                                 {/* Signature Verification Block */}
-                                <div className={styles.verifySection}>
-                                    <div className={styles.verifyHeader}>
-                                        <h4>Verify Signature</h4>
-                                        {sigStatus === 'neutral' && <span className={`${styles.badge} ${styles.badgeNeutral}`}>Unverified</span>}
-                                        {sigStatus === 'verified' && <span className={`${styles.badge} ${styles.badgeVerified}`}>Signature Verified</span>}
-                                        {sigStatus === 'invalid' && <span className={`${styles.badge} ${styles.badgeInvalid}`}>Invalid Signature</span>}
+                                <div className="rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-5">
+                                    <div className="mb-4 flex items-center justify-between">
+                                        <h4 className="text-sm font-bold uppercase tracking-widest text-[var(--text-secondary)]">Verify Signature</h4>
+                                        {sigStatus === 'neutral' && <span className="rounded-full bg-[var(--border)] px-3 py-1.5 text-xs font-extrabold uppercase text-[var(--text-secondary)]">Unverified</span>}
+                                        {sigStatus === 'verified' && <span className="rounded-full bg-[rgba(16,185,129,0.15)] px-3 py-1.5 text-xs font-extrabold uppercase text-[#10b981]">Signature Verified</span>}
+                                        {sigStatus === 'invalid' && <span className="rounded-full bg-[rgba(239,68,68,0.15)] px-3 py-1.5 text-xs font-extrabold uppercase text-[#ef4444]">Invalid Signature</span>}
                                     </div>
                                     <input
                                         type="text"
-                                        className={styles.secretInput}
+                                        className="w-full rounded-md border border-[var(--border)] bg-[var(--bg-primary)] p-3.5 font-mono text-[0.9375rem] text-[var(--text-primary)] outline-none transition-colors focus:border-[#f43f5e]"
                                         placeholder="Secret Key (HMAC / HS256)"
                                         value={secret}
                                         onChange={(e) => setSecret(e.target.value)}
@@ -206,41 +206,41 @@ export default function JwtDecoderClient() {
                                     )}
                                 </div>
 
-                                <div className={styles.secureNotice}>
+                                <div className="mt-6 flex items-center gap-3 rounded-md bg-[rgba(16,185,129,0.1)] p-4 text-sm font-semibold text-[#065f46]">
                                     <ShieldCheck size={16} color="#10b981" />
                                     <span>Processed securely in your browser using Web Crypto APIs.</span>
                                 </div>
                             </Card>
                         </div>
 
-                        <div className={styles.outputCol}>
-                            <Card className={styles.card}>
-                                <div className={styles.cardHeader}>
-                                    <h3 style={{ color: '#ec4899' }}>Header <span style={{ opacity: 0.7, fontSize: '0.8rem', fontWeight: 500 }}>ALGORITHM & TTYP</span></h3>
+                        <div>
+                            <Card className="flex h-full flex-col">
+                                <div className="mb-6 flex items-center gap-3">
+                                    <h3 className="text-lg font-extrabold uppercase tracking-widest" style={{ color: '#ec4899' }}>Header <span style={{ opacity: 0.7, fontSize: '0.8rem', fontWeight: 500 }}>ALGORITHM & TTYP</span></h3>
                                 </div>
                                 {error ? (
-                                    <div className={styles.errorBox}>
+                                    <div className="flex items-center gap-3 rounded-md bg-[rgba(239,68,68,0.1)] p-6 font-semibold text-[#b91c1c]">
                                         <AlertCircle size={20} />
                                         <span>{error}</span>
                                     </div>
                                 ) : header ? (
-                                    <pre className={styles.jsonOutput}>{JSON.stringify(header, null, 2)}</pre>
+                                    <pre className="min-h-[100px] overflow-x-auto rounded-md bg-[#1e293b] p-6 font-mono text-[0.9375rem] leading-relaxed text-[#e2e8f0]">{JSON.stringify(header, null, 2)}</pre>
                                 ) : (
-                                    <div className={styles.emptyState}>Waiting for token...</div>
+                                    <div className="rounded-md border border-dashed border-[var(--border)] bg-[var(--bg-secondary)] py-12 text-center font-medium text-[var(--text-secondary)]">Waiting for token...</div>
                                 )}
                             </Card>
 
-                            <Card className={styles.card} style={{ marginTop: '1.5rem' }}>
-                                <div className={styles.cardHeader}>
-                                    <h3 style={{ color: '#8b5cf6' }}>Payload <span style={{ opacity: 0.7, fontSize: '0.8rem', fontWeight: 500 }}>CLAIMS</span></h3>
+                            <Card className="flex h-full flex-col" style={{ marginTop: '1.5rem' }}>
+                                <div className="mb-6 flex items-center gap-3">
+                                    <h3 className="text-lg font-extrabold uppercase tracking-widest" style={{ color: '#8b5cf6' }}>Payload <span style={{ opacity: 0.7, fontSize: '0.8rem', fontWeight: 500 }}>CLAIMS</span></h3>
                                 </div>
                                 {payload ? (
                                     <>
-                                        <pre className={styles.jsonOutput}>{JSON.stringify(payload, null, 2)}</pre>
+                                        <pre className="min-h-[100px] overflow-x-auto rounded-md bg-[#1e293b] p-6 font-mono text-[0.9375rem] leading-relaxed text-[#e2e8f0]">{JSON.stringify(payload, null, 2)}</pre>
                                         {renderTimePills()}
                                     </>
                                 ) : (
-                                    <div className={styles.emptyState}>Waiting for token...</div>
+                                    <div className="rounded-md border border-dashed border-[var(--border)] bg-[var(--bg-secondary)] py-12 text-center font-medium text-[var(--text-secondary)]">Waiting for token...</div>
                                 )}
                             </Card>
                         </div>

@@ -2,68 +2,140 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ShieldCheck, Zap, Heart, Instagram, Twitter, Github, Mail } from 'lucide-react';
-import styles from './Footer.module.css';
+import Image from 'next/image';
+import { ShieldCheck, Zap, Heart, Instagram, Twitter, Mail } from 'lucide-react';
+
+const socialLinks = [
+  { href: '#', icon: Instagram, label: 'Instagram' },
+  { href: '#', icon: Twitter, label: 'Twitter' },
+  { href: '#', icon: Mail, label: 'Email' },
+];
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={styles.footer}>
-      <div className="container">
-        <div className={styles.footerGrid}>
-          <div className={styles.brandBox}>
-            <Link href="/" className={styles.logo}>
-              Toolioz
+    <footer className="mt-auto border-t border-[var(--border)] bg-[var(--bg-secondary)] py-16 pb-12">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-20 grid gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.5fr]">
+          <div className="flex flex-col gap-6">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-3 text-[1.75rem] font-black tracking-[-0.02em]"
+            >
+              <Image
+                src="/tooliozLogo.svg"
+                alt="Toolioz logo"
+                width={36}
+                height={36}
+                className="rounded-lg"
+              />
+              <span>Toolioz</span>
             </Link>
-            <p className={styles.tagline}>
-              Empowering your digital life with precision-engineered tools. 
-              Always free, always private, always browser-local.
+            <p className="max-w-[320px] text-base leading-7 text-[var(--text-secondary)]">
+              Empowering your digital life with precision-engineered tools. Always free, always
+              private, always browser-local.
             </p>
-            <div className={styles.socials}>
-              <Link href="#" className={styles.socialLink}><Instagram size={20} /></Link>
-              <Link href="#" className={styles.socialLink}><Twitter size={20} /></Link>
-              <Link href="#" className={styles.socialLink}><Mail size={20} /></Link>
+            <div className="flex gap-4">
+              {socialLinks.map(({ href, icon: Icon, label }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--border)] bg-white text-[var(--text-secondary)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--primary)] hover:text-[var(--primary)]"
+                >
+                  <Icon size={20} />
+                </Link>
+              ))}
             </div>
           </div>
 
-          <div className={styles.linksColumn}>
-            <h4>Tools Hub</h4>
-            <Link href="/finance">Finance Calculators</Link>
-            <Link href="/devtools">Developer Tools</Link>
-            <Link href="/pdftools">PDF Utilities</Link>
-            <Link href="/finance/sip-calculator">SIP Calculator</Link>
+          <div className="flex flex-col gap-5">
+            <h4 className="mb-2 text-sm font-extrabold uppercase tracking-[0.1em] text-[var(--text-primary)]">
+              Tools Hub
+            </h4>
+            <Link
+              href="/finance"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              Finance Calculators
+            </Link>
+            <Link
+              href="/devtools"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              Developer Tools
+            </Link>
+            <Link
+              href="/pdftools"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              PDF Utilities
+            </Link>
+            <Link
+              href="/finance/sip-calculator"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              SIP Calculator
+            </Link>
           </div>
 
-          <div className={styles.linksColumn}>
-            <h4>Company</h4>
-            <Link href="/about">About Us</Link>
-            <Link href="/privacy-policy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Service</Link>
-            <Link href="/contact">Contact Support</Link>
+          <div className="flex flex-col gap-5">
+            <h4 className="mb-2 text-sm font-extrabold uppercase tracking-[0.1em] text-[var(--text-primary)]">
+              Company
+            </h4>
+            <Link
+              href="/about"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              About Us
+            </Link>
+            <Link
+              href="/privacy-policy"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/contact"
+              className="text-[0.9375rem] text-[var(--text-secondary)] transition-colors hover:text-[var(--primary)]"
+            >
+              Contact Support
+            </Link>
           </div>
 
-          <div className={styles.trustColumn}>
-            <div className={styles.trustCard}>
-              <ShieldCheck className={styles.trustIcon} />
-              <h5>Privacy First</h5>
-              <p>We use zero-server processing. Your data never leaves your machine.</p>
+          <div className="flex flex-col gap-6">
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6">
+              <ShieldCheck className="mb-4 text-emerald-500" />
+              <h5 className="mb-2 text-base font-bold text-[var(--text-primary)]">Privacy First</h5>
+              <p className="text-[0.8125rem] leading-6 text-[var(--text-secondary)]">
+                We use zero-server processing. Your data never leaves your machine.
+              </p>
             </div>
-            <div className={styles.trustCard}>
-              <Zap className={styles.trustIcon} />
-              <h5>Fast & Free</h5>
-              <p>Professional grade tools with no ads and no credit cards required.</p>
+            <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6">
+              <Zap className="mb-4 text-emerald-500" />
+              <h5 className="mb-2 text-base font-bold text-[var(--text-primary)]">Fast & Free</h5>
+              <p className="text-[0.8125rem] leading-6 text-[var(--text-secondary)]">
+                Professional grade tools with no ads and no credit cards required.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className={styles.bottomBar}>
-          <p className={styles.copyright}>
-            © {currentYear} Toolioz. Built with <Heart size={14} className={styles.heartIcon} /> for a smarter web.
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-[var(--border)] pt-12 text-center sm:flex-row sm:text-left">
+          <p className="flex items-center gap-2 text-sm text-[var(--text-tertiary)]">
+            © {currentYear} Toolioz. Built with <Heart size={14} className="text-red-500" /> for a
+            smarter web.
           </p>
-          <div className={styles.bottomLinks}>
+          <div className="flex items-center gap-5 text-[0.8125rem] font-semibold text-[var(--text-tertiary)]">
             <span>Version 2.0.4</span>
-            <div className={styles.dot} />
+            <div className="h-1 w-1 rounded-full bg-[var(--border)]" />
             <span>Serverless Architecture</span>
           </div>
         </div>

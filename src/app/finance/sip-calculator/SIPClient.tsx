@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateSIP } from '@/lib/formulas';
-import { Info, TrendingUp, Sparkles, Target } from 'lucide-react';
+import { Info, TrendingUp, Sparkles, Target, AlertTriangle } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
-import styles from '@/app/finance/compound-interest/page.module.css';
+import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 export default function SIPClient() {
   const [monthlyInvestment, setMonthlyInvestment] = useState<number>(5000);
   const [rate, setRate] = useState<number>(12);
   const [years, setYears] = useState<number>(10);
+  const [stepUpPercent, setStepUpPercent] = useState<number>(0);
   const [result, setResult] = useState<number>(0);
 
   // Persistence
@@ -29,21 +30,66 @@ export default function SIPClient() {
     if (savedYears) setYears(Number(savedYears));
   }, []);
 
+  // Step-up SIP calculation: each year the monthly amount increases by stepUpPercent%
+  const calculateStepUpSIP = (monthly: number, annualRate: number, totalYears: number, stepUp: number): number => {
+    if (stepUp === 0) return calculateSIP(monthly, annualRate, totalYears);
+    const i = annualRate / 12;
+    let total = 0;
+    let currentMonthly = monthly;
+    for (let yr = 0; yr < totalYears; yr++) {
+      // FV of annuity due for 12 months at this year's contribution
+      const fvYear = i === 0
+        ? currentMonthly * 12
+        : currentMonthly * ((Math.pow(1 + i, 12) - 1) / i) * (1 + i);
+      // Compound this year's FV for remaining years
+      const remainingMonths = (totalYears - yr - 1) * 12;
+      total += fvYear * Math.pow(1 + i, remainingMonths);
+      currentMonthly *= (1 + stepUp / 100);
+    }
+    return total;
+  };
+
   useEffect(() => {
     localStorage.setItem('toolioz_sip_monthly', monthlyInvestment.toString());
     localStorage.setItem('toolioz_sip_rate', rate.toString());
     localStorage.setItem('toolioz_sip_years', years.toString());
 
-    const finalAmount = calculateSIP(monthlyInvestment, rate / 100, years);
+    const finalAmount = calculateStepUpSIP(monthlyInvestment, rate / 100, years, stepUpPercent);
     setResult(finalAmount);
-  }, [monthlyInvestment, rate, years]);
+  }, [monthlyInvestment, rate, years, stepUpPercent]);
 
   const formatCurrency = (val: number) => {
     return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(val);
   };
 
-  const totalInvested = monthlyInvestment * years * 12;
+  // Calculate total invested considering step-up
+  const totalInvested = useMemo(() => {
+    let total = 0;
+    let currentMonthly = monthlyInvestment;
+    for (let yr = 0; yr < years; yr++) {
+      total += currentMonthly * 12;
+      currentMonthly *= (1 + stepUpPercent / 100);
+    }
+    return total;
+  }, [monthlyInvestment, years, stepUpPercent]);
+
   const wealthGained = result - totalInvested;
+
+  // Year-by-year breakdown
+  const yearlyBreakdown = useMemo(() => {
+    const rows: { year: number; invested: number; value: number }[] = [];
+    const i = (rate / 100) / 12;
+    let cumulativeInvested = 0;
+    let currentMonthly = monthlyInvestment;
+    
+    for (let yr = 1; yr <= Math.min(years, 30); yr++) {
+      cumulativeInvested += currentMonthly * 12;
+      const value = calculateStepUpSIP(monthlyInvestment, rate / 100, yr, stepUpPercent);
+      rows.push({ year: yr, invested: cumulativeInvested, value });
+      currentMonthly *= (1 + stepUpPercent / 100);
+    }
+    return rows;
+  }, [monthlyInvestment, rate, years, stepUpPercent]);
 
   return (
     <>
@@ -51,7 +97,10 @@ export default function SIPClient() {
         <header className={styles.header}>
           <div className="container">
             <h1 className={styles.title}>SIP Return Calculator 2026</h1>
-            <p className={styles.subtitle}>Plan your wealth creation with the best monthly SIP return calculator. See how to reach your 1 crore target.</p>
+            <p className={styles.subtitle}>Plan your wealth creation with the best monthly SIP return calculator. Includes Step-Up SIP for annual increment planning.</p>
+            <div className="mx-auto mt-6 max-w-[700px] rounded-lg border border-[#fbbf24] bg-[#fffbeb] px-4 py-3 text-left text-[0.8rem] leading-[1.6] text-[#92400e]">
+              <strong>⚠️ Disclaimer:</strong> Returns shown are <strong>hypothetical projections</strong> based on assumed rates of return. Mutual fund investments are subject to market risks. Past performance does not guarantee future results. This tool is for <strong>assumption &amp; planning purposes only</strong>.
+            </div>
           </div>
         </header>
 
@@ -80,16 +129,26 @@ export default function SIPClient() {
                   onChange={(e) => setYears(Number(e.target.value))}
                   suffix="years"
                 />
+                <Input 
+                  label="Annual Step-Up (Optional)" 
+                  type="number" 
+                  value={stepUpPercent} 
+                  onChange={(e) => setStepUpPercent(Number(e.target.value))}
+                  suffix="%"
+                />
+                <p className="mt-1 text-[0.75rem] text-[var(--text-tertiary)]">
+                  Step-Up SIP increases your monthly contribution by this % every year. Set to 0 for a regular SIP.
+                </p>
               </div>
             </Card>
 
             <div className={styles.resultCol}>
               <Card className={styles.resultCard} style={{ background: 'linear-gradient(135deg, #2563eb, #7c3aed)' }}>
-                <h2 className={styles.resultLabel}>Estimated Returns</h2>
+                <h2 className={styles.resultLabel}>Estimated Maturity Value</h2>
                 <div className={styles.resultValue}>{formatCurrency(result)}</div>
                 <div className={styles.stats}>
                   <div className={styles.statItem}>
-                    <span className={styles.statLabel}>Invested Amount</span>
+                    <span className={styles.statLabel}>Total Invested</span>
                     <span className={styles.statVal}>{formatCurrency(totalInvested)}</span>
                   </div>
                   <div className={styles.statItem}>
@@ -109,10 +168,69 @@ export default function SIPClient() {
               <div className={styles.infoBox}>
                 <div className={styles.infoIcon} style={{ color: '#2563eb' }}><Info size={20} /></div>
                 <p className={styles.infoText}>
-                  A Systematic Investment Plan (SIP) is a disciplined way to invest in dynamic financial markets, allowing you to invest small amounts periodically.
+                  A Systematic Investment Plan (SIP) is a disciplined way to invest in mutual funds. Equity SIPs have historically delivered 12–15% CAGR over 10+ years, while debt fund SIPs average 7–8%. Past performance is not indicative of future results.
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* Year-by-year breakdown table */}
+          {years > 0 && (
+            <div className="mx-auto mt-12 max-w-[900px]">
+              <Card className="!p-6">
+                <h3 className="mb-4 text-[1.1rem] font-bold text-[var(--text-primary)]">Year-by-Year Growth</h3>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-[0.875rem]">
+                    <thead>
+                      <tr className="border-b border-[var(--border)]">
+                        <th className="pb-3 pr-4 font-semibold text-[var(--text-secondary)]">Year</th>
+                        <th className="pb-3 pr-4 font-semibold text-[var(--text-secondary)]">Total Invested</th>
+                        <th className="pb-3 pr-4 font-semibold text-[var(--text-secondary)]">Est. Value</th>
+                        <th className="pb-3 font-semibold text-[var(--text-secondary)]">Gains</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {yearlyBreakdown.map((row) => (
+                        <tr key={row.year} className="border-b border-[var(--border)] last:border-0">
+                          <td className="py-2.5 pr-4 font-medium">{row.year}</td>
+                          <td className="py-2.5 pr-4 text-[var(--text-secondary)]">{formatCurrency(row.invested)}</td>
+                          <td className="py-2.5 pr-4 font-semibold">{formatCurrency(row.value)}</td>
+                          <td className="py-2.5 font-semibold" style={{ color: row.value - row.invested > 0 ? '#16a34a' : '#ef4444' }}>
+                            {formatCurrency(row.value - row.invested)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </Card>
+            </div>
+          )}
+          {/* Tax Implications Section */}
+          <div className="mx-auto mt-12 max-w-[900px]">
+            <Card className="!p-8 border-l-4 border-l-[#10b981] bg-[#f0fdf4]">
+              <h2 className="mb-6 text-[1.4rem] font-bold text-[#065f46] flex items-center gap-2">
+                <ShieldCheck className="text-[#10b981]" /> 💸 Tax Implications on SIP Returns (2026-27)
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="mb-3 text-[1.05rem] font-bold text-[#065f46]">Equity Mutual Funds</h3>
+                  <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#065f46]/80">
+                    <li><strong>LTCG (Long Term):</strong> If held for &gt;1 year, gains above <strong>₹1.25 Lakh</strong> are taxed at <strong>12.5%</strong>.</li>
+                    <li><strong>STCG (Short Term):</strong> If sold within 1 year, gains are taxed at a flat <strong>20%</strong>.</li>
+                    <li><strong>Strategy:</strong> Plan your redemptions to stay under the ₹1.25L annual limit to pay zero tax.</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="mb-3 text-[1.05rem] font-bold text-[#065f46]">Debt Mutual Funds</h3>
+                  <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#065f46]/80">
+                    <li><strong>Taxation:</strong> All gains from debt funds (SIP or Lumpsum) are added to your income and taxed as per your <strong>Income Tax Slab</strong>.</li>
+                    <li><strong>No LTCG benefit:</strong> Since April 2023, debt funds no longer enjoy indexation or 20% flat tax benefits.</li>
+                    <li><strong>Indexation:</strong> Only applicable to non-equity oriented funds bought before April 1, 2023.</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
           </div>
         </section>
 
@@ -129,19 +247,57 @@ Our professional SIP calculator is designed to help you visualize this journey. 
             "Enter the Fixed Amount you intend to invest every month (Monthly SIP contribution).",
             "Input the Expected Annual Rate of Return based on the historical performance of your chosen fund.",
             "Select the Investment Period in years to see the long-term impact of compounding.",
+            "Optionally set a Step-Up % to simulate increasing your SIP by a fixed percentage every year.",
             "Instantly view the Total Maturity Value after the specified period.",
-            "Analyze the breakdown: See exactly how much you invested vs. how much wealth you gained.",
-            "Experiment with the 'Step Up' approach—see what happens if you increase your SIP by 10% every year."
+            "Analyze the year-by-year breakdown table to track your wealth growth over time."
           ]}
           benefits={[
             "Market Volatility Protection: Benefit from Rupee Cost Averaging and ignore market noise.",
             "Wealth Snowball: Harness the compounding effect to grow even small amounts into a fortune.",
-            "Discipline & Automation: Build a healthy saving habit without needing to manually invest every month.",
+            "Step-Up SIP: Model real-world salary increments for more accurate projections.",
             "Goal-Based Planning: Align your monthly savings with specific future milestones.",
             "Liquidity & Flexibility: Most SIPs allow you to stop, pause, or increase your investments at any time."
           ]}
           formula="M = P * [ ((1 + i)^n - 1) / i ] * (1 + i)"
         />
+
+        {/* Real-World Tips Section */}
+        <section className="mx-auto max-w-[900px] px-6 py-12">
+          <Card className="!p-8">
+            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">📈 SIP Investing — Tips They Don&apos;t Teach You</h2>
+            
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">📋 Key Terms Every SIP Investor Must Know</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>NAV (Net Asset Value):</strong> The price of one unit of a mutual fund. Your SIP buys more units when NAV is low and fewer when it&apos;s high — that&apos;s Rupee Cost Averaging.</li>
+                <li><strong>Expense Ratio:</strong> The annual fee charged by the fund house (0.5–2.5%). Even a 0.5% difference compounds to lakhs over 20 years. Always compare.</li>
+                <li><strong>Exit Load:</strong> A fee (usually 1%) if you redeem within 1 year. After 1 year, most equity funds have zero exit load.</li>
+                <li><strong>XIRR vs CAGR:</strong> For SIPs, XIRR (Extended Internal Rate of Return) is the correct metric, not CAGR. XIRR accounts for multiple cash flows at different dates.</li>
+              </ul>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">⚡ Common Mistakes That Cost Money</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>Stopping SIP during market crashes:</strong> This is exactly when you should continue — you&apos;re buying units at a discount. The biggest SIP wealth is made in bear markets.</li>
+                <li><strong>Chasing last year&apos;s top performer:</strong> Past returns ≠ future returns. Choose based on consistency over 5–10 years, not 1-year rankings.</li>
+                <li><strong>Too many funds:</strong> 3–4 funds is optimal. More than 7 funds leads to &quot;diworsification&quot; — overlapping stocks reduce your effective returns.</li>
+                <li><strong>Ignoring step-up:</strong> If you don&apos;t increase your SIP by at least 10% annually, inflation erodes the real value of your contributions.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">💡 Pro Tips for Maximum Wealth Creation</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li>✅ Start SIP <strong>on the 1st or 5th</strong> of the month — historically, these dates have shown marginally better returns over 10+ years.</li>
+                <li>✅ Use <strong>Direct plans</strong> (not Regular) — they have 0.5–1% lower expense ratios. Over 20 years, this saves ₹5–15 lakh.</li>
+                <li>✅ <strong>₹500/month for 30 years at 12%</strong> = ₹17.6 lakh. Starting early beats investing more later.</li>
+                <li>✅ After reaching your goal, <strong>switch to STP</strong> (Systematic Transfer Plan) — gradually move from equity to debt to protect gains.</li>
+                <li>✅ Tax tip: Equity fund LTCG above ₹1.25 lakh/year is taxed at 12.5%. Harvest gains annually to stay below this limit.</li>
+              </ul>
+            </div>
+          </Card>
+        </section>
       <Footer />
     </div>
     </>

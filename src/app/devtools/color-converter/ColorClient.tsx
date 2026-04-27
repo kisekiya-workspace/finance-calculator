@@ -234,14 +234,14 @@ export default function ColorClient({ title, color }: { title?: string, color?: 
   }, [hex, hsl]);
 
   const TokenSwatch = ({ name, hx }: { name: string, hx: string }) => (
-    <div className={styles.themeToken}>
-      <span className={styles.tokenLabel}>{name}</span>
+    <div className="flex flex-col gap-2.5">
+      <span className="text-[0.9rem] font-bold uppercase tracking-[0.05em] text-[var(--text-secondary)]">{name}</span>
       <div 
-        className={styles.tokenSwatch} 
+        className="relative flex h-[80px] cursor-pointer items-end justify-between overflow-hidden rounded-[var(--radius-md)] border border-[rgba(255,255,255,0.1)] p-2.5 shadow-[var(--shadow-sm)] transition-all duration-200 hover:-translate-y-[2px] hover:shadow-[var(--shadow-md)]" 
         style={{ backgroundColor: hx }}
         onClick={() => { updateFromHex(hx); copyToClipboard(hx, hx); }}
       >
-        <span className={styles.tokenBgLabel}>{copiedFormat === hx ? 'Copied' : hx}</span>
+        <span className="rounded-[var(--radius-sm)] bg-[rgba(0,0,0,0.5)] px-2 py-1 font-mono text-[0.8rem] text-white backdrop-blur-[4px]">{copiedFormat === hx ? 'Copied' : hx}</span>
       </div>
     </div>
   );
@@ -252,115 +252,115 @@ export default function ColorClient({ title, color }: { title?: string, color?: 
   const getMeshCSS = () => `background-image: ${bgImageCss.replace(/\n/g, ' ')};\nbackground-color: ${fallbackColor}55;`;
 
   return (
-    <div className={styles.pageContainer}>
+    <div className="flex min-h-screen flex-col">
       
-      <main className={styles.workspace}>
-        <header className={styles.seoHeader}>
-          <h1 className={styles.title}>{title || 'Color Format Suite'}</h1>
-          <p className={styles.description}>
+      <main className="mx-auto w-full max-w-[900px] flex-1 px-5 py-10">
+        <header className="mb-12 text-center">
+          <h1 className="mb-4 text-[2.5rem] font-extrabold text-[var(--text-primary)]">{title || 'Color Format Suite'}</h1>
+          <p className="text-[1.1rem] leading-[1.6] text-[var(--text-secondary)]">
             Generate dynamic Web UI Themes, test Typographical Contrast legibility, and orchestrate Mesh Gradients seamlessly based on RGB, HEX or HSL input.
           </p>
         </header>
 
         {/* --- Visibility/Legibility Tester --- */}
-        <section className={styles.visibilitySection}>
+        <section className="mb-8 overflow-hidden rounded-[var(--radius-xl)] border border-[var(--glass-border)] bg-[var(--glass)] backdrop-blur-[12px]">
           <div 
-            className={styles.visibilityWindow} 
+            className="relative flex min-h-[250px] flex-col items-center justify-center px-10 py-[60px] text-center transition-colors duration-300 ease-in-out" 
             style={{ backgroundColor: !hexError ? hex : '#374151' }}
           >
-            <h2 className={styles.visibilityText} style={{ color: currentTextHex }}>
+            <h2 className="mb-4 text-[2.5rem] font-extrabold transition-colors duration-300 ease-in-out" style={{ color: currentTextHex }}>
               Accessibility Canvas
             </h2>
-            <p className={styles.visibilitySubtext} style={{ color: currentTextHex, opacity: 0.9 }}>
+            <p className="max-w-[600px] text-[1rem] font-normal leading-[1.6] transition-colors duration-300 ease-in-out" style={{ color: currentTextHex, opacity: 0.9 }}>
               This module simulates your typography resting on the generated background. Use this interface to organically detect reading friction before developers push code live to production environments.
             </p>
           </div>
           
-          <div className={styles.visibilityControls}>
-            <div className={styles.textModeSelector}>
-              <span className={styles.textModeLabel}>Text Mode:</span>
-              <label className={styles.radioLabel}>
+          <div className="flex flex-wrap items-center justify-between gap-5 border-t border-[var(--border)] bg-[var(--bg-primary)] px-8 py-5">
+            <div className="flex items-center gap-4">
+              <span className="text-[0.9rem] font-semibold uppercase text-[var(--text-secondary)]">Text Mode:</span>
+              <label className="flex cursor-pointer items-center gap-1.5 text-[0.95rem] text-[var(--text-primary)]">
                 <input type="radio" checked={textMode === 'auto'} onChange={() => setTextMode('auto')} /> Auto
               </label>
-              <label className={styles.radioLabel}>
+              <label className="flex cursor-pointer items-center gap-1.5 text-[0.95rem] text-[var(--text-primary)]">
                 <input type="radio" checked={textMode === 'white'} onChange={() => setTextMode('white')} /> White
               </label>
-              <label className={styles.radioLabel}>
+              <label className="flex cursor-pointer items-center gap-1.5 text-[0.95rem] text-[var(--text-primary)]">
                 <input type="radio" checked={textMode === 'black'} onChange={() => setTextMode('black')} /> Black
               </label>
-              <label className={styles.radioLabel}>
+              <label className="flex cursor-pointer items-center gap-1.5 text-[0.95rem] text-[var(--text-primary)]">
                 <input type="radio" checked={textMode === 'custom'} onChange={() => setTextMode('custom')} /> Custom
                 {textMode === 'custom' && (
-                  <input type="text" className={styles.customTextInput} value={customTextHex} onChange={e => setCustomTextHex(e.target.value)} maxLength={7} />
+                  <input type="text" className="w-[80px] border-none border-b border-[var(--text-secondary)] bg-transparent p-1 font-mono text-[0.9rem] text-[var(--text-primary)] outline-none focus:border-[var(--primary)] focus:outline-none" value={customTextHex} onChange={e => setCustomTextHex(e.target.value)} maxLength={7} />
                 )}
               </label>
             </div>
 
-            <div className={styles.wcagBadges}>
-              <div className={styles.wcagBadge} title="Contrast Ratio Metric">
+            <div className="flex gap-2">
+              <div className="flex items-center gap-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-[0.85rem] font-bold text-[var(--text-primary)]" title="Contrast Ratio Metric">
                 Ratio: {currentContrast}
               </div>
-              <div className={styles.wcagBadge}>
-                Large Text: <span className={passLarge ? styles.wcagPass : styles.wcagFail}>{passLarge ? 'PASS' : 'FAIL'}</span>
+              <div className="flex items-center gap-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-[0.85rem] font-bold text-[var(--text-primary)]">
+                Large Text: <span className={passLarge ? 'text-[#10b981]' : 'text-[#ef4444]'}>{passLarge ? 'PASS' : 'FAIL'}</span>
               </div>
-              <div className={styles.wcagBadge}>
-                Normal Text: <span className={passNormal ? styles.wcagPass : styles.wcagFail}>{passNormal ? 'PASS' : 'FAIL'}</span>
+              <div className="flex items-center gap-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] px-3 py-1.5 text-[0.85rem] font-bold text-[var(--text-primary)]">
+                Normal Text: <span className={passNormal ? 'text-[#10b981]' : 'text-[#ef4444]'}>{passNormal ? 'PASS' : 'FAIL'}</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* --- Primary Converters --- */}
-        <section className={styles.conversionGrid}>
+        <section className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5">
           {/* HEX Card */}
-          <div className={styles.colorCard}>
-            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>HEX</h2></div>
-            <div className={styles.copyArea}>
-              <input type="text" className={styles.colorInput} value={hex} onChange={(e) => handleHexChange(e.target.value)} maxLength={7} />
-              <button className={styles.copyBtn} onClick={() => copyToClipboard(hex.toUpperCase(), 'hex')}>
+          <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-[var(--glass-border)] bg-[var(--glass)] p-6 backdrop-blur-[12px]">
+            <div className="flex items-center justify-between"><h2 className="text-[1.1rem] font-bold text-[var(--text-primary)]">HEX</h2></div>
+            <div className="flex overflow-hidden rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)]">
+              <input type="text" className="w-full flex-1 border-none bg-transparent p-3 px-4 font-mono text-[1rem] text-[var(--text-primary)] outline-none focus:outline-none" value={hex} onChange={(e) => handleHexChange(e.target.value)} maxLength={7} />
+              <button className="flex cursor-pointer items-center justify-center border-l border-none border-l-[var(--border)] bg-[var(--bg-secondary)] px-4 text-[var(--text-secondary)] transition-all duration-200 hover:bg-[var(--primary)] hover:text-white" onClick={() => copyToClipboard(hex.toUpperCase(), 'hex')}>
                 {copiedFormat === 'hex' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
               </button>
             </div>
-            {hexError && <div className={styles.errorText}>Invalid HEX format</div>}
+            {hexError && <div className="-mt-[5px] text-[0.85rem] font-medium text-[#ef4444]">Invalid HEX format</div>}
           </div>
 
           {/* RGB Card */}
-          <div className={styles.colorCard}>
-            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>RGB</h2></div>
-            <div className={styles.copyArea}>
-              <input type="text" className={styles.colorInput} value={`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`} readOnly />
-              <button className={styles.copyBtn} onClick={() => copyToClipboard(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')}>
+          <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-[var(--glass-border)] bg-[var(--glass)] p-6 backdrop-blur-[12px]">
+            <div className="flex items-center justify-between"><h2 className="text-[1.1rem] font-bold text-[var(--text-primary)]">RGB</h2></div>
+            <div className="flex overflow-hidden rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)]">
+              <input type="text" className="w-full flex-1 border-none bg-transparent p-3 px-4 font-mono text-[1rem] text-[var(--text-primary)] outline-none focus:outline-none" value={`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`} readOnly />
+              <button className="flex cursor-pointer items-center justify-center border-l border-none border-l-[var(--border)] bg-[var(--bg-secondary)] px-4 text-[var(--text-secondary)] transition-all duration-200 hover:bg-[var(--primary)] hover:text-white" onClick={() => copyToClipboard(`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, 'rgb')}>
                 {copiedFormat === 'rgb' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
               </button>
             </div>
-            <div className={styles.sliders}>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>R</span><input type="range" min="0" max="255" value={rgb.r} className={styles.slider} onChange={(e) => handleRgbChange(Number(e.target.value), rgb.g, rgb.b)} /></div>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>G</span><input type="range" min="0" max="255" value={rgb.g} className={styles.slider} onChange={(e) => handleRgbChange(rgb.r, Number(e.target.value), rgb.b)} /></div>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>B</span><input type="range" min="0" max="255" value={rgb.b} className={styles.slider} onChange={(e) => handleRgbChange(rgb.r, rgb.g, Number(e.target.value))} /></div>
+            <div className="mt-2 flex flex-col gap-2">
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">R</span><input type="range" min="0" max="255" value={rgb.r} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleRgbChange(Number(e.target.value), rgb.g, rgb.b)} /></div>
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">G</span><input type="range" min="0" max="255" value={rgb.g} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleRgbChange(rgb.r, Number(e.target.value), rgb.b)} /></div>
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">B</span><input type="range" min="0" max="255" value={rgb.b} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleRgbChange(rgb.r, rgb.g, Number(e.target.value))} /></div>
             </div>
           </div>
 
           {/* HSL Card */}
-          <div className={styles.colorCard}>
-            <div className={styles.cardHeader}><h2 className={styles.cardTitle}>HSL</h2></div>
-            <div className={styles.copyArea}>
-              <input type="text" className={styles.colorInput} value={`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`} readOnly />
-              <button className={styles.copyBtn} onClick={() => copyToClipboard(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')}>
+          <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-[var(--glass-border)] bg-[var(--glass)] p-6 backdrop-blur-[12px]">
+            <div className="flex items-center justify-between"><h2 className="text-[1.1rem] font-bold text-[var(--text-primary)]">HSL</h2></div>
+            <div className="flex overflow-hidden rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)]">
+              <input type="text" className="w-full flex-1 border-none bg-transparent p-3 px-4 font-mono text-[1rem] text-[var(--text-primary)] outline-none focus:outline-none" value={`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`} readOnly />
+              <button className="flex cursor-pointer items-center justify-center border-l border-none border-l-[var(--border)] bg-[var(--bg-secondary)] px-4 text-[var(--text-secondary)] transition-all duration-200 hover:bg-[var(--primary)] hover:text-white" onClick={() => copyToClipboard(`hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`, 'hsl')}>
                 {copiedFormat === 'hsl' ? <Check size={18} color="#10b981" /> : <Copy size={18} />}
               </button>
             </div>
-            <div className={styles.sliders}>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>H</span><input type="range" min="0" max="360" value={hsl.h} className={styles.slider} onChange={(e) => handleHslChange(Number(e.target.value), hsl.s, hsl.l)} /></div>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>S</span><input type="range" min="0" max="100" value={hsl.s} className={styles.slider} onChange={(e) => handleHslChange(hsl.h, Number(e.target.value), hsl.l)} /></div>
-              <div className={styles.sliderRow}><span className={styles.sliderLabel}>L</span><input type="range" min="0" max="100" value={hsl.l} className={styles.slider} onChange={(e) => handleHslChange(hsl.h, hsl.s, Number(e.target.value))} /></div>
+            <div className="mt-2 flex flex-col gap-2">
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">H</span><input type="range" min="0" max="360" value={hsl.h} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleHslChange(Number(e.target.value), hsl.s, hsl.l)} /></div>
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">S</span><input type="range" min="0" max="100" value={hsl.s} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleHslChange(hsl.h, Number(e.target.value), hsl.l)} /></div>
+              <div className="flex items-center gap-2"><span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">L</span><input type="range" min="0" max="100" value={hsl.l} className="flex-1 accent-[var(--primary)]" onChange={(e) => handleHslChange(hsl.h, hsl.s, Number(e.target.value))} /></div>
             </div>
           </div>
         </section>
 
         {/* --- Web UI Theme System --- */}
-        <section className={styles.advancedSection}>
-          <h2 className={styles.advancedHeader}>Web UI Theme Generator</h2>
-          <div className={styles.themeGrid}>
+        <section className="mb-8 rounded-[var(--radius-xl)] border border-[var(--glass-border)] bg-[var(--glass)] p-8 backdrop-blur-[12px]">
+          <h2 className="mb-6 border-b border-[var(--border)] pb-2.5 text-[1.5rem] font-bold text-[var(--text-primary)]">Web UI Theme Generator</h2>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-5">
             {themeTokens.map(token => (
               <TokenSwatch key={token.name} name={token.name} hx={token.hex} />
             ))}
@@ -368,35 +368,35 @@ export default function ColorClient({ title, color }: { title?: string, color?: 
         </section>
 
         {/* --- Gradient Mesh Generator --- */}
-        <section className={styles.advancedSection}>
-          <h2 className={styles.advancedHeader}>Interactive Mesh Generator</h2>
+        <section className="mb-8 rounded-[var(--radius-xl)] border border-[var(--glass-border)] bg-[var(--glass)] p-8 backdrop-blur-[12px]">
+          <h2 className="mb-6 border-b border-[var(--border)] pb-2.5 text-[1.5rem] font-bold text-[var(--text-primary)]">Interactive Mesh Generator</h2>
           
-          <div className={styles.meshContainer}>
-            <div className={styles.meshPreview} style={currentMeshStyle} />
+          <div className="flex flex-col gap-5">
+            <div className="h-[300px] w-full rounded-[var(--radius-lg)] border border-[var(--border)] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] transition-colors duration-200" style={currentMeshStyle} />
             
-            <div className={styles.nodesGrid}>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--bg-primary)] p-5">
               {nodes.map((node, i) => (
-                <div key={node.id} className={styles.nodeEditor}>
-                  <div className={styles.nodeHeader}>
-                    <span className={styles.nodeTitle}>Node {i + 1}</span>
-                    <input type="color" value={node.hex} onChange={(e) => updateNode(node.id, 'hex', e.target.value)} className={styles.nodeColorInput} />
+                <div key={node.id} className="flex flex-col gap-2.5 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[0.85rem] font-semibold uppercase text-[var(--text-secondary)]">Node {i + 1}</span>
+                    <input type="color" value={node.hex} onChange={(e) => updateNode(node.id, 'hex', e.target.value)} className="h-[30px] w-[30px] cursor-pointer border-none bg-transparent p-0 [&::-webkit-color-swatch-wrapper]:p-0 [&::-webkit-color-swatch]:rounded-[4px] [&::-webkit-color-swatch]:border [&::-webkit-color-swatch]:border-[var(--border)]" />
                   </div>
-                  <div className={styles.sliders}>
-                    <div className={styles.sliderRow}>
-                      <span className={styles.sliderLabel}>X%</span>
-                      <input type="range" min="0" max="100" value={node.x} onChange={(e)=>updateNode(node.id, 'x', Number(e.target.value))} className={styles.slider} />
+                  <div className="mt-2 flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">X%</span>
+                      <input type="range" min="0" max="100" value={node.x} onChange={(e)=>updateNode(node.id, 'x', Number(e.target.value))} className="flex-1 accent-[var(--primary)]" />
                     </div>
-                    <div className={styles.sliderRow}>
-                      <span className={styles.sliderLabel}>Y%</span>
-                      <input type="range" min="0" max="100" value={node.y} onChange={(e)=>updateNode(node.id, 'y', Number(e.target.value))} className={styles.slider} />
+                    <div className="flex items-center gap-2">
+                      <span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">Y%</span>
+                      <input type="range" min="0" max="100" value={node.y} onChange={(e)=>updateNode(node.id, 'y', Number(e.target.value))} className="flex-1 accent-[var(--primary)]" />
                     </div>
-                    <div className={styles.sliderRow}>
-                      <span className={styles.sliderLabel}>Blur</span>
-                      <input type="range" min="10" max="100" value={node.spread} onChange={(e)=>updateNode(node.id, 'spread', Number(e.target.value))} className={styles.slider} />
+                    <div className="flex items-center gap-2">
+                      <span className="w-[20px] text-[0.8rem] font-semibold text-[var(--text-secondary)]">Blur</span>
+                      <input type="range" min="10" max="100" value={node.spread} onChange={(e)=>updateNode(node.id, 'spread', Number(e.target.value))} className="flex-1 accent-[var(--primary)]" />
                     </div>
                   </div>
                   {nodes.length > 2 && (
-                    <button className={styles.actionBtn} style={{marginTop: '10px'}} onClick={() => removeNode(node.id)}>
+                    <button className="mt-[10px] flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)] px-5 py-2.5 font-semibold text-[var(--text-primary)] transition-all duration-200 hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-white" onClick={() => removeNode(node.id)}>
                       <X size={14} /> Remove Node
                     </button>
                   )}
@@ -404,17 +404,17 @@ export default function ColorClient({ title, color }: { title?: string, color?: 
               ))}
             </div>
 
-            <div className={styles.meshControls}>
-              <div className={styles.btnGroup}>
-                <button className={styles.actionBtn} onClick={addNode}>
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-5">
+              <div className="flex flex-wrap gap-2.5">
+                <button className="flex cursor-pointer items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)] px-5 py-2.5 font-semibold text-[var(--text-primary)] transition-all duration-200 hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-white" onClick={addNode}>
                   <Plus size={16} /> Add Node
                 </button>
-                <button className={styles.actionBtn} onClick={generateRandomMesh}>
+                <button className="flex cursor-pointer items-center gap-2 rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--bg-primary)] px-5 py-2.5 font-semibold text-[var(--text-primary)] transition-all duration-200 hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-white" onClick={generateRandomMesh}>
                   <RefreshCw size={16} /> Randomize Seeds
                 </button>
               </div>
 
-              <button className={`${styles.actionBtn} ${styles.copyCSSBtn}`} onClick={() => copyToClipboard(getMeshCSS(), 'mesh')}>
+              <button className="flex cursor-pointer items-center gap-2 rounded-[var(--radius-sm)] border-none bg-[var(--primary)] px-5 py-2.5 font-semibold text-white transition-all duration-200 hover:bg-[var(--primary-hover)]" onClick={() => copyToClipboard(getMeshCSS(), 'mesh')}>
                 {copiedFormat === 'mesh' ? <Check size={16} /> : <Copy size={16} />}
                 {copiedFormat === 'mesh' ? 'CSS Config Copied!' : 'Export Object CSS'}
               </button>

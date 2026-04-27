@@ -3,15 +3,15 @@ import { TOOLS } from '@/lib/tools';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://toolioz.com';
-  const lastModified = new Date('2026-04-14');
+  const lastModified = new Date();
 
-  const trendingIds = TOOLS.filter(t => t.isTrending).map(t => t.id);
+  const trendingIds = new Set(TOOLS.filter((t) => t.isTrending).map((t) => t.id));
 
   const toolRoutes = TOOLS.map((tool) => ({
     url: `${baseUrl}${tool.href}`,
     lastModified,
     changeFrequency: 'weekly' as const,
-    priority: trendingIds.includes(tool.id) ? 0.9 : 0.8,
+    priority: trendingIds.has(tool.id) ? 0.9 : 0.8,
   }));
 
   const staticRoutes = [

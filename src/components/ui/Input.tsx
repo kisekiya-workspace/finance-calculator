@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './Input.module.css';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'prefix' | 'suffix'> {
   label?: string;
@@ -17,14 +16,22 @@ export const Input: React.FC<InputProps> = ({
   ...props
 }) => {
   return (
-    <div className={`${styles.container} ${className}`}>
-      {label && <label className={styles.label}>{label}</label>}
-      <div className={`${styles.inputWrapper} ${error ? styles.inputError : ''}`}>
-        {prefix && <span className={styles.prefix}>{prefix}</span>}
-        <input className={styles.input} {...props} />
-        {suffix && <span className={styles.suffix}>{suffix}</span>}
+    <div className={`flex w-full flex-col gap-2 ${className}`}>
+      {label && <label className="text-[0.85rem] font-semibold uppercase tracking-widest text-[var(--text-secondary)]">{label}</label>}
+      <div
+        className={[
+          'flex items-center overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] bg-white px-4 transition-all duration-200 focus-within:border-[var(--primary)] focus-within:ring-4 focus-within:ring-[var(--primary)]/10 dark:bg-[var(--bg-secondary)]',
+          error ? '!border-red-500 focus-within:ring-red-500/10' : '',
+        ].join(' ')}
+      >
+        {prefix && <span className="mr-3 flex select-none items-center text-[var(--text-tertiary)]">{prefix}</span>}
+        <input
+          className="flex-1 bg-transparent py-3.5 text-base font-medium text-[var(--text-primary)] outline-none placeholder:text-[var(--text-tertiary)]"
+          {...props}
+        />
+        {suffix && <span className="ml-3 flex select-none items-center text-[var(--text-tertiary)]">{suffix}</span>}
       </div>
-      {error && <p className={styles.errorText}>{error}</p>}
+      {error && <p className="mt-1 text-sm font-medium text-red-500">{error}</p>}
     </div>
   );
 };

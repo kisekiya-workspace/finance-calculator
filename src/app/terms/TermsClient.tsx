@@ -4,21 +4,21 @@ import React from 'react';
 
 import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
-import styles from '@/app/SecondaryPage.module.css';
+import { secondaryPageStyles as styles } from '@/app/SecondaryPage.styles';
 
 export default function TermsClient() {
   return (
     <div className={styles.wrapper}>
 
       <header className={styles.header}>
-        <div className="container">
+        <div className="mx-auto max-w-6xl px-6">
           <h1 className={styles.title}>Terms of Service</h1>
           <p className={styles.subtitle}>Legal guidelines for using the Toolioz suite.</p>
         </div>
       </header>
 
       <section className={styles.contentSection}>
-        <div className="container">
+        <div className="mx-auto max-w-6xl px-6">
           <Card className={styles.card}>
             <h2>1. Acceptance of Terms</h2>
             <p>

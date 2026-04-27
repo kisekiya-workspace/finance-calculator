@@ -262,8 +262,11 @@ const calculateUSATax = (taxableIncome: number, status: FilingStatus, year: numb
     tax += (taxableIncome - previousLimit) * rates[rates.length - 1];
   }
 
-  // Simple FICA (Social Security & Medicare ~7.65%)
-  const fica = taxableIncome * 0.0765;
+  // FICA: Social Security (6.2% up to wage base) + Medicare (1.45% on all income)
+  const ssWageBase = year === 2026 ? 177500 : 176100;
+  const socialSecurity = Math.min(taxableIncome, ssWageBase) * 0.062;
+  const medicare = taxableIncome * 0.0145;
+  const fica = socialSecurity + medicare;
   const totalBurden = tax + fica;
 
   return { 

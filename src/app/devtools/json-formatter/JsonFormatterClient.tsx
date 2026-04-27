@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Code, Copy, Trash2, AlignLeft, Check, AlertCircle } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from './page.module.css';
+
 import yaml from 'js-yaml';
 import JsonToTS from 'json-to-ts';
 
@@ -72,81 +72,81 @@ export default function JsonFormatterClient() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <header className={styles.header}>
+    <div className="min-h-screen bg-[var(--bg-primary)]">
+      <header className="bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.05)_0%,transparent_50%)] py-16 text-center md:py-24">
         <div className="container">
-          <h1 className={styles.title}>Advanced JSON <span className={styles.accent}>Transformer</span></h1>
-          <p className={styles.subtitle}>Format, validate, and convert JSON payloads to YAML and TS Interfaces in real-time.</p>
+          <h1 className="mb-4 text-4xl font-black md:text-6xl">Advanced JSON <span className="text-[#3b82f6]">Transformer</span></h1>
+          <p className="text-lg text-[var(--text-secondary)]">Format, validate, and convert JSON payloads to YAML and TS Interfaces in real-time.</p>
         </div>
       </header>
 
       <main className="container section">
-        <div className={styles.grid}>
-          <div className={styles.inputCol}>
-            <Card className={styles.toolCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitleBox}>
-                  <Code size={20} className={styles.icon} />
-                  <h3>Raw JSON Input</h3>
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-8 lg:grid-cols-2">
+          <div>
+            <Card className="flex h-full flex-col !p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Code size={20} className="text-[#3b82f6]" />
+                  <h3 className="text-lg font-extrabold uppercase tracking-widest">Raw JSON Input</h3>
                 </div>
-                <div className={styles.cardActions}>
-                  <Button variant="ghost" size="sm" onClick={clearAll} className={styles.actionBtn}>
+                <div className="flex gap-2">
+                  <Button variant="ghost" size="sm" onClick={clearAll} className="text-[var(--text-secondary)]">
                     <Trash2 size={16} /> Clear
                   </Button>
                 </div>
               </div>
               <textarea
-                className={styles.textarea}
+                className="mb-6 min-h-[350px] w-full flex-1 resize-none break-all rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-6 font-mono text-[0.9375rem] leading-relaxed text-[var(--text-primary)] outline-none transition-colors focus:border-[#3b82f6]"
                 placeholder='Paste your JSON array or object here (e.g. {"name": "Toolioz", "type": "Toolbox"})'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 spellCheck="false"
               />
 
-              <div className={styles.controlsWrap}>
-                <span className={styles.controlsLabel}>Formatting</span>
-                <div className={styles.controlsGrid} style={{ marginBottom: '1rem' }}>
-                  <button className={styles.controlBtn} onClick={() => formatJson(2)} disabled={!input}>Format (2 Tabs)</button>
-                  <button className={styles.controlBtn} onClick={() => formatJson(4)} disabled={!input}>Format (4 Tabs)</button>
-                  <button className={styles.controlBtn} onClick={minifyJson} disabled={!input}>Minify payload</button>
+              <div className="rounded-md border border-[rgba(255,255,255,0.05)] bg-[#0f172a] p-6">
+                <span className="mb-3 block text-[0.8rem] font-extrabold uppercase text-[var(--text-secondary)]">Formatting</span>
+                <div className="grid grid-cols-2 gap-3" style={{ marginBottom: '1rem' }}>
+                  <button className="cursor-pointer rounded-md border border-[var(--border)] bg-[#1e293b] p-3 text-sm font-semibold text-white transition-all hover:not(:disabled):border-[#3b82f6] hover:not(:disabled):bg-[#3b82f6] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => formatJson(2)} disabled={!input}>Format (2 Tabs)</button>
+                  <button className="cursor-pointer rounded-md border border-[var(--border)] bg-[#1e293b] p-3 text-sm font-semibold text-white transition-all hover:not(:disabled):border-[#3b82f6] hover:not(:disabled):bg-[#3b82f6] disabled:cursor-not-allowed disabled:opacity-50" onClick={() => formatJson(4)} disabled={!input}>Format (4 Tabs)</button>
+                  <button className="cursor-pointer rounded-md border border-[var(--border)] bg-[#1e293b] p-3 text-sm font-semibold text-white transition-all hover:not(:disabled):border-[#3b82f6] hover:not(:disabled):bg-[#3b82f6] disabled:cursor-not-allowed disabled:opacity-50 col-span-2" onClick={minifyJson} disabled={!input}>Minify payload</button>
                 </div>
 
-                <span className={styles.controlsLabel}>Advanced Generics</span>
-                <div className={styles.controlsGrid}>
-                  <button className={styles.controlBtn} onClick={toYaml} disabled={!input} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa' }}>Convert to YAML</button>
-                  <button className={styles.controlBtn} onClick={toTypeScript} disabled={!input} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa' }}>Generate TS Types</button>
+                <span className="mb-3 block text-[0.8rem] font-extrabold uppercase text-[var(--text-secondary)]">Advanced Generics</span>
+                <div className="grid grid-cols-2 gap-3">
+                  <button className="cursor-pointer rounded-md border border-[var(--border)] bg-[#1e293b] p-3 text-sm font-semibold text-white transition-all hover:not(:disabled):border-[#3b82f6] hover:not(:disabled):bg-[#3b82f6] disabled:cursor-not-allowed disabled:opacity-50" onClick={toYaml} disabled={!input} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa' }}>Convert to YAML</button>
+                  <button className="cursor-pointer rounded-md border border-[var(--border)] bg-[#1e293b] p-3 text-sm font-semibold text-white transition-all hover:not(:disabled):border-[#3b82f6] hover:not(:disabled):bg-[#3b82f6] disabled:cursor-not-allowed disabled:opacity-50" onClick={toTypeScript} disabled={!input} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#60a5fa' }}>Generate TS Types</button>
                 </div>
               </div>
             </Card>
           </div>
 
-          <div className={styles.outputCol}>
-            <Card className={styles.toolCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardTitleBox}>
-                  <AlignLeft size={20} className={styles.icon} />
-                  <h3 style={{ color: error ? '#ef4444' : 'inherit' }}>{activeTab}</h3>
+          <div>
+            <Card className="flex h-full flex-col !p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <AlignLeft size={20} className="text-[#3b82f6]" />
+                  <h3 className="text-lg font-extrabold uppercase tracking-widest" style={{ color: error ? '#ef4444' : 'inherit' }}>{activeTab}</h3>
                 </div>
-                <div className={styles.cardActions}>
+                <div className="flex gap-2">
                   {output && (
-                    <Button variant="ghost" size="sm" onClick={handleCopy} className={styles.actionBtn}>
+                    <Button variant="ghost" size="sm" onClick={handleCopy} className="text-[var(--text-secondary)]">
                       {copied ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
                       {copied ? 'Copied Content' : 'Copy Output'}
                     </Button>
                   )}
                 </div>
               </div>
-              <div className={styles.outputWrapper}>
+              <div className="flex flex-1 flex-col">
                 {error ? (
-                  <div className={styles.errorBox}>
+                  <div className="flex min-h-[480px] gap-4 rounded-md bg-[rgba(239,68,68,0.1)] p-6 text-[0.9375rem] text-[#b91c1c]">
                     <AlertCircle size={20} />
                     <div>
                       <strong>Syntax Error parsing JSON:</strong>
-                      <p>{error}</p>
+                      <p className="mt-2 font-mono font-semibold">{error}</p>
                     </div>
                   </div>
                 ) : (
-                  <pre className={styles.pre}>
+                  <pre className="m-0 min-h-[480px] flex-1 overflow-x-auto whitespace-pre-wrap rounded-md bg-[#1e293b] p-6 font-mono text-[0.9375rem] leading-relaxed text-[#e2e8f0]">
                     {output || '(Output will appear here after you paste and format)'}
                   </pre>
                 )}

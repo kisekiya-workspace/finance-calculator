@@ -4,15 +4,15 @@ import CarLoanClient from './CarLoanClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Car Loan EMI Calculator 2026 | Interest & Amortization | Toolioz",
-  description: "Calculate monthly installments for your vehicle loan accurately with 2026 interest rates. Detailed amortization schedules for car financing online.",
-  keywords: 'Car loan EMI calculator online, Auto loan interest rate checker, Monthly car payment calculator, Vehicle finance amortization schedule',
+  title: "Car Loan EMI Calculator 2026 | Flat vs Reducing Rate | Total Cost | Toolioz",
+  description: "Calculate car loan EMI with real reducing balance rates. Know total interest cost, check 3-year vs 5-year tenure comparison, and get smart borrowing tips before buying.",
+  keywords: 'car loan emi calculator india 2026, flat rate vs reducing balance car loan, car loan interest rate comparison, car loan tips before buying, used car loan calculator, how much car loan can i afford, total cost of car loan calculator, car loan prepayment calculator, best car loan tenure 3 years vs 5 years',
   alternates: {
     canonical: 'https://toolioz.com/finance/car-loan',
   },
   openGraph: {
-    title: 'Precision Car Loan EMI Calculator | Toolioz',
-    description: 'Plan your vehicle purchase with our professional auto loan repayment engine.',
+    title: 'Car Loan EMI Calculator 2026 — Know Before You Borrow | Toolioz',
+    description: 'Calculate EMI, total interest, and get real tips on flat vs reducing rate, dealer traps, and CIBIL score impact.',
     url: 'https://toolioz.com/finance/car-loan',
     type: 'website',
   }
@@ -24,7 +24,7 @@ export default function CarLoanCalculatorPage() {
     "@type": "FinancialCalculator",
     "name": "Car Loan EMI Calculator",
     "description": "Calculate monthly EMIs for car loans.",
-    "url": "https://finance.toolioz.online/car-loan",
+    "url": "https://toolioz.com/finance/car-loan",
     "brand": {
       "@type": "Brand",
       "name": "Toolioz / FinanceCalc"

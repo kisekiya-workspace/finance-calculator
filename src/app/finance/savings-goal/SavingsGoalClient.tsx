@@ -5,10 +5,10 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateSavingsGoal } from '@/lib/formulas';
-import { Info, Target, TrendingUp, Sparkles } from 'lucide-react';
+import { Info, Target, TrendingUp, Sparkles, ShieldCheck } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from '@/app/finance/compound-interest/page.module.css';
+import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
@@ -33,7 +33,10 @@ export default function SavingsGoalClient() {
         <header className={styles.header}>
           <div className="container">
             <h1 className={styles.title}>Savings Goal Calculator 2026</h1>
-            <p className={styles.subtitle}>Find out how much to save for a house calculator 2026 or down payment targets.</p>
+            <p className={styles.subtitle}>Find out how much to save monthly for a house, car, or any financial goal.</p>
+            <div className="mx-auto mt-6 max-w-[700px] rounded-lg border border-[#fbbf24] bg-[#fffbeb] px-4 py-3 text-left text-[0.8rem] leading-[1.6] text-[#92400e]">
+              <strong>⚠️ Disclaimer:</strong> Returns shown are based on <strong>assumed constant rates</strong>. Actual investment returns fluctuate and are not guaranteed. This calculator is for <strong>assumption &amp; planning purposes only</strong>.
+            </div>
           </div>
         </header>
 
@@ -121,8 +124,74 @@ Beyond just the numbers, goal-oriented saving helps in prioritizing your spendin
             "Financial Peace: Reduce stress by having a pre-planned roadmap for your major life expenses."
           ]}
         />
-      </div>
+        <RelatedTools currentToolId="savings-goal" categoryId="finance" />
+
+        {/* Tax & Goals Section */}
+        <div className="mx-auto mt-12 max-w-[900px]">
+          <Card className="!p-8 border-l-4 border-l-[#f59e0b] bg-[#fffbeb]">
+            <h2 className="mb-6 text-[1.4rem] font-bold text-[#b45309] flex items-center gap-2">
+              <ShieldCheck className="text-[#f59e0b]" /> 💸 Tax-Efficient Goal Planning (2026-27)
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#b45309]">EEE Instruments (Tax-Free)</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#b45309]/80">
+                  <li><strong>PPF (Public Provident Fund):</strong> Invest up to ₹1.5L/year. Interest and Maturity are 100% Tax-Free. 15-year lock-in.</li>
+                  <li><strong>SSY (Sukanya Samriddhi):</strong> For girl children. Best-in-class interest rates and zero tax on maturity.</li>
+                  <li><strong>EPF (Provident Fund):</strong> Mandatory for salaried. Interest is tax-free up to ₹2.5L annual contribution.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#b45309]">Tax-Saving Investments</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#b45309]/80">
+                  <li><strong>ELSS (Mutual Funds):</strong> Only 3-year lock-in. 80C benefit in old regime + equity growth. (LTCG applies on maturity).</li>
+                  <li><strong>NPS (Retirement):</strong> Additional ₹50,000 tax benefit (u/s 80CCD(1B)). 60% maturity is tax-free at age 60.</li>
+                  <li><strong>Life Insurance:</strong> Term insurance premiums are tax-deductible. Payouts are usually tax-free (u/s 10(10D)).</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Real-World Tips Section */}
+        <section className="mx-auto max-w-[900px] px-6 py-12">
+        <Card className="!p-8">
+          <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🎯 Savings Tips — Build Your Financial Safety Net</h2>
+          
+          <div className="mb-8">
+            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">📋 Essential Savings Rules</h3>
+            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+              <li><strong>Emergency Fund First:</strong> Before any goal, build 3–6 months of expenses in a liquid fund. This prevents you from breaking other investments during emergencies.</li>
+              <li><strong>50/30/20 Rule:</strong> Allocate 50% of income to needs, 30% to wants, and 20% to savings. Adjust based on your situation, but never save less than 10%.</li>
+              <li><strong>Pay Yourself First:</strong> Set up auto-debit for savings on salary day. Don&apos;t save what&apos;s left after spending — spend what&apos;s left after saving.</li>
+              <li><strong>Sinking Fund:</strong> For predictable large expenses (car service, vacation, insurance premium), save small amounts monthly instead of paying a lump sum.</li>
+            </ul>
+          </div>
+
+          <div className="mb-8">
+            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">⚡ Goal-Based Investing Strategy</h3>
+            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+              <li><strong>&lt;3 years (Short-term):</strong> Use FDs, liquid funds, or short-term debt funds. Never use equity — too volatile.</li>
+              <li><strong>3–5 years (Medium-term):</strong> Balanced advantage funds or hybrid funds. Mix of equity and debt.</li>
+              <li><strong>5+ years (Long-term):</strong> Equity mutual funds or index funds. Higher risk but historically the best wealth creator.</li>
+              <li><strong>Child&apos;s education (15+ years):</strong> Start with 100% equity SIP, gradually shift to debt as the goal approaches (called &quot;glide path&quot;).</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">💡 Pro Tips</h3>
+            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+              <li>✅ <strong>Automate everything:</strong> Auto-debit SIPs, auto-sweep savings accounts, and automated bill payments. Discipline beats motivation.</li>
+              <li>✅ Review goals <strong>every 6 months</strong>. Life changes — a promotion, new baby, or job switch should trigger a savings recalculation.</li>
+              <li>✅ <strong>Don&apos;t keep more than ₹1–2 lakh in savings account.</strong> Everything above should be in at least a liquid mutual fund (6–7% vs 3.5%).</li>
+              <li>✅ For house down payment: Assume <strong>20% of property value + 7–8% registration costs</strong>. Most people underestimate the registration and stamp duty.</li>
+              <li>✅ Use separate bank accounts or funds for separate goals. Mixing them makes it impossible to track progress.</li>
+            </ul>
+          </div>
+        </Card>
+      </section>
       <Footer />
+    </div>
     </>
   );
 }

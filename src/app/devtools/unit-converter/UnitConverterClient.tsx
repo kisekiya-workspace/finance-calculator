@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Ruler, Weight, Thermometer, Database, ArrowRightLeft, Copy, Check } from 'lucide-react';
-import styles from './page.module.css';
+
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
@@ -95,59 +95,61 @@ export default function UnitConverterClient() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <header className={styles.header}>
+    <div className="flex min-h-screen flex-col bg-[var(--bg-primary)]">
+      <header className="bg-[radial-gradient(circle_at_100%_0%,rgba(37,99,235,0.05)_0%,transparent_50%)] py-16 text-center md:py-32">
         <div className="container">
-          <div className={styles.badge}>Precision Utility</div>
-          <h1 className={styles.title}>Unit <span className={styles.accent}>Converter</span></h1>
-          <p className={styles.subtitle}>Scientific grade conversion for length, mass, temperature, and digital data.</p>
+          <div className="mb-8 inline-block rounded-full bg-[var(--primary-light)] px-4 py-2 text-[0.8125rem] font-bold uppercase tracking-widest text-[var(--primary)]">Precision Utility</div>
+          <h1 className="mb-6 text-[2.5rem] font-black tracking-tight md:text-[3.5rem]">Unit <span className="text-[var(--primary)]">Converter</span></h1>
+          <p className="mx-auto max-w-[650px] text-xl text-[var(--text-secondary)]">Scientific grade conversion for length, mass, temperature, and digital data.</p>
         </div>
       </header>
 
       <main className="container section">
-        <div className={styles.categoryTabs}>
-          <button className={`${styles.tab} ${category === 'length' ? styles.activeTab : ''}`} onClick={() => setCategory('length')}>
+        <div className="mb-12 flex flex-wrap justify-center gap-4">
+          <button className={`flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3 text-[0.9375rem] font-bold transition-all ${category === 'length' ? 'border-[var(--primary)] bg-[var(--primary)] text-white hover:text-white dark:bg-[var(--primary)]' : 'border-[var(--border)] bg-white text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] dark:bg-[var(--bg-secondary)]'}`} onClick={() => setCategory('length')}>
             <Ruler size={18} /> Length
           </button>
-          <button className={`${styles.tab} ${category === 'mass' ? styles.activeTab : ''}`} onClick={() => setCategory('mass')}>
+          <button className={`flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3 text-[0.9375rem] font-bold transition-all ${category === 'mass' ? 'border-[var(--primary)] bg-[var(--primary)] text-white hover:text-white dark:bg-[var(--primary)]' : 'border-[var(--border)] bg-white text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] dark:bg-[var(--bg-secondary)]'}`} onClick={() => setCategory('mass')}>
             <Weight size={18} /> Mass
           </button>
-          <button className={`${styles.tab} ${category === 'temperature' ? styles.activeTab : ''}`} onClick={() => setCategory('temperature')}>
+          <button className={`flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3 text-[0.9375rem] font-bold transition-all ${category === 'temperature' ? 'border-[var(--primary)] bg-[var(--primary)] text-white hover:text-white dark:bg-[var(--primary)]' : 'border-[var(--border)] bg-white text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] dark:bg-[var(--bg-secondary)]'}`} onClick={() => setCategory('temperature')}>
             <Thermometer size={18} /> Temp
           </button>
-          <button className={`${styles.tab} ${category === 'data' ? styles.activeTab : ''}`} onClick={() => setCategory('data')}>
+          <button className={`flex cursor-pointer items-center gap-2 rounded-full border px-6 py-3 text-[0.9375rem] font-bold transition-all ${category === 'data' ? 'border-[var(--primary)] bg-[var(--primary)] text-white hover:text-white dark:bg-[var(--primary)]' : 'border-[var(--border)] bg-white text-[var(--text-secondary)] hover:border-[var(--primary)] hover:text-[var(--primary)] dark:bg-[var(--bg-secondary)]'}`} onClick={() => setCategory('data')}>
             <Database size={18} /> Data
           </button>
         </div>
 
-        <div className={styles.converterGrid}>
-          <Card className={styles.card}>
-            <div className={styles.cardInfo}>From</div>
-            <select className={styles.select} value={fromUnit} onChange={(e) => setFromUnit(e.target.value)}>
+
+
+        <div className="mx-auto grid max-w-[900px] grid-cols-1 items-center gap-8 md:grid-cols-[1fr_60px_1fr]">
+          <Card className="flex flex-col gap-4 !p-5 md:!p-8">
+            <div className="text-[0.75rem] font-extrabold uppercase tracking-widest text-[var(--text-tertiary)]">From</div>
+            <select className="w-full cursor-pointer rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-4 text-base font-semibold capitalize text-[var(--text-primary)] outline-none" value={fromUnit} onChange={(e) => setFromUnit(e.target.value)}>
               {Object.keys(CONVERSIONS[category]).map(u => <option key={u} value={u}>{u}</option>)}
             </select>
             <input 
               type="number"
-              className={styles.input}
+              className="w-full rounded-md border border-[var(--border)] bg-white p-5 text-2xl font-extrabold text-[var(--text-primary)] outline-none dark:bg-[var(--bg-secondary)]"
               value={fromValue}
               onChange={(e) => setFromValue(e.target.value)}
               placeholder="Enter value"
             />
           </Card>
 
-          <div className={styles.swapBtn}>
+          <div className="mx-auto flex h-[60px] w-[60px] rotate-90 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--bg-secondary)] text-[var(--text-secondary)] md:rotate-0">
             <ArrowRightLeft size={24} />
           </div>
 
-          <Card className={styles.card}>
-            <div className={styles.cardInfo}>To</div>
-            <select className={styles.select} value={toUnit} onChange={(e) => setToUnit(e.target.value)}>
+          <Card className="flex flex-col gap-4 !p-5 md:!p-8">
+            <div className="text-[0.75rem] font-extrabold uppercase tracking-widest text-[var(--text-tertiary)]">To</div>
+            <select className="w-full cursor-pointer rounded-md border border-[var(--border)] bg-[var(--bg-secondary)] p-4 text-base font-semibold capitalize text-[var(--text-primary)] outline-none" value={toUnit} onChange={(e) => setToUnit(e.target.value)}>
               {Object.keys(CONVERSIONS[category]).map(u => <option key={u} value={u}>{u}</option>)}
             </select>
-            <div className={styles.resultDisplay}>
-              <span className={styles.resultValue}>{toValue || '0'}</span>
+            <div className="flex items-center justify-between rounded-md bg-[#1e293b] p-5">
+              <span className="break-all text-2xl font-extrabold text-white">{toValue || '0'}</span>
               {toValue && (
-                <button className={styles.copyBtn} onClick={handleCopy}>
+                <button className="flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border-none bg-white/10 text-white transition-all hover:bg-white/20" onClick={handleCopy}>
                   {copied ? <Check size={16} color="#10b981" /> : <Copy size={16} />}
                 </button>
               )}

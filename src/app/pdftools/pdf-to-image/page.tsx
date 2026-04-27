@@ -1,42 +1,57 @@
 import React from 'react';
 import PDFToImageClient from './PDFToImageClient';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { JSONLD } from '@/components/ui/JSONLD';
 
 export const metadata: Metadata = {
   title: 'PDF to Image Converter | Export PDF to PNG/JPG | Toolioz',
-  description: 'Convert your PDF pages into high-resolution PNG or JPG images instantly. Extract crisp visual assets from any PDF document natively in-browser.',
-  keywords: 'PDF to image converter, export pdf to png online, convert pdf to jpg high quality, extract images from pdf, free pdf picture extractor',
+  description:
+    'Convert PDF pages into high-resolution PNG or JPG images with server-side rendering. Choose format, resolution scale, and download crisp images for presentations or social media.',
+  keywords:
+    'PDF to image converter, export pdf to png online, convert pdf to jpg high quality, extract images from pdf, free pdf to image tool',
   alternates: {
     canonical: 'https://toolioz.com/pdftools/pdf-to-image',
   },
   openGraph: {
-    title: 'High-Fidelity PDF to Image Exporter | Toolioz',
-    description: 'Transform your document pages into professional image assets instantly.',
+    title: 'PDF to Image Converter | Toolioz',
+    description:
+      'Transform PDF pages into professional PNG or JPEG images with adjustable resolution.',
     url: 'https://toolioz.com/pdftools/pdf-to-image',
     type: 'website',
-  }
+    images: [
+      {
+        url: '/tooliozLogo.png',
+        width: 512,
+        height: 512,
+        alt: 'Toolioz PDF to Image converter',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PDF to Image Converter | Toolioz',
+    description:
+      'Server-side PDF to PNG/JPEG conversion with adjustable resolution scale.',
+    images: ['/tooliozLogo.png'],
+  },
 };
 
 export default function PDFToImagePage() {
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "PDF Visual Asset Extractor",
-    "description": "Conversion engine for transforming portable document pages into raster image formats like PNG and JPEG.",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "All",
-    "url": "https://toolioz.com/pdftools/pdf-to-image",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Toolioz PDF to Image Converter',
+    description:
+      'Server-side PDF to image conversion tool supporting PNG and JPEG output with adjustable resolution scale.',
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'All',
+    isAccessibleForFree: true,
+    url: 'https://toolioz.com/pdftools/pdf-to-image',
+    provider: {
+      '@type': 'Organization',
+      name: 'Toolioz',
+      url: 'https://toolioz.com',
     },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.7",
-      "ratingCount": "12800"
-    }
   };
 
   return (

@@ -9,7 +9,6 @@ import { Wallet, Info, AlertTriangle, ShieldCheck, PieChart, Download } from 'lu
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
-import styles from './page.module.css';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 const COUNTRIES: { id: Country; name: string; currency: string; locale: string }[] = [
@@ -22,10 +21,10 @@ const YEARS = [2024, 2025, 2026] as const;
 
 export default function IncomeTaxClient() {
   const [country, setCountry] = useState<Country>('IN');
-  const [year, setYear] = useState<number>(2025);
+  const [year, setYear] = useState<number>(2026);
   const [status, setStatus] = useState<FilingStatus>('single');
   const [income, setIncome] = useState<number>(1200000);
-  const [deductions, setDeductions] = useState<number>(150000);
+  const [deductions, setDeductions] = useState<number>(75000);
   const [mode, setMode] = useState<'yearly' | 'monthly'>('yearly');
   
   const [results, setResults] = useState({
@@ -51,6 +50,7 @@ export default function IncomeTaxClient() {
     if (savedStatus) setStatus(savedStatus as FilingStatus);
     if (savedIncome) setIncome(Number(savedIncome));
     if (savedDeductions) setDeductions(Number(savedDeductions));
+    else if (country === 'IN') setDeductions(75000); // Standard deduction default
   }, []);
 
   useEffect(() => {
@@ -94,39 +94,42 @@ export default function IncomeTaxClient() {
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <header className={styles.header}>
+      <div className="min-h-[calc(100vh-64px)] bg-[var(--bg-secondary)] pb-16 max-[900px]:pb-32">
+        <header className="px-6 py-8 text-center md:py-16">
           <div className="container">
-            <h1 className={styles.title}>Income Tax Calculator India 2026</h1>
-            <p className={styles.subtitle}>FY 2026-27 New vs Old Tax Regime Calculator for Salaried Employees.</p>
+            <h1 className="mb-4 text-[1.75rem] font-extrabold text-[var(--text-primary)] sm:text-[2.5rem]">Income Tax Calculator 2026-27</h1>
+            <p className="mx-auto max-w-[600px] text-[0.95rem] leading-[1.5] text-[var(--text-secondary)] sm:text-[1.1rem]">Estimate your income tax under the New Regime (default from FY 2023-24). Supports India, USA &amp; UK.</p>
+            <div className="mx-auto mt-6 max-w-[700px] rounded-lg border border-[#fbbf24] bg-[#fffbeb] px-4 py-3 text-left text-[0.8rem] leading-[1.6] text-[#92400e]">
+              <strong>⚠️ Disclaimer:</strong> This calculator provides <strong>approximate estimates</strong> for educational and planning purposes only. Tax laws change frequently and vary by jurisdiction. The figures shown may not reflect your actual tax liability. Always consult a qualified Chartered Accountant or Tax Professional before filing returns.
+            </div>
           </div>
         </header>
 
         <section className="container section">
-          <div className={styles.modeToggle}>
+          <div className="mx-auto mb-8 flex max-w-[300px] rounded-[var(--radius-md)] bg-white p-1 shadow-sm">
             <button 
-              className={`${styles.modeOption} ${mode === 'yearly' ? styles.activeMode : ''}`}
+              className={`flex-1 rounded-[calc(var(--radius-md)-4px)] px-4 py-2.5 text-[0.9rem] font-bold transition-all ${mode === 'yearly' ? 'bg-[#1e293b] text-white shadow-md' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
               onClick={() => setMode('yearly')}
             >Yearly View</button>
             <button 
-              className={`${styles.modeOption} ${mode === 'monthly' ? styles.activeMode : ''}`}
+              className={`flex-1 rounded-[calc(var(--radius-md)-4px)] px-4 py-2.5 text-[0.9rem] font-bold transition-all ${mode === 'monthly' ? 'bg-[#1e293b] text-white shadow-md' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'}`}
               onClick={() => setMode('monthly')}
             >Monthly View</button>
           </div>
 
-          <div className={styles.grid}>
-            <div className={styles.inputCol}>
-              <Card className={styles.inputCard}>
-                <div className={styles.selectors}>
-                  <div className={styles.selectWrapper}>
-                    <label>Country</label>
-                    <select value={country} onChange={(e) => setCountry(e.target.value as Country)}>
+          <div className="mx-auto grid max-w-[1000px] grid-cols-[1fr] gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8 lg:items-start">
+            <div className="flex flex-col gap-6">
+              <Card className="!p-5 sm:!p-8">
+                <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium text-[var(--text-secondary)]">Country</label>
+                    <select className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-3 text-base text-[var(--text-primary)] outline-none transition-all duration-200 focus:border-[var(--primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.1)]" value={country} onChange={(e) => setCountry(e.target.value as Country)}>
                       {COUNTRIES.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                   </div>
-                  <div className={styles.selectWrapper}>
-                    <label>Filing Status</label>
-                    <select value={status} onChange={(e) => setStatus(e.target.value as FilingStatus)}>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium text-[var(--text-secondary)]">Filing Status</label>
+                    <select className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-3 text-base text-[var(--text-primary)] outline-none transition-all duration-200 focus:border-[var(--primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.1)]" value={status} onChange={(e) => setStatus(e.target.value as FilingStatus)}>
                       <option value="single">Single Individual</option>
                       {country === 'IN' && <option value="senior">Senior Citizen (60+)</option>}
                       {country === 'US' && <option value="married">Married Filing Jointly</option>}
@@ -134,17 +137,17 @@ export default function IncomeTaxClient() {
                   </div>
                 </div>
 
-                <div className={styles.selectWrapper} style={{ marginBottom: '1.5rem' }}>
-                  <label>Tax Year</label>
-                  <select value={year} onChange={(e) => setYear(Number(e.target.value))}>
+                <div className="flex flex-col gap-2 mb-6">
+                  <label className="text-sm font-medium text-[var(--text-secondary)]">Tax Year</label>
+                  <select className="rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-primary)] px-3 py-3 text-base text-[var(--text-primary)] outline-none transition-all duration-200 focus:border-[var(--primary)] focus:shadow-[0_0_0_2px_rgba(37,99,235,0.1)]" value={year} onChange={(e) => setYear(Number(e.target.value))}>
                     {YEARS.map(y => <option key={y} value={y}>{y}</option>)}
                   </select>
                 </div>
 
-                <div className={styles.divider} />
+                <div className="my-6 h-px w-full bg-[var(--border)]" />
 
-                <h3 className={styles.cardTitle}>Earnings & Data</h3>
-                <div className={styles.inputGroup}>
+                <h3 className="mb-5 text-[1.1rem] font-bold text-[var(--text-primary)]">Earnings & Data</h3>
+                <div className="flex flex-col gap-6">
                   <Input 
                     label={`Gross ${mode === 'monthly' ? 'Monthly' : 'Annual'} Income`}
                     type="number" 
@@ -153,7 +156,7 @@ export default function IncomeTaxClient() {
                     prefix={selectedCountry.currency === 'INR' ? '₹' : selectedCountry.currency === 'USD' ? '$' : '£'}
                   />
                   <Input 
-                    label="Investment / Deductions" 
+                    label={country === 'IN' ? 'Deductions (Standard Deduction ₹75,000 included by default)' : 'Deductions / Exemptions'}
                     type="number" 
                     value={mode === 'monthly' ? deductions / 12 : deductions} 
                     onChange={(e) => setDeductions(mode === 'monthly' ? Number(e.target.value) * 12 : Number(e.target.value))}
@@ -161,9 +164,9 @@ export default function IncomeTaxClient() {
                   />
                 </div>
 
-                <div className={styles.guideBox}>
-                   <div className={styles.guideTitle}><Info size={16} /> Tax Optimization Tip</div>
-                   <p className={styles.guideText}>
+                <div className="mt-6 flex items-start gap-3 rounded-[var(--radius-md)] bg-[rgba(59,130,246,0.1)] p-4 text-[#2563eb]">
+                   <div className="mt-1 flex shrink-0 items-center gap-2 font-bold text-[#1d4ed8]"><Info size={16} /> Tax Optimization Tip</div>
+                   <p className="m-0 text-[0.85rem] leading-[1.5]">
                      {country === 'IN' ? 'Under the New Regime, standard deduction has been increased to ₹75,000 for salaried individuals. No other deductions like 80C apply.' : 
                       country === 'US' ? 'Contributing to a 401(k) or IRA can significantly reduce your taxable income and lower your effective tax rate.' :
                       'Pensions are one of the most tax-efficient ways to save in the UK. Any contributions made are deducted from your gross income before tax.'}
@@ -171,20 +174,20 @@ export default function IncomeTaxClient() {
                 </div>
               </Card>
 
-              <div className={styles.visualCard}>
-                <h3 className={styles.cardTitle}>Visual Breakdown</h3>
-                <div className={styles.chartContainer}>
-                  <div className={styles.progressBar}>
-                    <div className={styles.takeHomeFill} style={{ width: `${100 - taxPercent}%` }} title="Take Home" />
-                    <div className={styles.taxFill} style={{ width: `${taxPercent}%` }} title="Total Tax" />
+              <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-5 sm:p-8">
+                <h3 className="mb-5 text-[1.1rem] font-bold text-[var(--text-primary)]">Visual Breakdown</h3>
+                <div className="mt-4">
+                  <div className="relative mb-4 flex h-6 w-full overflow-hidden rounded-full bg-[#f1f5f9]">
+                    <div className="h-full bg-[#10b981] transition-all duration-500 ease-out" style={{ width: `${100 - taxPercent}%` }} title="Take Home" />
+                    <div className="h-full bg-[#ef4444] transition-all duration-500 ease-out" style={{ width: `${taxPercent}%` }} title="Total Tax" />
                   </div>
-                  <div className={styles.chartLegend}>
-                    <div className={styles.legendItem}>
-                      <span className={styles.dot} style={{ background: '#10b981' }} />
+                  <div className="flex flex-wrap justify-center gap-4 text-[0.85rem] font-medium text-[var(--text-secondary)]">
+                    <div className="flex items-center gap-2">
+                      <span className="h-3 w-3 rounded-full" style={{ background: '#10b981' }} />
                       Take Home: {(100 - taxPercent).toFixed(1)}%
                     </div>
-                    <div className={styles.legendItem}>
-                      <span className={styles.dot} style={{ background: '#ef4444' }} />
+                    <div className="flex items-center gap-2">
+                      <span className="h-3 w-3 rounded-full" style={{ background: '#ef4444' }} />
                       Total Taxes: {taxPercent.toFixed(1)}%
                     </div>
                   </div>
@@ -192,43 +195,43 @@ export default function IncomeTaxClient() {
               </div>
             </div>
 
-            <div className={styles.resultCol}>
-              <Card className={styles.summaryCard}>
-                <div className={styles.recommendation}>
-                  <ShieldCheck size={28} className={styles.successIcon} />
+            <div className="flex flex-col gap-6 lg:sticky lg:top-6">
+              <Card className="!p-5 sm:!p-8">
+                <div className="mb-6 flex items-start gap-4 rounded-[var(--radius-md)] bg-[#f0fdf4] p-5">
+                  <ShieldCheck size={28} className="shrink-0 text-[#16a34a]" />
                   <div>
-                    <h3 className={styles.recTitle}>Net Take-Home Pay</h3>
-                    <p className={styles.recDesc}>{formatCurrency(results.takeHome)} <span>/ {mode}</span></p>
+                    <h3 className="mb-1 text-[0.9rem] font-bold uppercase tracking-[0.05em] text-[#166534]">Net Take-Home Pay</h3>
+                    <p className="text-[1.5rem] font-black tracking-tight text-[#14532d]">{formatCurrency(results.takeHome)} <span className="text-[1rem] font-medium opacity-80">/ {mode}</span></p>
                   </div>
                 </div>
 
-                <div className={styles.comparisonGrid}>
-                  <div className={styles.compareBox} style={{ gridColumn: '1 / -1' }}>
-                    <span className={styles.compareLabel}>Total Tax Liability</span>
-                    <span className={styles.compareVal} style={{ color: '#ef4444', fontSize: '2rem' }}>{formatCurrency(results.tax + results.social)}</span>
+                <div className="mb-6 grid grid-cols-1 gap-3">
+                  <div className="flex flex-col justify-between rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--bg-secondary)] p-4" style={{ gridColumn: '1 / -1' }}>
+                    <span className="mb-1 text-[0.85rem] font-semibold text-[var(--text-secondary)]">Total Tax Liability</span>
+                    <span className="font-bold text-[var(--text-primary)]" style={{ color: '#ef4444', fontSize: '2rem' }}>{formatCurrency(results.tax + results.social)}</span>
                   </div>
                 </div>
 
-                <div className={styles.taxBreakdown}>
-                   <div className={styles.breakRow}>
+                <div className="mb-6 flex flex-col gap-3 rounded-[var(--radius-md)] border border-[var(--border)] p-4 text-[0.95rem]">
+                   <div className="flex justify-between text-[var(--text-secondary)]">
                      <span>Income Tax</span>
-                     <span>{formatCurrency(results.tax)}</span>
+                     <span className="font-bold text-[var(--text-primary)]">{formatCurrency(results.tax)}</span>
                    </div>
                    {results.social > 0 && (
-                     <div className={styles.breakRow}>
+                     <div className="flex justify-between text-[var(--text-secondary)]">
                        <span>{country === 'US' ? 'FICA (Social Security)' : 'National Insurance'}</span>
-                       <span>{formatCurrency(results.social)}</span>
+                       <span className="font-bold text-[var(--text-primary)]">{formatCurrency(results.social)}</span>
                      </div>
                    )}
-                   <div className={styles.breakRow} style={{ borderTop: '1px solid var(--border)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
-                     <strong>Effective Tax Rate</strong>
-                     <strong>{results.effectiveRate.toFixed(2)}%</strong>
+                   <div className="flex justify-between text-[var(--text-secondary)]" style={{ borderTop: '1px solid var(--border)', paddingTop: '0.75rem', marginTop: '0.5rem' }}>
+                     <strong className="text-[var(--text-primary)]">Effective Tax Rate</strong>
+                     <strong className="text-[var(--text-primary)]">{results.effectiveRate.toFixed(2)}%</strong>
                    </div>
                 </div>
 
                 <Button 
                   fullWidth 
-                  className={styles.primaryBtn} 
+                  className="h-12 text-[0.95rem] font-bold" 
                   onClick={handleDownload}
                   disabled={isDownloading}
                 >
@@ -236,17 +239,17 @@ export default function IncomeTaxClient() {
                   {!isDownloading && <Download size={18} style={{ marginLeft: '8px' }} />}
                 </Button>
 
-                <div className={styles.alertBox} style={{ marginTop: '1.5rem', background: '#fff7ed', borderColor: '#ffedd5' }}>
-                  <AlertTriangle size={18} style={{ color: '#ea580c' }} />
-                  <p style={{ fontSize: '0.75rem', color: '#9a3412' }}>
-                    <strong>Disclaimer:</strong> This tool provides estimates for {year}. Calculations include cess, rebates, and standard allowances but may vary based on specific regional laws.
+                <div className="mt-4 flex items-start gap-3 rounded-[var(--radius-md)] border p-3" style={{ marginTop: '1.5rem', background: '#fff7ed', borderColor: '#ffedd5' }}>
+                  <AlertTriangle size={18} style={{ color: '#ea580c' }} className="shrink-0" />
+                  <p style={{ fontSize: '0.75rem', color: '#9a3412', margin: 0 }}>
+                    <strong>Disclaimer:</strong> These are <strong>approximate estimates</strong> for FY {year}-{(year + 1).toString().slice(2)} based on publicly available tax rules. Actual tax liability may differ due to surcharges, rebates, employer-specific deductions, state/local taxes, and other factors. This tool is for <strong>assumption &amp; planning purposes only</strong> — not a substitute for professional tax advice.
                   </p>
                 </div>
               </Card>
 
-              <div className={styles.proTip}>
-                <PieChart size={24} />
-                <p>{country === 'IN' ? 'The New Regime (default) is optimized for higher incomes with lower compliance overhead.' : 'Always check for local state/city taxes as they are not included in this federal estimation.'}</p>
+              <div className="flex items-center gap-4 rounded-[var(--radius-md)] border border-[var(--border)] bg-white p-5 shadow-sm">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#f8fafc] text-[#3b82f6]"><PieChart size={24} /></div>
+                <p className="m-0 text-[0.85rem] leading-[1.6] text-[var(--text-secondary)]">{country === 'IN' ? 'The New Regime (default) is optimized for higher incomes with lower compliance overhead.' : 'Always check for local state/city taxes as they are not included in this federal estimation.'}</p>
               </div>
             </div>
           </div>
@@ -277,6 +280,73 @@ In the United States, tax brackets are adjusted annually for inflation to preven
             "Interactive Planning: Use the monthly toggle to align your tax liability with your monthly household budget."
           ]}
         />
+        <RelatedTools currentToolId="income-tax" categoryId="finance" />
+
+        {/* Tax Saving Decision Guide Section */}
+        <div className="mx-auto mt-12 max-w-[900px]">
+          <Card className="!p-8 border-l-4 border-l-[#7c3aed] bg-[#f5f3ff]">
+            <h2 className="mb-6 text-[1.4rem] font-bold text-[#4c1d95] flex items-center gap-2">
+              <ShieldCheck className="text-[#7c3aed]" /> 💸 New vs Old Regime Decision Guide (2026-27)
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#4c1d95]">The Breakeven Rule</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#4c1d95]/80">
+                  <li><strong>New Regime:</strong> Best if your total deductions (80C, 80D, HRA, Home Loan Interest) are <strong>below ₹3.75 - 4.25 Lakh</strong>.</li>
+                  <li><strong>Standard Deduction:</strong> A flat ₹75,000 deduction is available in the New Regime for salaried employees.</li>
+                  <li><strong>Tax Free Limit:</strong> Effectively zero tax for income up to ₹12.75 Lakh in 2026 (including SD).</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#4c1d95]">When to Choose Old?</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#4c1d95]/80">
+                  <li><strong>Home Loan:</strong> If you pay high interest (₹2L+) and principal (₹1.5L), the Old Regime is often superior.</li>
+                  <li><strong>HRA:</strong> If you live in a Tier-1 city and pay high rent, the HRA exemption can significantly lower your taxable income.</li>
+                  <li><strong>Maximize 80C:</strong> If you already have ₹1.5L in PPF/Insurance, you are halfway to the breakeven point.</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Real-World Tips Section */}
+        <section className="mx-auto max-w-[900px] px-6 py-12">
+          <Card className="!p-8">
+            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">💼 Income Tax Tips — Save More, Pay Less (Legally)</h2>
+            
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">📋 Key Tax Terms (India)</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>Section 80C (₹1.5L limit):</strong> PPF, ELSS, NPS, life insurance, children&apos;s tuition, 5-year FD, home loan principal — all count.</li>
+                <li><strong>Section 80D (Medical Insurance):</strong> ₹25,000 for self/family + ₹50,000 for senior citizen parents = ₹75,000 additional deduction.</li>
+                <li><strong>HRA Exemption:</strong> If you pay rent, you can claim HRA exemption (min of actual HRA, rent paid - 10% salary, or 50%/40% of salary).</li>
+                <li><strong>Section 87A Rebate:</strong> Under new regime, income up to ₹12 lakh (₹12.75L with standard deduction) is effectively tax-free for FY 2025-26.</li>
+                <li><strong>New vs Old Regime:</strong> New regime has lower rates but no deductions. Old regime has higher rates but allows 80C, HRA, LTA, etc.</li>
+              </ul>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">⚡ When to Choose New vs Old Regime</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>Choose New Regime if:</strong> Your total deductions (80C + 80D + HRA + LTA + home loan interest) are below ₹3.75 lakh.</li>
+                <li><strong>Choose Old Regime if:</strong> You have a home loan, pay rent (HRA), and maximize 80C + 80D + NPS. The deductions offset the higher slab rates.</li>
+                <li><strong>Salaried with no investments?</strong> New regime is almost always better — simpler and lower rates.</li>
+                <li><strong>Can switch every year:</strong> Salaried employees can choose differently each year. Self-employed can only switch once.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">💡 Pro Tax-Saving Tips</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li>✅ <strong>NPS (Section 80CCD(1B)):</strong> Additional ₹50,000 deduction on top of 80C limit. Available in both old and new (employer contribution) regimes.</li>
+                <li>✅ <strong>Harvest LTCG annually:</strong> Sell and rebuy equity mutual funds to book gains below ₹1.25 lakh tax-free limit each year.</li>
+                <li>✅ <strong>Don&apos;t wait until March</strong> — invest in ELSS, PPF, and insurance by April to get 12 months of compounding.</li>
+                <li>✅ File returns on time (July 31). Late filing penalty is ₹5,000 (₹1,000 if income &lt; ₹5L). You also lose interest on refunds.</li>
+                <li>✅ Keep rent receipts, medical bills, and investment proofs organized. Digital copies are accepted for AY 2026-27.</li>
+              </ul>
+            </div>
+          </Card>
+        </section>
       <Footer />
     </div>
     </>

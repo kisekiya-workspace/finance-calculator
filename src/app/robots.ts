@@ -5,8 +5,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/_next/'],
+      disallow: ['/api/'],
     },
     sitemap: 'https://toolioz.com/sitemap.xml',
+    host: 'https://toolioz.com',
   };
 }

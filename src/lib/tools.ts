@@ -9,15 +9,12 @@ import {
   Banknote,
   Car,
   Wallet,
-  Calculator,
   FileText,
   Binary,
   Settings,
-  Wrench,
   Code,
   FileSearch,
   Hash,
-  Type,
   ImagePlus,
   Key,
   Clock,
@@ -25,7 +22,9 @@ import {
   Link as LinkIcon,
   Asterisk,
   LayoutDashboard,
-  Palette
+  Palette,
+  Terminal,
+  type LucideIcon
 } from 'lucide-react';
 
 export type Category = 'finance' | 'devtools' | 'pdftools';
@@ -34,7 +33,7 @@ export interface Tool {
   id: string;
   title: string;
   desc: string;
-  icon: any;
+  icon: LucideIcon;
   href: string;
   color: string;
   category: Category;
@@ -59,7 +58,7 @@ export const TOOLS: Tool[] = [
     desc: 'Estimate your monthly mortgage payments and total interest.',
     icon: HomeIcon,
     href: '/finance/mortgage-calculator',
-    color: '#8b5cf6',
+    color: '#0ea5e9',
     category: 'finance'
   },
   {
@@ -87,7 +86,7 @@ export const TOOLS: Tool[] = [
     desc: 'Calculate tax amounts and total costs in seconds.',
     icon: CreditCard,
     href: '/finance/gst-calculator',
-    color: '#374151',
+    color: '#475569',
     category: 'finance'
   },
   {
@@ -132,12 +131,12 @@ export const TOOLS: Tool[] = [
     desc: 'Professional Old vs New regime tax comparison & planning.',
     icon: Wallet,
     href: '/finance/income-tax',
-    color: '#6366f1',
+    color: '#2563eb',
     category: 'finance',
     isTrending: true
   },
 
-  // Dev Tools (Mocks)
+  // Dev Tools
   {
     id: 'json-formatter',
     title: 'JSON Formatter',
@@ -158,24 +157,6 @@ export const TOOLS: Tool[] = [
     category: 'devtools'
   },
   {
-    id: 'unit-converter',
-    title: 'Unit Converter',
-    desc: 'Convert measurements between different units easily.',
-    icon: Wrench,
-    href: '/devtools/unit-converter',
-    color: '#10b981',
-    category: 'devtools'
-  },
-  {
-    id: 'lorem-ipsum',
-    title: 'Lorem Ipsum',
-    desc: 'Generate placeholder text for your designs and layouts.',
-    icon: Type,
-    href: '/devtools/lorem-ipsum',
-    color: '#6366f1',
-    category: 'devtools'
-  },
-  {
     id: 'jwt-decoder',
     title: 'JWT Decoder',
     desc: 'Decode, verify and inspect JSON Web Tokens securely.',
@@ -191,7 +172,7 @@ export const TOOLS: Tool[] = [
     desc: 'Generate, parse and explain cron expression schedules.',
     icon: Clock,
     href: '/devtools/cron-generator',
-    color: '#8b5cf6',
+    color: '#0d9488',
     category: 'devtools'
   },
   {
@@ -223,12 +204,42 @@ export const TOOLS: Tool[] = [
     category: 'devtools'
   },
   {
+    id: 'hash-generator',
+    title: 'Hash Generator',
+    desc: 'Generate SHA hashes for text or files using Web Crypto APIs.',
+    icon: Hash,
+    href: '/devtools/hash-generator',
+    color: '#16a34a',
+    category: 'devtools',
+    isTrending: true
+  },
+  {
+    id: 'curl-converter',
+    title: 'cURL Converter',
+    desc: 'Convert cURL commands into Fetch, Axios, and Python snippets.',
+    icon: Terminal,
+    href: '/devtools/curl-converter',
+    color: '#1d4ed8',
+    category: 'devtools',
+    isTrending: true
+  },
+  {
+    id: 'json-diff',
+    title: 'JSON Diff Checker',
+    desc: 'Compare two JSON payloads and inspect exact field-level changes.',
+    icon: SearchCode,
+    href: '/devtools/json-diff',
+    color: '#0f766e',
+    category: 'devtools',
+    isTrending: true
+  },
+  {
     id: 'layout-generator',
     title: 'Layout Generator',
     desc: 'Visually build and test CSS Flexbox and Grid layouts.',
     icon: LayoutDashboard,
     href: '/devtools/layout-generator',
-    color: '#ec4899',
+    color: '#0ea5e9',
     category: 'devtools',
     isTrending: true
   },
@@ -247,7 +258,7 @@ export const TOOLS: Tool[] = [
     desc: 'Convert seamlessly between HEX, RGB, HSL and CMYK.',
     icon: Palette,
     href: '/devtools/color-converter',
-    color: '#8b5cf6',
+    color: '#2563eb',
     category: 'devtools',
     isTrending: true
   },
@@ -269,18 +280,10 @@ export const TOOLS: Tool[] = [
     desc: 'Convert your PDF pages into high-quality JPG or PNG images.',
     icon: FileSearch,
     href: '/pdftools/pdf-to-image',
-    color: '#ec4899',
+    color: '#0ea5e9',
     category: 'pdftools'
   },
-  {
-    id: 'compress-pdf',
-    title: 'Compress PDF',
-    desc: 'Reduce the file size of your PDF while keeping quality.',
-    icon: Settings,
-    href: '/pdftools/compress-pdf',
-    color: '#14b8a6',
-    category: 'pdftools'
-  },
+
   {
     id: 'image-compressor',
     title: 'Image Compressor',

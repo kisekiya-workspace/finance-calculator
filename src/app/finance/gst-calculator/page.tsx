@@ -4,15 +4,15 @@ import GSTClient from './GSTClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "GST Calculator Online | GST Reverse Charge Mechanism Tool 2026 | Toolioz",
-  description: "Calculate GST amounts quickly. Supports Reverse Charge Mechanism (RCM) and input tax credit analysis for 2026 tax regulations.",
-  keywords: 'GST calculator online free, reverse charge mechanism tool, gst inclusive exclusive calculator, tax credit analyzer, gst rate checker',
+  title: "GST Calculator 2026 | CGST SGST IGST Split & ITC Guide | Toolioz",
+  description: "Calculate GST with CGST/SGST and IGST split. Includes GST filing deadlines, ITC rules, composition scheme guide, and HSN code lookup tips for Indian businesses.",
+  keywords: 'gst calculator with cgst sgst split, igst calculator inter state, gst inclusive exclusive calculator india, gst filing deadline gstr-1 gstr-3b, input tax credit itc rules 2026, gst composition scheme limit, gst for freelancers india, hsn code gst rate finder, reverse charge mechanism calculator',
   alternates: {
     canonical: 'https://toolioz.com/finance/gst-calculator',
   },
   openGraph: {
-    title: 'Fast GST & RCM Calculator | Toolioz',
-    description: 'Calculate net and gross values for GST compliant invoicing.',
+    title: 'GST Calculator 2026 — CGST/SGST Split & Compliance Guide | Toolioz',
+    description: 'Calculate GST amounts with CGST/SGST or IGST split. Get filing deadlines, ITC rules, and pro tips for GST compliance.',
     url: 'https://toolioz.com/finance/gst-calculator',
     type: 'website',
   }

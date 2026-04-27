@@ -8,13 +8,13 @@ import { calculateMonthlyPayment } from '@/lib/formulas';
 import { Info, Car, ShieldCheck, TrendingUp } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
-import styles from '@/app/finance/compound-interest/page.module.css';
+import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
 
 import { FAQSchema } from '@/components/ui/FAQSchema';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 export default function CarLoanClient() {
   const [principal, setPrincipal] = useState<number>(500000);
-  const [rate, setRate] = useState<number>(9);
+  const [rate, setRate] = useState<number>(8.5);
   const [years, setYears] = useState<number>(5);
   const [result, setResult] = useState<number>(0);
 
@@ -31,13 +31,16 @@ export default function CarLoanClient() {
     <>
       <div className={styles.wrapper}>
         <header className={styles.header}>
-          <div className="container">
+          <div className="mx-auto max-w-6xl">
             <h1 className={styles.title}>Car Loan EMI Calculator 2026</h1>
-            <p className={styles.subtitle}>Calculate monthly installments with latest car loan interest rates 2026.</p>
+            <p className={styles.subtitle}>Calculate monthly installments with latest car loan interest rates.</p>
+            <div className="mx-auto mt-6 max-w-[700px] rounded-lg border border-[#fbbf24] bg-[#fffbeb] px-4 py-3 text-left text-[0.8rem] leading-[1.6] text-[#92400e]">
+              <strong>⚠️ Disclaimer:</strong> Interest rates shown are <strong>illustrative defaults</strong> and may not match actual bank offers. EMI depends on your credit score, loan tenure, and lender. For <strong>assumption &amp; planning purposes only</strong>.
+            </div>
           </div>
         </header>
 
-        <section className="container section">
+        <section className="mx-auto max-w-6xl py-16">
           <div className={styles.grid}>
             <Card className={styles.inputCard}>
               <div className={styles.inputGroup}>
@@ -75,7 +78,11 @@ export default function CarLoanClient() {
                     <span className={styles.statVal}>{formatCurrency(result * years * 12 - principal)}</span>
                   </div>
                   <div className={styles.statItem}>
-                    <span className={styles.statLabel}>Actual Loan</span>
+                    <span className={styles.statLabel}>Total Payable</span>
+                    <span className={styles.statVal}>{formatCurrency(result * years * 12)}</span>
+                  </div>
+                  <div className={styles.statItem}>
+                    <span className={styles.statLabel}>Loan Amount</span>
                     <span className={styles.statVal}>{formatCurrency(principal)}</span>
                   </div>
                 </div>
@@ -122,6 +129,72 @@ Our car loan calculator helps you find the perfect balance. By experimenting wit
           ]}
           formula="M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]"
         />
+        <RelatedTools currentToolId="car-loan" categoryId="finance" />
+
+        {/* Tax Section */}
+        <div className="mx-auto mt-12 max-w-[900px]">
+          <Card className="!p-8 border-l-4 border-l-[#06b6d4] bg-[#ecfeff]">
+            <h2 className="mb-6 text-[1.4rem] font-bold text-[#0891b2] flex items-center gap-2">
+              <ShieldCheck className="text-[#06b6d4]" /> 💸 Tax & Car Loans (2026-27)
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#0891b2]">Salaried Individuals</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#0891b2]/80">
+                  <li><strong>No Direct Benefit:</strong> Unfortunately, there are <strong>no income tax deductions</strong> for car loan EMI or interest for salaried employees.</li>
+                  <li><strong>Electric Vehicles (EV):</strong> Section 80EEB (deduction up to ₹1.5L on interest) was available until March 2023. Check for any 2026 extensions in state-specific EV policies.</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="mb-3 text-[1.05rem] font-bold text-[#0891b2]">Business / Professionals</h3>
+                <ul className="flex flex-col gap-3 text-[0.875rem] leading-[1.6] text-[#0891b2]/80">
+                  <li><strong>Interest Deduction:</strong> If the car is used for business, the **entire interest amount** can be claimed as a business expense.</li>
+                  <li><strong>Depreciation:</strong> You can claim <strong>15% depreciation</strong> (standard) or higher for EVs annually on the car&apos;s value to reduce taxable profit.</li>
+                  <li><strong>Fuel & Maintenance:</strong> Expenses like fuel and servicing can also be deducted proportionally for business use.</li>
+                </ul>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Real-World Tips Section */}
+        <section className="mx-auto max-w-[900px] px-6 py-12">
+          <Card className="!p-8">
+            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🚗 Before You Take a Car Loan — Must-Know Tips</h2>
+            
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">📋 Important Terms You Should Know</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>Flat Rate vs Reducing Balance:</strong> Dealers quote &quot;flat rate&quot; (e.g., 5%) which sounds low but is actually ~9-10% on reducing balance. Always ask for the <strong>reducing balance rate</strong> — that&apos;s the real cost.</li>
+                <li><strong>Processing Fee:</strong> Usually 0.5–2% of loan amount. This is negotiable — always ask for a waiver or discount.</li>
+                <li><strong>Foreclosure Charges:</strong> Banks may charge 2–5% if you repay early. RBI mandates no foreclosure charges on floating-rate loans for individuals.</li>
+                <li><strong>Ex-showroom vs On-Road Price:</strong> Loans are usually on ex-showroom price. Registration, insurance, and accessories are extra out-of-pocket costs.</li>
+              </ul>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">⚡ Unwritten Rules Banks Won&apos;t Tell You</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li><strong>Dealer financing is more expensive:</strong> In-house dealer loans carry higher rates. Get pre-approved from your bank first, then use the dealer&apos;s offer as a negotiation tool.</li>
+                <li><strong>Credit score below 750?</strong> You&apos;ll pay 1–3% higher interest. Fix your CIBIL score before applying — even waiting 3 months can save lakhs.</li>
+                <li><strong>Insurance bundling is optional:</strong> Dealers push you to buy insurance from them. You are legally free to buy from any provider. Shop around.</li>
+                <li><strong>&quot;Zero down payment&quot; is a trap:</strong> It means 100% financing = maximum interest. Always pay at least 20% down to reduce total cost significantly.</li>
+                <li><strong>Negotiate the car price first, then discuss finance.</strong> Dealers mix discounts with loan terms to confuse you.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">💡 Pro Tips for Smart Borrowers</h3>
+              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
+                <li>✅ Keep your EMI below <strong>15% of monthly take-home salary</strong> — this is the golden rule for car affordability.</li>
+                <li>✅ A <strong>3-year tenure</strong> is the sweet spot — balances affordable EMIs with minimal interest.</li>
+                <li>✅ For used cars, bank interest rates are 2–4% higher. Consider certified pre-owned programs for better rates.</li>
+                <li>✅ Calculate <strong>Total Cost of Ownership</strong> (EMI + Insurance + Fuel + Maintenance) — not just the EMI.</li>
+                <li>✅ If your CIBIL score is 800+, you can negotiate interest rates 0.5–1% below the advertised rate.</li>
+              </ul>
+            </div>
+          </Card>
+        </section>
       <Footer />
     </div>
     </>

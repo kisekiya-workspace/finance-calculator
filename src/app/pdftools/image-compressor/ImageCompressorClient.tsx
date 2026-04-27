@@ -7,9 +7,31 @@ import { Button } from '@/components/ui/Button';
 import { Upload, ImageIcon, Download, Zap, ShieldCheck, Settings, Info, Loader2, ArrowRight } from 'lucide-react';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
-import styles from '../merge-pdf/page.module.css';
-
 import { FAQSchema } from '@/components/ui/FAQSchema';
+
+const FAQS = [
+  {
+    question: 'Does this tool upload my images to a server?',
+    answer:
+      'No. All processing happens entirely in your browser using canvas-based compression. Your images never leave your device.',
+  },
+  {
+    question: 'What image formats are supported?',
+    answer:
+      'You can compress JPEG, PNG, and WebP images. The output is always optimized JPEG for maximum size reduction.',
+  },
+  {
+    question: 'What does the Target Size feature do?',
+    answer:
+      'When you set a target file size (e.g. 200KB), the engine automatically finds the best quality-and-scale combination to meet your goal.',
+  },
+  {
+    question: 'Will I lose image quality?',
+    answer:
+      'The compressor uses intelligent resampling to preserve visual fidelity. You can see a side-by-side comparison before downloading.',
+  },
+];
+
 export default function ImageCompressorClient() {
   const [file, setFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string>('');
@@ -149,41 +171,43 @@ export default function ImageCompressorClient() {
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <header className={styles.header}>
+      <div className="min-h-screen bg-[var(--bg-primary)]">
+        <header className="border-b border-[var(--border)] bg-[var(--bg-secondary)] py-16 pb-12 text-center md:py-24 md:pb-16">
           <div className="container">
-            <h1 className={styles.title}>Image Compressor</h1>
-            <p className={styles.subtitle}>Reduce image file size instantly with professional-grade compression settings.</p>
+            <h1 className="mb-4 text-[2.25rem] font-black sm:text-[3.5rem]">Image Compressor</h1>
+            <p className="mx-auto max-w-[700px] text-[1.25rem] text-[var(--text-secondary)]">Reduce image file size instantly with professional-grade compression settings.</p>
           </div>
         </header>
 
         <section className="container section">
-          <div className={`${styles.mainGrid} ${file ? styles.withFile : ''}`}>
-            <div className={styles.uploadCol}>
-              <Card className={styles.dropzoneCard}>
+          <div className={`mx-auto grid max-w-[1100px] gap-12 ${file ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
+            <div>
+              <Card className="!flex min-h-[400px] flex-col !rounded-[var(--radius-xl)] !border-2 !border-dashed !border-[var(--border)] !bg-[var(--bg-secondary)] !p-6 transition-all duration-300 sm:!p-10">
                 {!file ? (
-                  <div className={styles.dropzone}>
-                    <input type="file" accept="image/*" onChange={handleFileChange} id="img-upload" className={styles.fileInput} />
-                    <label htmlFor="img-upload" className={styles.dropLabel}>
-                      <div className={styles.iconCircle}><Upload size={32} /></div>
-                      <h3>Select Image</h3>
-                      <p>to optimize quality and size</p>
+                  <div className="flex flex-1 flex-col items-center justify-center text-center">
+                    <input type="file" accept="image/*" onChange={handleFileChange} id="img-upload" className="hidden" />
+                    <label htmlFor="img-upload" className="w-full cursor-pointer">
+                      <div className="mx-auto mb-8 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white text-[#ef4444] shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
+                        <Upload size={32} />
+                      </div>
+                      <h3 className="mb-2 text-[1.5rem] font-extrabold">Select Image</h3>
+                      <p className="mb-10 text-[var(--text-secondary)]">to optimize quality and size</p>
                     </label>
                   </div>
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div className={styles.fileItem} style={{ marginBottom: '2rem' }}>
-                      <div className={styles.fileInfo}>
-                        <ImageIcon className={styles.fileIcon} />
+                    <div className="relative flex items-center justify-between gap-4 rounded-[var(--radius-lg)] bg-[var(--bg-secondary)] p-4 sm:gap-6 sm:p-5" style={{ marginBottom: '2rem' }}>
+                      <div className="flex flex-1 items-center gap-4">
+                        <ImageIcon size={28} className="text-[#ef4444]" />
                         <div>
-                          <span className={styles.fileName}>{file.name}</span>
-                          <span className={styles.fileSize}>{formatSize(file.size)}</span>
+                          <span className="block text-[0.9375rem] font-bold">{file.name}</span>
+                          <span className="block text-[0.75rem] text-[var(--text-secondary)]">{formatSize(file.size)}</span>
                         </div>
                       </div>
                       <Button variant="outline" size="sm" onClick={() => setFile(null)}>Change</Button>
                     </div>
 
-                    <div className={styles.optionsBox}>
+                    <div className="rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] p-6">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
                         <Settings size={18} />
                         <span style={{ fontWeight: 700 }}>Compression Settings</span>
@@ -219,7 +243,8 @@ export default function ImageCompressorClient() {
                               padding: '12px', 
                               borderRadius: '10px', 
                               border: '1px solid var(--border)',
-                              background: 'white'
+                              background: 'var(--bg-primary)',
+                              color: 'var(--text-primary)'
                             }}
                           />
                           <p style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', marginTop: '6px' }}>
@@ -231,12 +256,11 @@ export default function ImageCompressorClient() {
 
                     <Button 
                       fullWidth 
-                      className={styles.processBtn}
+                      className="!h-14 !rounded-full !bg-[#ef4444] !text-[1rem] !font-extrabold sm:!h-16 sm:!text-[1.125rem] mt-8"
                       onClick={compressImage} 
                       disabled={isProcessing}
-                      style={{ marginTop: '2rem' }}
                     >
-                      {isProcessing ? <Loader2 className="animate-spin" /> : 'Compress Image Now'}
+                      {isProcessing ? <Loader2 className="animate-spin" style={{ marginRight: '8px' }} /> : 'Compress Image Now'}
                     </Button>
                   </div>
                 )}
@@ -244,9 +268,9 @@ export default function ImageCompressorClient() {
             </div>
 
             {file && (
-              <div className={styles.previewCol}>
+              <div>
                 <Card style={{ padding: '1.5rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                  <div className={styles.previewViewGrid}>
+                  <div className="grid gap-6 sm:grid-cols-2">
                     <div style={{ textAlign: 'center' }}>
                       <p style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--text-tertiary)' }}>ORIGINAL</p>
                       <div style={{ 
@@ -345,51 +369,55 @@ export default function ImageCompressorClient() {
             )}
           </div>
 
-          <div className={styles.features}>
-            <div className={styles.featureItem}>
-              <ShieldCheck size={24} className={styles.featureIcon} style={{ color: '#10b981' }} />
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="flex items-start gap-4 rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6 transition-transform duration-300 hover:-translate-y-1">
+              <ShieldCheck size={24} className="mt-1 flex-shrink-0" style={{ color: '#10b981' }} />
               <div>
-                <h4>Secure & Private</h4>
-                <p>All processing happens locally in your browser. Your images never leave your device.</p>
+                <h4 className="mb-2 text-[1.125rem] font-extrabold">Secure & Private</h4>
+                <p className="text-[0.9375rem] leading-[1.6] text-[var(--text-secondary)]">All processing happens locally in your browser. Your images never leave your device.</p>
               </div>
             </div>
-            <div className={styles.featureItem}>
-              <Zap size={24} className={styles.featureIcon} style={{ color: '#f59e0b' }} />
+            <div className="flex items-start gap-4 rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6 transition-transform duration-300 hover:-translate-y-1">
+              <Zap size={24} className="mt-1 flex-shrink-0" style={{ color: '#f59e0b' }} />
               <div>
-                <h4>Instant Optimization</h4>
-                <p>Our advanced engine compresses your images in milliseconds with pixel-perfect results.</p>
+                <h4 className="mb-2 text-[1.125rem] font-extrabold">Instant Optimization</h4>
+                <p className="text-[0.9375rem] leading-[1.6] text-[var(--text-secondary)]">Our advanced engine compresses your images in milliseconds with pixel-perfect results.</p>
               </div>
             </div>
-            <div className={styles.featureItem}>
-              <Info size={24} className={styles.featureIcon} style={{ color: '#3b82f6' }} />
+            <div className="flex items-start gap-4 rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6 transition-transform duration-300 hover:-translate-y-1">
+              <Info size={24} className="mt-1 flex-shrink-0" style={{ color: '#3b82f6' }} />
               <div>
-                <h4>No File Limits</h4>
-                <p>Completely free to use with no hidden caps on file size or daily usage counts.</p>
+                <h4 className="mb-2 text-[1.125rem] font-extrabold">No File Limits</h4>
+                <p className="text-[0.9375rem] leading-[1.6] text-[var(--text-secondary)]">Completely free to use with no hidden caps on file size or daily usage counts.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <RelatedTools currentToolId="image-compressor" categoryId="pdftools" />
-
         <SEOSection 
-          title="Best Online Image Compressor: Reduce Size Without Losing Quality 2026"
-          description="Looking to compress images for fast web performance or email? Our professional image optimizer supports JPEG, PNG, and WebP. Set a target file size and let our engine automatically find the perfect balance between quality and compression. Your photos remain sharp while your site stays fast."
+          title="Best Online Image Compressor: Reduce Size Without Losing Quality"
+          description="Compress images for fast web performance or email. Set a target file size and let our engine find the perfect balance between quality and compression. All processing is local — your photos never leave your device."
           howToUse={[
-            "Select or drop your image file into the specialized dropzone.",
-            "Adjust the visual quality slider or enter a specific 'Target Size' (e.g. 200KB).",
-            "Click on 'Compress Image Now' to run our local optimization engine.",
-            "Review the 'Before vs After' preview to ensure visual fidelity is maintained.",
-            "Download your optimized image instantly. No uploads, no waiting."
+            "Select or drop your image file into the dropzone.",
+            "Adjust the visual quality slider or enter a specific Target Size in KB.",
+            "Click Compress Image Now to run the local optimization engine.",
+            "Review the before vs after preview to ensure quality is preserved.",
+            "Download your optimized image instantly."
           ]}
           benefits={[
-            "Google SEO Boost: Smaller images load faster, improving your search page rankings.",
-            "Privacy Assured: Since processing is local, your private photos never hit a server.",
-            "Target Size Feature: Perfect for meeting strict upload size limits on portals.",
-            "High Fidelity: Intelligent resampling preserves fine details in the output.",
-            "Format Support: One-stop tool for all your common web and mobile image formats."
+            "Faster page loads improve search engine rankings.",
+            "100% private — all processing happens in your browser.",
+            "Target Size feature for meeting strict upload limits.",
+            "Intelligent resampling preserves fine details.",
+            "Supports JPEG, PNG, and WebP image formats."
           ]}
         />
+
+        <FAQSchema faqs={FAQS} />
+
+        <section className="container section !pt-0">
+          <RelatedTools currentToolId="image-compressor" categoryId="pdftools" />
+        </section>
       </div>
       <Footer />
     </>
