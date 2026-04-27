@@ -130,32 +130,6 @@ export default function FDClient() {
           </div>
         </section>
 
-        <SEOSection 
-          title="Fixed Deposits (FD): The Bedrock of a Secure Savings Strategy"
-          description={`A Fixed Deposit (FD) has long been considered one of the safest and most reliable investment instruments, particularly for those who prioritize capital preservation over high-risk growth. When you open an FD, you agree to leave a specific amount of money with a bank or non-banking financial company (NBFC) for a set tenure at a fixed interest rate. Unlike market-linked investments like stocks or mutual funds, the returns on an FD are guaranteed and unaffected by market volatility.
-
-The efficiency of a fixed deposit depends largely on its compounding frequency. Most banks in India and other regions compound interest on a quarterly basis, which means your interest earns interest four times a year. This leads to a slightly higher 'effective' yield compared to the nominal interest rate. Our FD calculator simplifies this complex math, allowing you to see the exact maturity value of your deposit based on the principal, tenure, and current bank rates.
-
-For many, FDs serve as an emergency fund or a way to save for specific future milestones, such as a down payment on a home or post-graduation expenses. Some FDs also offer tax-saving benefits under Section 80C (in India), though these typically come with a mandatory 5-year lock-in period. By comparing the maturity amounts across different interest rates and tenures using our tool, you can make an informed decision on where to park your hard-earned money for the best guaranteed returns.`}
-          howToUse={[
-            "Enter the Principal Deposit Amount you wish to invest in the bank.",
-            "Input the Annual Interest Rate offered by the financial institution (Bank/NBFC).",
-            "Select the Tenure or duration of the deposit in years.",
-            "Choose the Compounding Frequency (quarterly is the most common in India).",
-            "Instantly view the Final Maturity Amount you will receive at the end of the term.",
-            "Check the Total Interest Earned—this is the profit your money has generated over the period."
-          ]}
-          benefits={[
-            "Capital Security: Your principal amount is safe and guaranteed by the institution.",
-            "Predictable Income: Know exactly how much you will receive on the day of maturity.",
-            "Wealth Protection: Provides a steady hedge against short-term market fluctuations.",
-            "Flexible Tenures: Choose a term that perfectly matches your future financial needs.",
-            "Tax Planning: Utilize tax-saving FD schemes to reduce your annual tax liability."
-          ]}
-          formula="A = P(1 + r/n)^(nt)"
-        />
-        <RelatedTools currentToolId="fd-calculator" categoryId="finance" />
-
         {/* Tax & TDS Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
           <Card className="!p-8 border-l-4 border-l-[#0284c7] bg-[#f0f9ff]">
@@ -219,6 +193,32 @@ For many, FDs serve as an emergency fund or a way to save for specific future mi
             </div>
           </Card>
         </section>
+
+        <SEOSection 
+          title="Fixed Deposits (FD): The Bedrock of a Secure Savings Strategy"
+          description={`A Fixed Deposit (FD) has long been considered one of the safest and most reliable investment instruments, particularly for those who prioritize capital preservation over high-risk growth. When you open an FD, you agree to leave a specific amount of money with a bank or non-banking financial company (NBFC) for a set tenure at a fixed interest rate. Unlike market-linked investments like stocks or mutual funds, the returns on an FD are guaranteed and unaffected by market volatility.
+
+The efficiency of a fixed deposit depends largely on its compounding frequency. Most banks in India and other regions compound interest on a quarterly basis, which means your interest earns interest four times a year. This leads to a slightly higher 'effective' yield compared to the nominal interest rate. Our FD calculator simplifies this complex math, allowing you to see the exact maturity value of your deposit based on the principal, tenure, and current bank rates.
+
+For many, FDs serve as an emergency fund or a way to save for specific future milestones, such as a down payment on a home or post-graduation expenses. Some FDs also offer tax-saving benefits under Section 80C (in India), though these typically come with a mandatory 5-year lock-in period. By comparing the maturity amounts across different interest rates and tenures using our tool, you can make an informed decision on where to park your hard-earned money for the best guaranteed returns.`}
+          howToUse={[
+            "Enter the Principal Deposit Amount you wish to invest in the bank.",
+            "Input the Annual Interest Rate offered by the financial institution (Bank/NBFC).",
+            "Select the Tenure or duration of the deposit in years.",
+            "Choose the Compounding Frequency (quarterly is the most common in India).",
+            "Instantly view the Final Maturity Amount you will receive at the end of the term.",
+            "Check the Total Interest Earned—this is the profit your money has generated over the period."
+          ]}
+          benefits={[
+            "Capital Security: Your principal amount is safe and guaranteed by the institution.",
+            "Predictable Income: Know exactly how much you will receive on the day of maturity.",
+            "Wealth Protection: Provides a steady hedge against short-term market fluctuations.",
+            "Flexible Tenures: Choose a term that perfectly matches your future financial needs.",
+            "Tax Planning: Utilize tax-saving FD schemes to reduce your annual tax liability."
+          ]}
+          formula="A = P(1 + r/n)^(nt)"
+        />
+        <RelatedTools currentToolId="fd-calculator" categoryId="finance" />
       <Footer />
     </div>
     </>

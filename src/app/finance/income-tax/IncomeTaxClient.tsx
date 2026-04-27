@@ -254,33 +254,6 @@ export default function IncomeTaxClient() {
             </div>
           </div>
         </section>
-        
-        <RelatedTools currentToolId="income-tax" categoryId="finance" />
-        
-        <SEOSection 
-          title="Income Tax Calculator 2026-27 | New vs Old Regime Analysis"
-          description={`Taxation is one of the most complex yet essential aspects of modern citizenship. Whether you are living in India, the United Kingdom, or the United States, understanding your income tax liability is critical for effective financial planning and legal compliance. As we approach fiscal years like 2025 and 2026, many governments are introducing significant changes to tax slabs, rebates, and deduction rules. An income tax calculator is no longer just a simple math tool; it's a strategic guide to navigating these shifts.
-
-For instance, in the Indian context, the introduction of the 'New Tax Regime' as the default option has fundamentally changed how salaried individuals approach their savings. With higher standard deductions (₹75,000 for FY 24-25) and tax-free income up to ₹12 lakh in the proposed 2026 budget (thanks to rebate u/s 87A), many taxpayers are finding that the New Regime offers significant savings without the need for traditional 80C investments. However, for those with existing home loans or high insurance premiums, the 'Old Regime' might still be the superior choice.
-
-In the United States, tax brackets are adjusted annually for inflation to prevent "bracket creep," where taxpayers move into higher brackets despite no real increase in purchasing power. Our tool factors in these 2026 inflation-adjusted thresholds for various filing statuses, including Single and Married Filing Jointly. Similarly, UK residents must navigate the complexities of Personal Allowances, National Insurance contributions, and the tapering of allowances for high earners. Our global tax engine provides the depth and accuracy needed to simulate these scenarios, help you understand your 'Take-Home Pay', and plan your yearly investments for maximum tax efficiency.`}
-          howToUse={[
-            "Begin by selecting your Country (India, USA, or UK) and the relevant Tax Year (2024-2026).",
-            "Choose your Filing Status—this is critical as it determines your baseline exemptions and slab thresholds.",
-            "Enter your Total Estimated Gross Income for the period (you can toggle between Monthly and Yearly views).",
-            "Input any legally applicable Deductions or Exemptions (e.g., 80C in India, 401k in US, or Pensions in UK).",
-            "Review the 'Net Take-Home Pay' to understand exactly what hits your bank account after all taxes and social contributions.",
-            "Use the 'Visual Breakdown' chart to see the percentage of your income that goes toward taxes vs. what you keep."
-          ]}
-          benefits={[
-            "Global Versatility: Accurately estimate taxes for multiple major jurisdictions in one unified tool.",
-            "Regime Comparison: Instantly see the difference between various tax models (e.g., Old vs. New) to choose the best path.",
-            "Future-Proofing: Stay ahead of the curve with pre-configured 2026 budget rules and inflation-adjusted slabs.",
-            "Detailed Breakdown: Understand exactly where your money goes, from basic income tax to social security and cess.",
-            "Interactive Planning: Use the monthly toggle to align your tax liability with your monthly household budget."
-          ]}
-        />
-        <RelatedTools currentToolId="income-tax" categoryId="finance" />
 
         {/* Tax Saving Decision Guide Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
@@ -347,6 +320,32 @@ In the United States, tax brackets are adjusted annually for inflation to preven
             </div>
           </Card>
         </section>
+
+        <RelatedTools currentToolId="income-tax" categoryId="finance" />
+        
+        <SEOSection 
+          title="Income Tax Calculator 2026-27 | New vs Old Regime Analysis"
+          description={`Taxation is one of the most complex yet essential aspects of modern citizenship. Whether you are living in India, the United Kingdom, or the United States, understanding your income tax liability is critical for effective financial planning and legal compliance. As we approach fiscal years like 2025 and 2026, many governments are introducing significant changes to tax slabs, rebates, and deduction rules. An income tax calculator is no longer just a simple math tool; it's a strategic guide to navigating these shifts.
+
+For instance, in the Indian context, the introduction of the 'New Tax Regime' as the default option has fundamentally changed how salaried individuals approach their savings. With higher standard deductions (₹75,000 for FY 24-25) and tax-free income up to ₹12 lakh in the proposed 2026 budget (thanks to rebate u/s 87A), many taxpayers are finding that the New Regime offers significant savings without the need for traditional 80C investments. However, for those with existing home loans or high insurance premiums, the 'Old Regime' might still be the superior choice.
+
+In the United States, tax brackets are adjusted annually for inflation to prevent "bracket creep," where taxpayers move into higher brackets despite no real increase in purchasing power. Our tool factors in these 2026 inflation-adjusted thresholds for various filing statuses, including Single and Married Filing Jointly. Similarly, UK residents must navigate the complexities of Personal Allowances, National Insurance contributions, and the tapering of allowances for high earners. Our global tax engine provides the depth and accuracy needed to simulate these scenarios, help you understand your 'Take-Home Pay', and plan your yearly investments for maximum tax efficiency.`}
+          howToUse={[
+            "Begin by selecting your Country (India, USA, or UK) and the relevant Tax Year (2024-2026).",
+            "Choose your Filing Status—this is critical as it determines your baseline exemptions and slab thresholds.",
+            "Enter your Total Estimated Gross Income for the period (you can toggle between Monthly and Yearly views).",
+            "Input any legally applicable Deductions or Exemptions (e.g., 80C in India, 401k in US, or Pensions in UK).",
+            "Review the 'Net Take-Home Pay' to understand exactly what hits your bank account after all taxes and social contributions.",
+            "Use the 'Visual Breakdown' chart to see the percentage of your income that goes toward taxes vs. what you keep."
+          ]}
+          benefits={[
+            "Global Versatility: Accurately estimate taxes for multiple major jurisdictions in one unified tool.",
+            "Regime Comparison: Instantly see the difference between various tax models (e.g., Old vs. New) to choose the best path.",
+            "Future-Proofing: Stay ahead of the curve with pre-configured 2026 budget rules and inflation-adjusted slabs.",
+            "Detailed Breakdown: Understand exactly where your money goes, from basic income tax to social security and cess.",
+            "Interactive Planning: Use the monthly toggle to align your tax liability with your monthly household budget."
+          ]}
+        />
       <Footer />
     </div>
     </>

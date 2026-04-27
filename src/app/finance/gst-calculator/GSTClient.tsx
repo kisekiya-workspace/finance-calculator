@@ -174,8 +174,6 @@ export default function GSTClient() {
           </div>
         </section>
 
-        <RelatedTools currentToolId="gst-calculator" categoryId="finance" />
-
         {/* Tax & GST Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
           <Card className="!p-8 border-l-4 border-l-[#ea580c] bg-[#fff7ed]">
@@ -201,41 +199,6 @@ export default function GSTClient() {
               </div>
             </div>
           </Card>
-        </div>
-
-        <SEOSection 
-          title="GST Online: Reverse Charge Mechanism & Tax Computation 2026"
-          description={`The Goods and Services Tax (GST) is a comprehensive, destination-based tax. Our GST online calculator for India 2026 helps businesses and accountants calculate GST on services India seamlessly, supporting the Reverse Charge Mechanism (RCM) for accurate tax filing and invoice generation.
-
-One of the most common challenges in GST is distinguishing between GST-inclusive and GST-exclusive prices. An inclusive price means the tax is already part of the total amount shown to the consumer, while an exclusive price means the tax will be added on top of the base cost. Our advanced calculator handles both scenarios seamlessly. Whether you are a retailer trying to extract the tax component from your daily sales or a service provider calculating the total billable amount for a client, this tool provides the precision you need.
-
-Beyond just basic calculation, our tool serves as an educational resource to understand the different tax slabs (typically 5%, 12%, 18%, and 28%). Different products and services fall into different categories, and knowing how these rates impact your profit margins is essential for competitive pricing. By using our unified tax engine, you can ensure your business accounting stays robust, minimize the risk of manual errors, and better manage your cash flow for quarterly tax payments.`}
-          howToUse={[
-            "Select the appropriate mode: 'Tax Exclusive' to add tax to a base price, or 'Tax Inclusive' to find the base price from a total.",
-            "Enter the Principal Amount in your local currency.",
-            "Choose a standard tax slab (5%, 12%, 18%, 28%) or input a custom percentage rate.",
-            "Review the detailed breakdown, including the Net Amount, the GST Amount, and the Final Total.",
-            "Verify the calculation against your invoice or purchase receipt for total accuracy.",
-            "Use the 'Download Tax Invoice' button to generate a quick summary for your records."
-          ]}
-          benefits={[
-            "Compliance Accuracy: Ensure your tax calculations align with government standards.",
-            "Seamless Invoicing: Quickly calculate the tax component for both B2B and B2C transactions.",
-            "Error Elimination: Avoid costly manual mistakes in GST filings and accounting books.",
-            "Transparency: Clearly understand the tax burden being passed on to the consumer.",
-            "Versatility: Suitable for freelancers, small business owners, and large corporations alike."
-          ]}
-        />
-
-        {/* Sticky Mobile Result Bar */}
-        <div className="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between border-t border-[var(--border)] bg-white px-5 py-4 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] min-[901px]:hidden">
-          <div className="flex flex-col">
-            <div className="text-[0.7rem] font-bold uppercase tracking-[0.05em] text-[var(--text-secondary)]">{isInclusive ? "GST Included" : "Total Amount"}</div>
-            <div className="text-[1.25rem] font-black text-[#1e293b]">{formatCurrency(isInclusive ? result.taxAmount : result.totalAmount)}</div>
-          </div>
-          <button className="rounded-[var(--radius-md)] bg-[#1e293b] px-5 py-2.5 text-[0.85rem] font-bold text-white shadow-sm" onClick={() => window.print()}>
-            Download
-          </button>
         </div>
 
         {/* Real-World Tips Section */}
@@ -276,6 +239,32 @@ Beyond just basic calculation, our tool serves as an educational resource to und
             </div>
           </Card>
         </section>
+
+        <RelatedTools currentToolId="gst-calculator" categoryId="finance" />
+
+        <SEOSection 
+          title="GST Online: Reverse Charge Mechanism & Tax Computation 2026"
+          description={`The Goods and Services Tax (GST) is a comprehensive, destination-based tax. Our GST online calculator for India 2026 helps businesses and accountants calculate GST on services India seamlessly, supporting the Reverse Charge Mechanism (RCM) for accurate tax filing and invoice generation.
+
+One of the most common challenges in GST is distinguishing between GST-inclusive and GST-exclusive prices. An inclusive price means the tax is already part of the total amount shown to the consumer, while an exclusive price means the tax will be added on top of the base cost. Our advanced calculator handles both scenarios seamlessly. Whether you are a retailer trying to extract the tax component from your daily sales or a service provider calculating the total billable amount for a client, this tool provides the precision you need.
+
+Beyond just basic calculation, our tool serves as an educational resource to understand the different tax slabs (typically 5%, 12%, 18%, and 28%). Different products and services fall into different categories, and knowing how these rates impact your profit margins is essential for competitive pricing. By using our unified tax engine, you can ensure your business accounting stays robust, minimize the risk of manual errors, and better manage your cash flow for quarterly tax payments.`}
+          howToUse={[
+            "Select the appropriate mode: 'Tax Exclusive' to add tax to a base price, or 'Tax Inclusive' to find the base price from a total.",
+            "Enter the Principal Amount in your local currency.",
+            "Choose a standard tax slab (5%, 12%, 18%, 28%) or input a custom percentage rate.",
+            "Review the detailed breakdown, including the Net Amount, the GST Amount, and the Final Total.",
+            "Verify the calculation against your invoice or purchase receipt for total accuracy.",
+            "Use the 'Download Tax Invoice' button to generate a quick summary for your records."
+          ]}
+          benefits={[
+            "Compliance Accuracy: Ensure your tax calculations align with government standards.",
+            "Seamless Invoicing: Quickly calculate the tax component for both B2B and B2C transactions.",
+            "Error Elimination: Avoid costly manual mistakes in GST filings and accounting books.",
+            "Transparency: Clearly understand the tax burden being passed on to the consumer.",
+            "Versatility: Suitable for freelancers, small business owners, and large corporations alike."
+          ]}
+        />
       <Footer />
     </div>
     </>

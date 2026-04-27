@@ -117,27 +117,6 @@ export default function ROIClient() {
           </div>
         </section>
 
-        <SEOSection 
-          title="Return on Investment (ROI) & CAGR: Investment Performance Analysis"
-          description="Return on Investment (ROI) is a popular profitability ratio used to evaluate the efficiency of an investment. Our calculator also computes CAGR (Compound Annual Growth Rate), which provides the annualized return rate — essential for comparing investments held over different time periods."
-          howToUse={[
-            "Enter the total amount initially invested.",
-            "Enter the final value of the investment (or expected exit value).",
-            "Enter the Holding Period in years for CAGR calculation.",
-            "View the ROI percentage (total return) and CAGR (annualized return) instantly.",
-            "Analyze the absolute profit generated in dollar terms."
-          ]}
-          benefits={[
-            "Simple ROI for quick profitability check.",
-            "CAGR for accurate annualized comparison across investments.",
-            "Universal metric for stocks, real estate, and business projects.",
-            "Crucial for business project feasibility analysis.",
-            "Compare investments with different holding periods fairly."
-          ]}
-          formula="ROI = ((FV - IV) / IV) × 100 | CAGR = (FV/IV)^(1/n) - 1"
-        />
-        <RelatedTools currentToolId="roi-calculator" categoryId="finance" />
-
         {/* Tax & Returns Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
           <Card className="!p-8 border-l-4 border-l-[#10b981] bg-[#f0fdf4]">
@@ -202,6 +181,27 @@ export default function ROIClient() {
             </div>
           </Card>
         </section>
+
+        <SEOSection 
+          title="Return on Investment (ROI) & CAGR: Investment Performance Analysis"
+          description="Return on Investment (ROI) is a popular profitability ratio used to evaluate the efficiency of an investment. Our calculator also computes CAGR (Compound Annual Growth Rate), which provides the annualized return rate — essential for comparing investments held over different time periods."
+          howToUse={[
+            "Enter the total amount initially invested.",
+            "Enter the final value of the investment (or expected exit value).",
+            "Enter the Holding Period in years for CAGR calculation.",
+            "View the ROI percentage (total return) and CAGR (annualized return) instantly.",
+            "Analyze the absolute profit generated in dollar terms."
+          ]}
+          benefits={[
+            "Simple ROI for quick profitability check.",
+            "CAGR for accurate annualized comparison across investments.",
+            "Universal metric for stocks, real estate, and business projects.",
+            "Crucial for business project feasibility analysis.",
+            "Compare investments with different holding periods fairly."
+          ]}
+          formula="ROI = ((FV - IV) / IV) × 100 | CAGR = (FV/IV)^(1/n) - 1"
+        />
+        <RelatedTools currentToolId="roi-calculator" categoryId="finance" />
       <Footer />
     </div>
     </>

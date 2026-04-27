@@ -234,33 +234,6 @@ export default function SIPClient() {
           </div>
         </section>
 
-        <RelatedTools currentToolId="sip-calculator" categoryId="finance" />
-        
-        <SEOSection 
-          title="The Power of SIP: Monthly SIP Return Calculator for 1 Crore Target"
-          description={`A Systematic Investment Plan (SIP) is more than just a way to invest in mutual funds; it's a financial philosophy that prioritizes consistency over market timing. In the volatile world of finance, trying to guess when the market will hit its lowest or highest point is often a losing game for retail investors. SIPs solve this by automating your investments, allowing you to buy more units when prices are low and fewer when prices are high. This process, known as Rupee Cost Averaging, significantly reduces the average cost of your investment over time.
-
-The true magic of an SIP, however, lies in the power of compounding. By investing a small amount every month—be it ₹500 or ₹50,000—you are effectively putting your money to work 24/7. Use our tool to calculate how much to invest in SIP for 1 crore target or any other financial goal. Over a span of 10, 20, or 30 years, the interest earned on your contributions starts generating its own interest, leading to an exponential growth curve in the later years. This makes SIPs the ideal tool for long-term goals like buying a house, funding a child's higher education, or building a robust retirement corpus.
-
-Our professional SIP calculator is designed to help you visualize this journey. By adjusting your monthly contribution, duration, and expected rate of return, you can see how even a small increase in your monthly savings can lead to a difference of lakhs or even crores in your final maturity amount. Financial freedom doesn't require a massive windfall; it requires a disciplined plan. Start your journey today by simulating your wealth creation path with our precision-engineered tool.`}
-          howToUse={[
-            "Enter the Fixed Amount you intend to invest every month (Monthly SIP contribution).",
-            "Input the Expected Annual Rate of Return based on the historical performance of your chosen fund.",
-            "Select the Investment Period in years to see the long-term impact of compounding.",
-            "Optionally set a Step-Up % to simulate increasing your SIP by a fixed percentage every year.",
-            "Instantly view the Total Maturity Value after the specified period.",
-            "Analyze the year-by-year breakdown table to track your wealth growth over time."
-          ]}
-          benefits={[
-            "Market Volatility Protection: Benefit from Rupee Cost Averaging and ignore market noise.",
-            "Wealth Snowball: Harness the compounding effect to grow even small amounts into a fortune.",
-            "Step-Up SIP: Model real-world salary increments for more accurate projections.",
-            "Goal-Based Planning: Align your monthly savings with specific future milestones.",
-            "Liquidity & Flexibility: Most SIPs allow you to stop, pause, or increase your investments at any time."
-          ]}
-          formula="M = P * [ ((1 + i)^n - 1) / i ] * (1 + i)"
-        />
-
         {/* Real-World Tips Section */}
         <section className="mx-auto max-w-[900px] px-6 py-12">
           <Card className="!p-8">
@@ -298,6 +271,33 @@ Our professional SIP calculator is designed to help you visualize this journey. 
             </div>
           </Card>
         </section>
+
+        <RelatedTools currentToolId="sip-calculator" categoryId="finance" />
+        
+        <SEOSection 
+          title="The Power of SIP: Monthly SIP Return Calculator for 1 Crore Target"
+          description={`A Systematic Investment Plan (SIP) is more than just a way to invest in mutual funds; it's a financial philosophy that prioritizes consistency over market timing. In the volatile world of finance, trying to guess when the market will hit its lowest or highest point is often a losing game for retail investors. SIPs solve this by automating your investments, allowing you to buy more units when prices are low and fewer when prices are high. This process, known as Rupee Cost Averaging, significantly reduces the average cost of your investment over time.
+
+The true magic of an SIP, however, lies in the power of compounding. By investing a small amount every month—be it ₹500 or ₹50,000—you are effectively putting your money to work 24/7. Use our tool to calculate how much to invest in SIP for 1 crore target or any other financial goal. Over a span of 10, 20, or 30 years, the interest earned on your contributions starts generating its own interest, leading to an exponential growth curve in the later years. This makes SIPs the ideal tool for long-term goals like buying a house, funding a child's higher education, or building a robust retirement corpus.
+
+Our professional SIP calculator is designed to help you visualize this journey. By adjusting your monthly contribution, duration, and expected rate of return, you can see how even a small increase in your monthly savings can lead to a difference of lakhs or even crores in your final maturity amount. Financial freedom doesn't require a massive windfall; it requires a disciplined plan. Start your journey today by simulating your wealth creation path with our precision-engineered tool.`}
+          howToUse={[
+            "Enter the Fixed Amount you intend to invest every month (Monthly SIP contribution).",
+            "Input the Expected Annual Rate of Return based on the historical performance of your chosen fund.",
+            "Select the Investment Period in years to see the long-term impact of compounding.",
+            "Optionally set a Step-Up % to simulate increasing your SIP by a fixed percentage every year.",
+            "Instantly view the Total Maturity Value after the specified period.",
+            "Analyze the year-by-year breakdown table to track your wealth growth over time."
+          ]}
+          benefits={[
+            "Market Volatility Protection: Benefit from Rupee Cost Averaging and ignore market noise.",
+            "Wealth Snowball: Harness the compounding effect to grow even small amounts into a fortune.",
+            "Step-Up SIP: Model real-world salary increments for more accurate projections.",
+            "Goal-Based Planning: Align your monthly savings with specific future milestones.",
+            "Liquidity & Flexibility: Most SIPs allow you to stop, pause, or increase your investments at any time."
+          ]}
+          formula="M = P * [ ((1 + i)^n - 1) / i ] * (1 + i)"
+        />
       <Footer />
     </div>
     </>

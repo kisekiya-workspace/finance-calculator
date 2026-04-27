@@ -51,7 +51,7 @@ export default function PortalClient() {
   return (
     <div className="bg-[var(--bg-primary)]">
 
-      
+
       {/* Clean & Professional Hero Section */}
       <section className="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-16 text-center md:py-24">
         {/* Colorful Gradient Backgrounds */}
@@ -63,15 +63,15 @@ export default function PortalClient() {
           <div className="relative z-10 mx-auto max-w-[900px]">
             <div className="mb-8 inline-flex animate-[fadeIn_1s_ease-out] rounded-full border border-[var(--border-strong)] bg-white/50 px-5 py-2 text-xs font-bold uppercase tracking-[0.1em] text-[var(--text-primary)] shadow-sm backdrop-blur-md dark:bg-black/30">All-in-One Utility Hub</div>
             <h1 className="mb-8 text-[clamp(2.75rem,8vw,5rem)] font-black leading-none tracking-[-0.03em] text-[var(--text-primary)]">
-              Smart Tools for <br/>
+              Smart Tools for <br />
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">Advanced Decision Making</span>
             </h1>
             <p className="mx-auto mb-12 max-w-[700px] text-lg leading-8 text-[var(--text-secondary)] md:text-xl">
-              From complex tax projections to developer utilities and PDF magic. 
-              We've built professional-grade tools that run entirely in your browser. 
+              From complex tax projections to developer utilities and PDF magic.
+              We've built professional-grade tools that run entirely in your browser.
               Always accurate, always private.
             </p>
-            
+
             <div className="mx-auto mb-12 max-w-[700px]">
               <div className="rounded-[var(--radius-lg)] border-2 border-[var(--border-strong)] bg-white p-2 shadow-sm transition-all duration-200 focus-within:border-[var(--primary)] focus-within:shadow-[0_0_0_4px_rgba(37,99,235,0.1)]">
                 <div className="flex items-center gap-3 px-2">
@@ -79,7 +79,8 @@ export default function PortalClient() {
                   <input
                     type="text"
                     placeholder="Find a tool (e.g. SIP, JSON, PDF...)"
-                    className="w-full flex-1 bg-transparent py-3 text-lg text-[var(--text-primary)] outline-none placeholder:text-[var(--text-tertiary)] md:text-xl"
+                    className="w-full flex-1 bg-transparent py-3 text-lg text-[var(--text-primary)] outline-none placeholder:text-(--text-tertiary) md:text-xl border-none"
+
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                   />
@@ -117,7 +118,7 @@ export default function PortalClient() {
                 Choose from our professional suite of utility tools.
               </p>
             </div>
-            
+
             <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-3 max-md:flex max-md:overflow-x-auto max-md:gap-4 max-md:pr-10 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden">
               {CATEGORIES.map(cat => (
                 <Link key={cat.id} href={`#cat-${cat.id}`} className="max-md:min-w-[280px] max-md:snap-center">
@@ -168,7 +169,7 @@ export default function PortalClient() {
             CATEGORIES.map(cat => {
               const catTools = TOOLS.filter(t => t.category === cat.id);
               if (catTools.length === 0) return null;
-              
+
               return (
                 <div key={cat.id} id={`cat-${cat.id}`} className="mb-20 last:mb-0">
                   <div className="mb-10 flex items-center gap-4 border-b border-[var(--border)] pb-4">
@@ -268,7 +269,7 @@ export default function PortalClient() {
                 Zero server processing. Everything runs securely in your browser.
               </p>
             </div>
-            
+
             <div className="grid gap-8 lg:grid-cols-3">
               {[
                 { step: '01', title: 'Select Tool', desc: 'Choose from our categorized suite of professional utilities.' },

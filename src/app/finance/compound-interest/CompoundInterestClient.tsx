@@ -115,39 +115,6 @@ export default function CompoundInterestClient() {
           </div>
         </section>
 
-        <SEOSection 
-          title="Compound Interest: Daily Compounding & Future Value Analysis 2026"
-          description="Compound interest is the interest on a loan or deposit calculated based on both the initial principal and the accumulated interest from previous periods. Our future value of investment calculator 2026 allows you to simulate daily compound interest with deposits to see how 'interest on interest' makes your wealth grow at a faster rate."
-          howToUse={[
-            "Enter the initial investment amount (principal).",
-            "Specify the annual interest rate as a percentage.",
-            "Choose the total number of years you plan to invest.",
-            "Select the compounding frequency (monthly, annually, etc.).",
-            "Review the future value and total interest earned."
-          ]}
-          benefits={[
-            "Helps in long-term wealth projection.",
-            "Demonstrates the power of consistent investing.",
-            "Compares different compounding frequencies.",
-            "Visualizes the impact of inflationary growth."
-          ]}
-          formula="A = P(1 + r/n)^(nt)"
-        />
-
-        {/* Sticky Mobile Result Bar */}
-        <div className={styles.mobileResultBar}>
-          <div className={styles.mobileInfo}>
-            <div className={styles.mobileLabel}>Future Value</div>
-            <div className={styles.mobileValue}>{formatCurrency(result)}</div>
-          </div>
-          <button className={styles.mobileAction} onClick={() => window.print()}>
-            Download
-          </button>
-        </div>
-
-        {/* Real-World Tips Section */}
-        <RelatedTools currentToolId="compound-interest" categoryId="finance" />
-
         {/* Tax & Compounding Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
           <Card className="!p-8 border-l-4 border-l-[#0891b2] bg-[#ecfeff]">
@@ -211,6 +178,27 @@ export default function CompoundInterestClient() {
             </div>
           </Card>
         </section>
+
+        <RelatedTools currentToolId="compound-interest" categoryId="finance" />
+
+        <SEOSection 
+          title="Compound Interest: Daily Compounding & Future Value Analysis 2026"
+          description="Compound interest is the interest on a loan or deposit calculated based on both the initial principal and the accumulated interest from previous periods. Our future value of investment calculator 2026 allows you to simulate daily compound interest with deposits to see how 'interest on interest' makes your wealth grow at a faster rate."
+          howToUse={[
+            "Enter the initial investment amount (principal).",
+            "Specify the annual interest rate as a percentage.",
+            "Choose the total number of years you plan to invest.",
+            "Select the compounding frequency (monthly, annually, etc.).",
+            "Review the future value and total interest earned."
+          ]}
+          benefits={[
+            "Helps in long-term wealth projection.",
+            "Demonstrates the power of consistent investing.",
+            "Compares different compounding frequencies.",
+            "Visualizes the impact of inflationary growth."
+          ]}
+          formula="A = P(1 + r/n)^(nt)"
+        />
       <Footer />
     </div>
     </>
