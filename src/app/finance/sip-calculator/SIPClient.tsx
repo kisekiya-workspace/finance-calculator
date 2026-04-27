@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateSIP } from '@/lib/formulas';
-import { Info, TrendingUp, Sparkles, Target, AlertTriangle } from 'lucide-react';
+import { Info, TrendingUp, Sparkles, Target, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
