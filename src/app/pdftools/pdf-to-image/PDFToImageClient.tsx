@@ -31,7 +31,7 @@ const FAQS = [
   {
     question: 'Does this tool upload my PDF to a server?',
     answer:
-      'Yes — the PDF is sent to our secure backend for rendering using a professional-grade engine. Files are processed for the request only and are not stored permanently.',
+      'No. All processing happens locally in your browser. Your PDF files never leave your device, ensuring complete privacy and security.',
   },
   {
     question: 'What image formats are supported?',
@@ -41,7 +41,7 @@ const FAQS = [
   {
     question: 'Is there a page limit?',
     answer:
-      'The tool supports up to 30 pages per PDF to ensure fast and reliable processing.',
+      'The tool supports up to 30 pages per PDF to ensure fast and reliable processing within your browser.',
   },
   {
     question: 'Can I convert password-protected PDFs?',
@@ -74,40 +74,63 @@ export default function PDFToImageClient() {
     setErrorMessage(null);
 
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('format', format);
-      formData.append('scale', String(scale));
-
-      const response = await fetch('/api/pdf/to-image', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        let message = 'Failed to convert PDF to images.';
-        try {
-          const errorPayload = (await response.json()) as { error?: string };
-          if (errorPayload.error) message = errorPayload.error;
-        } catch {
-          // fall back to generic message
-        }
-        throw new Error(message);
+      const pdfjsLib = await import('pdfjs-dist');
+      if (typeof window !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
       }
 
-      const data = (await response.json()) as {
-        images: RenderedPage[];
-        pageCount: number;
-        format: string;
-      };
+      const arrayBuffer = await file.arrayBuffer();
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
 
-      setImages(data.images);
+      const MAX_PAGES = 30;
+      if (pdf.numPages > MAX_PAGES) {
+        throw new Error(`This tool supports up to ${MAX_PAGES} pages per conversion.`);
+      }
+
+      const generatedImages: RenderedPage[] = [];
+      const mimeType = format === 'jpeg' ? 'image/jpeg' : 'image/png';
+
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale });
+
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.ceil(viewport.width));
+        canvas.height = Math.max(1, Math.ceil(viewport.height));
+        const context = canvas.getContext('2d');
+
+        if (!context) throw new Error('Could not create canvas context');
+
+        const renderContext = {
+          canvasContext: context,
+          viewport: viewport,
+        };
+
+        // @ts-expect-error - canvas is omitted or pdfjs types are mismatched
+        await page.render(renderContext).promise;
+
+        const dataUrl = canvas.toDataURL(mimeType);
+        generatedImages.push({
+          pageNumber: pageNum,
+          dataUrl,
+        });
+
+        page.cleanup();
+      }
+
+      setImages(generatedImages);
     } catch (error) {
       const message =
         error instanceof Error
           ? error.message
           : 'Something went wrong during conversion.';
-      setErrorMessage(message);
+      
+      if (message.toLowerCase().includes('encrypted') || message.toLowerCase().includes('password')) {
+        setErrorMessage('This PDF is password-protected. Please unlock it before conversion.');
+      } else {
+        setErrorMessage(message);
+      }
     } finally {
       setIsProcessing(false);
     }
@@ -142,7 +165,7 @@ export default function PDFToImageClient() {
           <div className="container">
             <h1 className="mb-4 text-[2.25rem] font-black sm:text-[3.5rem]">PDF to Image Converter</h1>
             <p className="mx-auto max-w-[700px] text-[1.25rem] text-[var(--text-secondary)]">
-              Convert PDF pages to high-resolution PNG or JPEG images using secure server-side rendering.
+              Convert PDF pages to high-resolution PNG or JPEG images safely and securely right in your browser.
             </p>
           </div>
         </header>
@@ -364,10 +387,9 @@ export default function PDFToImageClient() {
                     size={24}
                     style={{ color: '#0ea5e9' }}
                   />
-                  <h4 className="mb-3 text-[1.125rem] font-extrabold">Server-Side Rendering</h4>
+                  <h4 className="mb-3 text-[1.125rem] font-extrabold">100% Local Processing</h4>
                   <p className="text-[0.9375rem] leading-[1.6] text-[var(--text-secondary)]">
-                    Pages are rendered on our backend using a professional engine for
-                    consistent, high-fidelity output.
+                    Pages are rendered directly on your device using a professional browser engine. Zero server uploads.
                   </p>
                 </div>
                 <div className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6 transition-transform duration-300 hover:-translate-y-1">
@@ -388,10 +410,9 @@ export default function PDFToImageClient() {
                     size={24}
                     style={{ color: '#10b981' }}
                   />
-                  <h4 className="mb-3 text-[1.125rem] font-extrabold">Secure Processing</h4>
+                  <h4 className="mb-3 text-[1.125rem] font-extrabold">Complete Privacy</h4>
                   <p className="text-[0.9375rem] leading-[1.6] text-[var(--text-secondary)]">
-                    Files are validated and processed per-request. Nothing is stored
-                    after your conversion completes.
+                    Since the PDF is processed on your device, your confidential data is never transmitted over the internet.
                   </p>
                 </div>
               </div>
@@ -471,19 +492,19 @@ export default function PDFToImageClient() {
 
         <SEOSection
           title="PDF to Image Converter"
-          description="Convert PDF documents into high-resolution PNG or JPEG images using a reliable server-side rendering pipeline. Upload your file, choose format and resolution, and download crisp images."
+          description="Convert PDF documents into high-resolution PNG or JPEG images directly in your browser. 100% private and secure processing with zero server uploads."
           howToUse={[
             'Upload your PDF document (up to 60MB, 30 pages max).',
             'Select the output format: PNG for lossless quality or JPEG for smaller files.',
             'Choose a resolution scale from 1x (fast) to 3x (HD).',
-            'Click Convert to Images and wait for server processing.',
+            'Click Convert to Images to process locally.',
             'Download individual pages or all pages at once.',
           ]}
           benefits={[
-            'Professional server-side rendering for consistent output quality.',
+            'Fast local processing directly in your browser.',
             'Multiple format options to match your needs.',
             'Adjustable resolution scale up to 3x for print-ready images.',
-            'Secure processing with no permanent file storage.',
+            'Complete privacy — your files are never uploaded to any server.',
             'Perfect for presentations, social media, or extracting visual content.',
           ]}
         />
