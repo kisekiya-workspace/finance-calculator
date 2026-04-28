@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateTax } from '@/lib/formulas';
-import { CreditCard, Info, AlertTriangle, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { CreditCard, Info, AlertTriangle, CheckCircle2, ShieldCheck, BookOpen, Clock, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 
@@ -176,7 +176,7 @@ export default function GSTClient() {
 
         {/* Tax & GST Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#ea580c] bg-[#fff7ed]">
+          <Card className="!p-8 bg-[#fff7ed]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#9a3412] flex items-center gap-2">
               <ShieldCheck className="text-[#ea580c]" /> 💸 GST Registration & Filing (2026-27)
             </h2>
@@ -202,42 +202,63 @@ export default function GSTClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🧾 GST Guide — Terms, Rules &amp; Tips for Business Owners</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#ea580c]">📋 Must-Know GST Terms</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>CGST + SGST (Intra-State):</strong> When buyer and seller are in the same state. Each is half the total GST rate (e.g., 18% = 9% CGST + 9% SGST).</li>
-                <li><strong>IGST (Inter-State):</strong> When buyer and seller are in different states. The full rate is charged as IGST.</li>
-                <li><strong>HSN/SAC Code:</strong> Every product (HSN) and service (SAC) has a code that determines its GST rate. Using the wrong code can lead to penalties.</li>
-                <li><strong>Input Tax Credit (ITC):</strong> You can claim credit for GST paid on business purchases. But only if the supplier has filed their returns — <strong>your refund depends on their compliance</strong>.</li>
-                <li><strong>Reverse Charge Mechanism (RCM):</strong> For certain services (legal, GTA, security), the buyer pays GST instead of the seller.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">🧾 GST Guide for Business Owners</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Master the terms, rules, and tips to ensure 100% compliance.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Must-Know Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>CGST + SGST:</strong> Intra-state supply. Rate is split equally (e.g., 18% = 9% CGST + 9% SGST).</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>IGST:</strong> Inter-state supply. Full rate is charged as IGST.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>HSN/SAC Code:</strong> Determines the exact GST rate. Wrong code means penalties.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>Input Tax Credit (ITC):</strong> Claim credit for GST paid, assuming your supplier files returns.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#ea580c]">⚡ Filing Deadlines &amp; Penalties</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>GSTR-1 (Sales):</strong> Due by 11th of next month. Late fee: ₹50/day (₹20 for NIL return).</li>
-                <li><strong>GSTR-3B (Summary):</strong> Due by 20th of next month. Interest at 18% p.a. on unpaid tax.</li>
-                <li><strong>Annual Return (GSTR-9):</strong> Due by December 31. Turnover above ₹5 crore needs audit (GSTR-9C).</li>
-                <li><strong>E-Invoice:</strong> Mandatory for businesses with turnover above ₹5 crore. Generate on the official IRP portal.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <Clock size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Deadlines & Penalties</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>GSTR-1 (Sales):</strong> Due by 11th of next month. Late fee: ₹50/day.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>GSTR-3B:</strong> Due by 20th of next month. Interest at 18% p.a. on unpaid tax.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Annual Return (GSTR-9):</strong> Due by Dec 31. Audit needed if turnover &gt; ₹5 crore.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>E-Invoice:</strong> Mandatory for turnover above ₹5 crore via IRP portal.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#ea580c]">💡 Pro Tips for GST Compliance</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ <strong>Composition Scheme:</strong> If turnover is below ₹1.5 crore, pay flat 1–6% tax with simpler filing. But you can&apos;t claim ITC.</li>
-                <li>✅ Always reconcile your <strong>GSTR-2A/2B</strong> with purchase records. Mismatches are the #1 reason for ITC rejection.</li>
-                <li>✅ Keep <strong>all invoices for 6 years</strong> — that&apos;s the statute of limitations for GST audits.</li>
-                <li>✅ For freelancers: GST registration is required only if turnover exceeds ₹20 lakh (₹10 lakh for NE states and special category).</li>
-                <li>✅ Use <strong>GST-compliant invoicing software</strong> — manual invoices increase error risk and audit scrutiny.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Compliance Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span><strong>Composition Scheme:</strong> If turnover &lt; ₹1.5Cr, pay flat 1–6% tax with simpler filing (no ITC).</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span><strong>Reconcile 2A/2B:</strong> Mismatches are the #1 reason for ITC rejection. Always reconcile.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span><strong>Keep Invoices:</strong> Maintain all records for 6 years (GST audit limit).</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span><strong>Freelancers:</strong> Registration needed only if turnover &gt; ₹20L (or ₹10L for NE states).</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span><strong>Compliant Software:</strong> Use standard software to reduce manual error risk.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <RelatedTools currentToolId="gst-calculator" categoryId="finance" />

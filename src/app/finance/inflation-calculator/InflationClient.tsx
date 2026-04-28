@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateInflation } from '@/lib/formulas';
-import { Info, Landmark, TrendingDown, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Info, Landmark, TrendingDown, AlertTriangle, ShieldCheck, BookOpen, Lightbulb, TrendingUp } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -119,7 +119,7 @@ export default function InflationClient() {
 
         {/* Tax & Inflation Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#dc2626] bg-[#fef2f2]">
+          <Card className="!p-8 bg-[#fef2f2]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#991b1b] flex items-center gap-2">
               <ShieldCheck className="text-[#dc2626]" /> 💸 Inflation & Taxes (2026-27)
             </h2>
@@ -145,41 +145,62 @@ export default function InflationClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">💰 Inflation — What You Need to Know to Protect Your Money</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#dc2626]">📋 Key Inflation Terms</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>CPI (Consumer Price Index):</strong> The official measure of retail inflation. When RBI says &quot;inflation is 5%&quot;, they mean CPI inflation.</li>
-                <li><strong>Real Return:</strong> Your investment return minus inflation. If your FD gives 7% and inflation is 5%, your real return is only 2%.</li>
-                <li><strong>Core Inflation:</strong> Inflation excluding volatile food and fuel prices. This is what economists watch for trends.</li>
-                <li><strong>Rule of 72:</strong> Divide 72 by the inflation rate to know when prices will double. At 6% inflation, prices double in ~12 years.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">💰 Inflation Insights</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">What you need to know to protect your money.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Key Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>CPI (Consumer Price Index):</strong> The official measure of retail inflation.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Real Return:</strong> Your return minus inflation. If FD gives 7% and inflation is 5%, real return is 2%.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Core Inflation:</strong> Inflation excluding volatile food and fuel prices.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Rule of 72:</strong> Divide 72 by inflation rate to know when prices double (e.g., 6% = 12 years).</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#dc2626]">⚡ Asset Classes That Beat Inflation</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Equity/Stocks:</strong> Historically 12–15% returns in India. Best long-term inflation hedge but volatile short-term.</li>
-                <li><strong>Real Estate:</strong> Property values generally track or beat inflation, plus rental income adds yield.</li>
-                <li><strong>Gold:</strong> Traditional inflation hedge. Average 8–10% over long periods in India but no regular income.</li>
-                <li><strong>Inflation-Indexed Bonds:</strong> Government bonds that adjust for CPI. Guaranteed real returns.</li>
-                <li><strong>❌ Savings Account (3.5–4%):</strong> Almost always loses to inflation. Park only emergency funds here.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <TrendingUp size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Assets That Beat Inflation</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Equity/Stocks:</strong> Historically 12–15% returns. Best long-term inflation hedge.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Real Estate:</strong> Property values generally track or beat inflation.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Gold:</strong> Traditional inflation hedge averaging 8–10% over long periods.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">❌</span><span><strong>Savings Account:</strong> Always loses to inflation. Use only for emergencies.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#dc2626]">💡 Pro Tips</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ <strong>Healthcare inflation is 10–14%/year</strong> in India — much higher than general inflation. Plan medical expenses separately.</li>
-                <li>✅ <strong>Education inflation is 8–12%/year.</strong> A course costing ₹10 lakh today will cost ₹26 lakh in 10 years at 10%.</li>
-                <li>✅ For retirement planning, assume <strong>6–7% inflation</strong> — not the RBI target of 4%. Real-world costs rise faster.</li>
-                <li>✅ Review your investment portfolio annually. If it&apos;s not beating inflation after tax, you&apos;re actually getting poorer.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Healthcare inflation is 10–14%/year</strong> — much higher than general inflation.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Education inflation is 8–12%/year.</strong> A ₹10 lakh course will cost ₹26 lakh in 10 years at 10%.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>For retirement, assume <strong>6–7% inflation</strong> — not the RBI target of 4%.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Review your portfolio annually. If it&apos;s not beating inflation after tax, you&apos;re getting poorer.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <SEOSection 

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateMonthlyPayment } from '@/lib/formulas';
-import { Info, Car, ShieldCheck, TrendingUp } from 'lucide-react';
+import { Info, Car, ShieldCheck, TrendingUp, BookOpen, AlertTriangle, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -107,7 +107,7 @@ export default function CarLoanClient() {
 
         {/* Tax Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#06b6d4] bg-[#ecfeff]">
+          <Card className="!p-8 bg-[#ecfeff]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#0891b2] flex items-center gap-2">
               <ShieldCheck className="text-[#06b6d4]" /> 💸 Tax & Car Loans (2026-27)
             </h2>
@@ -131,43 +131,63 @@ export default function CarLoanClient() {
           </Card>
         </div>
 
-        {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🚗 Before You Take a Car Loan — Must-Know Tips</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">📋 Important Terms You Should Know</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Flat Rate vs Reducing Balance:</strong> Dealers quote &quot;flat rate&quot; (e.g., 5%) which sounds low but is actually ~9-10% on reducing balance. Always ask for the <strong>reducing balance rate</strong> — that&apos;s the real cost.</li>
-                <li><strong>Processing Fee:</strong> Usually 0.5–2% of loan amount. This is negotiable — always ask for a waiver or discount.</li>
-                <li><strong>Foreclosure Charges:</strong> Banks may charge 2–5% if you repay early. RBI mandates no foreclosure charges on floating-rate loans for individuals.</li>
-                <li><strong>Ex-showroom vs On-Road Price:</strong> Loans are usually on ex-showroom price. Registration, insurance, and accessories are extra out-of-pocket costs.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">🚗 Car Loan Tips</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Must-know advice before signing the dotted line.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Important Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Flat vs Reducing:</strong> Dealers quote "flat rate" (e.g., 5%), but it's really ~9-10% reducing.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Processing Fee:</strong> Usually 0.5–2% of the loan amount. Highly negotiable.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Foreclosure:</strong> Banks charge 2–5% if you repay early (except floating rate).</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Ex-showroom:</strong> Loans are on ex-showroom. Registration & insurance are out-of-pocket.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">⚡ Unwritten Rules Banks Won&apos;t Tell You</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Dealer financing is more expensive:</strong> In-house dealer loans carry higher rates. Get pre-approved from your bank first, then use the dealer&apos;s offer as a negotiation tool.</li>
-                <li><strong>Credit score below 750?</strong> You&apos;ll pay 1–3% higher interest. Fix your CIBIL score before applying — even waiting 3 months can save lakhs.</li>
-                <li><strong>Insurance bundling is optional:</strong> Dealers push you to buy insurance from them. You are legally free to buy from any provider. Shop around.</li>
-                <li><strong>&quot;Zero down payment&quot; is a trap:</strong> It means 100% financing = maximum interest. Always pay at least 20% down to reduce total cost significantly.</li>
-                <li><strong>Negotiate the car price first, then discuss finance.</strong> Dealers mix discounts with loan terms to confuse you.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <AlertTriangle size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Unwritten Rules</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Dealer Financing:</strong> Usually more expensive. Get pre-approved at a bank first.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Zero Down Payment:</strong> A trap. 100% financing = maximum interest. Pay 20% down.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Insurance:</strong> You are free to buy insurance from any provider, not just the dealer.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Negotiation:</strong> Agree on the car price first, THEN discuss finance.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#06b6d4]">💡 Pro Tips for Smart Borrowers</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ Keep your EMI below <strong>15% of monthly take-home salary</strong> — this is the golden rule for car affordability.</li>
-                <li>✅ A <strong>3-year tenure</strong> is the sweet spot — balances affordable EMIs with minimal interest.</li>
-                <li>✅ For used cars, bank interest rates are 2–4% higher. Consider certified pre-owned programs for better rates.</li>
-                <li>✅ Calculate <strong>Total Cost of Ownership</strong> (EMI + Insurance + Fuel + Maintenance) — not just the EMI.</li>
-                <li>✅ If your CIBIL score is 800+, you can negotiate interest rates 0.5–1% below the advertised rate.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tips for Borrowers</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>15% Rule:</strong> Keep EMI below 15% of your monthly take-home salary.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Tenure:</strong> 3 years is the sweet spot for balancing affordable EMIs and low interest.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Credit Score:</strong> Wait 3 months to fix a bad score; it can save lakhs in interest.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Used Cars:</strong> Bank rates are 2–4% higher. Try certified pre-owned programs.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>TCO:</strong> Calculate Total Cost of Ownership (EMI + Insurance + Fuel), not just EMI.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <SEOSection 

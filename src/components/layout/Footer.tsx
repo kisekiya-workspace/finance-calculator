@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShieldCheck, Zap, Heart, Instagram, Twitter, Mail } from 'lucide-react';
+import { ShieldCheck, Zap, Instagram, Twitter, Mail } from 'lucide-react';
 
 const socialLinks = [
   { href: '#', icon: Instagram, label: 'Instagram' },
@@ -129,9 +129,8 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-center justify-between gap-6 border-t border-[var(--border)] pt-12 text-center sm:flex-row sm:text-left">
-          <p className="flex items-center gap-2 text-sm text-[var(--text-tertiary)]">
-            © {currentYear} Toolioz. Built with <Heart size={14} className="text-red-500" /> for a
-            smarter web.
+          <p className="text-sm text-[var(--text-tertiary)]">
+            © {currentYear} Toolioz. All rights reserved.
           </p>
           <div className="flex items-center gap-5 text-[0.8125rem] font-semibold text-[var(--text-tertiary)]">
             <span>Version 2.0.4</span>

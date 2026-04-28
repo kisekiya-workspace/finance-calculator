@@ -1,7 +1,7 @@
 export const secondaryPageStyles = {
   wrapper: 'flex min-h-screen flex-col bg-[var(--bg-primary)]',
   header:
-    'bg-[radial-gradient(circle_at_0%_0%,rgba(37,99,235,0.05)_0%,transparent_50%)] py-24 text-center md:py-32',
+    'py-24 text-center md:py-32',
   title:
     'mb-6 text-4xl font-black tracking-[-0.02em] text-[var(--text-primary)] md:text-[3.5rem]',
   subtitle: 'mx-auto max-w-[650px] text-xl text-[var(--text-secondary)]',

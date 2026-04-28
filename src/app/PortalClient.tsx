@@ -54,17 +54,14 @@ export default function PortalClient() {
 
       {/* Clean & Professional Hero Section */}
       <section className="relative overflow-hidden border-b border-[var(--border)] bg-[var(--bg-secondary)] px-6 py-16 text-center md:py-24">
-        {/* Colorful Gradient Backgrounds */}
-        <div className="pointer-events-none absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-500/20 blur-[100px] dark:bg-purple-600/10" />
-        <div className="pointer-events-none absolute right-0 top-1/2 h-[400px] w-[400px] -translate-y-1/2 translate-x-1/3 rounded-full bg-emerald-500/20 blur-[100px] dark:bg-emerald-600/10" />
-        <div className="pointer-events-none absolute bottom-0 left-1/2 h-[600px] w-[600px] -translate-x-1/2 translate-y-1/3 rounded-full bg-blue-500/20 blur-[120px] dark:bg-blue-600/10" />
+        {/* Hero Section Background (Gradients removed) */}
 
         <div className="relative mx-auto max-w-6xl">
           <div className="relative z-10 mx-auto max-w-[900px]">
             <div className="mb-8 inline-flex animate-[fadeIn_1s_ease-out] rounded-full border border-[var(--border-strong)] bg-white/50 px-5 py-2 text-xs font-bold uppercase tracking-[0.1em] text-[var(--text-primary)] shadow-sm backdrop-blur-md dark:bg-black/30">All-in-One Utility Hub</div>
             <h1 className="mb-8 text-[clamp(2.75rem,8vw,5rem)] font-black leading-none tracking-[-0.03em] text-[var(--text-primary)]">
               Smart Tools for <br />
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">Advanced Decision Making</span>
+              <span className="text-[var(--primary)]">Advanced Decision Making</span>
             </h1>
             <p className="mx-auto mb-12 max-w-[700px] text-lg leading-8 text-[var(--text-secondary)] md:text-xl">
               From complex tax projections to developer utilities and PDF magic.
@@ -231,7 +228,7 @@ export default function PortalClient() {
                 </div>
               </div>
             </div>
-            <div className="relative flex min-h-[300px] items-center justify-center rounded-2xl bg-[linear-gradient(135deg,rgba(59,130,246,0.1),rgba(139,92,246,0.1))] p-6 sm:p-12">
+            <div className="relative flex min-h-[300px] items-center justify-center rounded-2xl bg-[var(--bg-tertiary)] p-6 sm:p-12">
               <div className="w-full max-w-[400px] overflow-hidden rounded-xl border border-[var(--border)] bg-white shadow-xl">
                 <div className="flex gap-2 border-b border-[var(--border)] bg-[var(--bg-secondary)] px-4 py-3">
                   <div className="h-3 w-3 rounded-full bg-[#ef4444] opacity-50" />

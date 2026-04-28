@@ -38,13 +38,23 @@ export default function PrivacyClient() {
               We do not use tracking cookies for advertising or secondary data harvesting.
             </p>
 
-            <h2>4. Security</h2>
+            <h2>4. Security & User Responsibility</h2>
             <p>
-              Since your data is processed locally, it is as secure as your own device. We recommend using an updated, modern browser 
-              (like Chrome, Firefox, or Edge) to ensure you have the latest security patches for local data handling.
+              Since your data is processed locally, its security depends entirely on your own device and network. 
+              We do not promise or guarantee that your local environment is secure. You are solely responsible for ensuring 
+              you have a secure operating system, updated browser, and protection against malware when handling sensitive data.
             </p>
 
-            <h2>5. Third-Party Links</h2>
+            <h2>5. Absolute Disclaimer of Liability</h2>
+            <p>
+              The tools and calculators provided on this website are for informational purposes only. 
+              <strong>We make absolutely no warranties, promises, or guarantees regarding the accuracy, reliability, or completeness of the results.</strong> 
+              Under no circumstances shall we be held responsible or liable for any direct, indirect, incidental, 
+              consequential, or financial damages, data loss, or any other issues arising from the use of our tools. 
+              You use these tools entirely at your own risk.
+            </p>
+
+            <h2>6. Third-Party Links</h2>
             <p>
               Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content 
               and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.

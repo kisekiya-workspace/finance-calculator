@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateROI } from '@/lib/formulas';
-import { Info, BarChart3, TrendingUp, ShieldCheck } from 'lucide-react';
+import { Info, BarChart3, TrendingUp, ShieldCheck, BookOpen, AlertTriangle, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -119,7 +119,7 @@ export default function ROIClient() {
 
         {/* Tax & Returns Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#10b981] bg-[#f0fdf4]">
+          <Card className="!p-8 bg-[#f0fdf4]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#065f46] flex items-center gap-2">
               <ShieldCheck className="text-[#10b981]" /> 💸 Post-Tax & Real Returns (2026-27)
             </h2>
@@ -145,41 +145,63 @@ export default function ROIClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">📊 Investment Returns — What Every Investor Should Know</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#10b981]">📋 ROI vs CAGR vs XIRR — Which to Use?</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>ROI:</strong> Simple total return. Use for quick one-time investments. Flaw: doesn&apos;t consider time (100% in 1 year ≠ 100% in 10 years).</li>
-                <li><strong>CAGR:</strong> Annualized return assuming constant growth. Best for comparing lump-sum investments of different durations.</li>
-                <li><strong>XIRR:</strong> Most accurate for SIPs and irregular cash flows. Accounts for timing of each investment/withdrawal.</li>
-                <li><strong>Absolute vs Annualized:</strong> A mutual fund showing &quot;200% return&quot; over 10 years sounds great, but its CAGR is only ~11.6%.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">📊 Investment Returns</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">What every investor should know about calculating true growth.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">ROI vs CAGR vs XIRR</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>ROI:</strong> Simple total return. Use for quick one-time investments. Flaw: doesn&apos;t consider time.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>CAGR:</strong> Annualized return assuming constant growth. Best for comparing lump-sum investments of different durations.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>XIRR:</strong> Most accurate for SIPs and irregular cash flows. Accounts for timing of each investment.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Absolute vs Annualized:</strong> A fund showing &quot;200% return&quot; over 10 years sounds great, but its CAGR is only ~11.6%.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#10b981]">⚡ Common Investment Mistakes</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Ignoring fees and taxes:</strong> A fund with 15% gross return becomes ~11% after expense ratio + 12.5% LTCG tax + exit load.</li>
-                <li><strong>Confusing paper gains with real gains:</strong> Your stock portfolio shows +50%? That&apos;s unrealized. You haven&apos;t made money until you sell.</li>
-                <li><strong>Anchoring bias:</strong> Holding a losing investment because you paid ₹500 for it and it&apos;s now ₹300. The right question is: would you buy it today at ₹300?</li>
-                <li><strong>Not accounting for inflation:</strong> A &quot;10% return&quot; with 6% inflation is really only 4% real growth.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <AlertTriangle size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Common Mistakes</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Ignoring fees and taxes:</strong> A 15% gross return becomes ~11% after expense ratio + tax + exit load.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Confusing paper gains with real:</strong> Your portfolio shows +50%? That&apos;s unrealized. You haven&apos;t made money until you sell.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Anchoring bias:</strong> Holding a losing asset because you paid ₹500 and it&apos;s ₹300. Would you buy it today at ₹300?</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Not accounting for inflation:</strong> A 10% return with 6% inflation is really only 4% real growth.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#10b981]">💡 Due Diligence Checklist Before Investing</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ Check the <strong>3, 5, and 10-year CAGR</strong> — not just recent 1-year performance.</li>
-                <li>✅ Compare against a <strong>benchmark</strong> (Nifty 50, Sensex). If the fund consistently underperforms the benchmark, switch to an index fund.</li>
-                <li>✅ <strong>Never invest money you&apos;ll need in 1–2 years</strong> in equity. Short-term volatility can destroy returns.</li>
-                <li>✅ Diversify across <strong>asset classes</strong> (equity, debt, gold, real estate), not just across stocks.</li>
-                <li>✅ Factor in <strong>tax impact</strong>: ELSS gives 80C benefit, debt funds have different tax treatment than equity funds.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Due Diligence Checklist</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Check the <strong>3, 5, and 10-year CAGR</strong> — not just recent 1-year performance.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Compare against a <strong>benchmark</strong> (Nifty 50). If the fund underperforms, switch to an index fund.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Never invest money you&apos;ll need in 1–2 years</strong> in equity. Volatility can destroy returns.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Diversify across <strong>asset classes</strong> (equity, debt, gold, real estate), not just across stocks.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Factor in <strong>tax impact</strong>: ELSS gives 80C benefit, debt funds have different tax treatment.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <SEOSection 

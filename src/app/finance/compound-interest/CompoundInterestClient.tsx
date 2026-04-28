@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateCompoundInterest } from '@/lib/formulas';
-import { TrendingUp, Info, Sparkles, ShieldCheck } from 'lucide-react';
+import { TrendingUp, Info, Sparkles, ShieldCheck, BookOpen, Clock, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from './page.styles';
@@ -117,7 +117,7 @@ export default function CompoundInterestClient() {
 
         {/* Tax & Compounding Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#0891b2] bg-[#ecfeff]">
+          <Card className="!p-8 bg-[#ecfeff]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#0e7490] flex items-center gap-2">
               <ShieldCheck className="text-[#0891b2]" /> 💸 Tax Impact on Compounding (2026-27)
             </h2>
@@ -142,41 +142,63 @@ export default function CompoundInterestClient() {
           </Card>
         </div>
 
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">⏳ Compound Interest — The Eighth Wonder of the World</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0891b2]">📋 Understanding Compounding Magic</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Compounding Frequency:</strong> The more frequent the compounding (daily vs annual), the higher the effective yield. Monthly compounding beats annual compounding for the same interest rate.</li>
-                <li><strong>The Rule of 72:</strong> A quick way to estimate when your money doubles. Divide 72 by your interest rate. At 10%, your money doubles in ~7.2 years.</li>
-                <li><strong>Principal vs Interest:</strong> In the early years, your principal does the heavy lifting. In later years, the interest on interest becomes the primary driver of growth.</li>
-                <li><strong>Effective Annual Rate (EAR):</strong> This is the true annual return taking into account compounding. A 12% rate compounded monthly is actually 12.68% EAR.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">⏳ Compound Interest Tips</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Unlocking the eighth wonder of the world.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Compounding Magic</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Frequency:</strong> Monthly compounding beats annual compounding for the same rate.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Rule of 72:</strong> Divide 72 by interest rate to estimate when your money doubles (e.g., 72/10 = 7.2 yrs).</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>Principal vs Interest:</strong> In later years, interest on interest drives the most growth.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-cyan-500">•</span><span><strong>EAR:</strong> Effective Annual Rate is the true return. A 12% rate compounded monthly is 12.68% EAR.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0891b2]">⚡ Unwritten Rules of Wealth Building</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Time beats Timing:</strong> Starting 5 years earlier is often more effective than finding an investment with 2% higher returns.</li>
-                <li><strong>The Cost of Delay:</strong> Delaying a ₹10,000 monthly investment by just 1 year can cost you lakhs in final maturity value over 20 years.</li>
-                <li><strong>Compound Interest works both ways:</strong> It builds wealth in investments, but it destroys wealth in high-interest debt like credit cards (36–42% p.a.).</li>
-                <li><strong>Inflation is the &apos;Negative&apos; Compounder:</strong> While your money grows at 10%, inflation erodes its value at 6%. Your &quot;real&quot; compounding rate is only 4%.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <Clock size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Unwritten Rules</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Time beats Timing:</strong> Starting 5 years early is better than finding a 2% higher return.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Cost of Delay:</strong> Delaying a ₹10,000 monthly investment by 1 year costs lakhs over 20 years.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Both Ways:</strong> It destroys wealth in high-interest debt like credit cards.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Inflation:</strong> The negative compounder. 10% growth - 6% inflation = 4% real growth.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0891b2]">💡 Pro Tips for Exponential Growth</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ <strong>Reinvest dividends/interest:</strong> Compounding only works if you don&apos;t withdraw the gains. Always choose the &quot;Growth&quot; option in mutual funds.</li>
-                <li>✅ <strong>The 10-10-10 Rule:</strong> Save 10% of your income, for 10 years, with a 10% return. This forms a solid base for future compounding.</li>
-                <li>✅ Use <strong>Step-up contributions</strong>: Increasing your monthly investment by even 5–10% annually dramatically shortens the time to reach your first crore.</li>
-                <li>✅ <strong>Stay disciplined:</strong> The biggest enemy of compounding is interruption. A single withdrawal in year 10 can halve the maturity value in year 20.</li>
-                <li>✅ Tax-efficiency matters: Compounding works best in tax-free or tax-deferred accounts (like PPF or NPS) where tax isn&apos;t deducted every year.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Exponential Growth Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Reinvest Dividends:</strong> Always choose the "Growth" option in mutual funds.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>10-10-10 Rule:</strong> Save 10% of income for 10 years at a 10% return.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Tax-efficiency:</strong> Works best in tax-free accounts (like PPF) to avoid tax drag.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Step-up:</strong> Increase monthly investments by 5–10% annually to reach goals faster.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Discipline:</strong> A single withdrawal in year 10 can halve the maturity value in year 20.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <RelatedTools currentToolId="compound-interest" categoryId="finance" />

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateMonthlyPayment } from '@/lib/formulas';
-import { Info, HomeIcon, ShieldCheck, PieChart } from 'lucide-react';
+import { Info, HomeIcon, ShieldCheck, PieChart, BookOpen, AlertTriangle, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -118,7 +118,7 @@ export default function MortgageClient() {
 
         {/* Tax Benefits Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#8b5cf6] bg-[#f5f3ff]">
+          <Card className="!p-8 bg-[#f5f3ff]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#5b21b6] flex items-center gap-2">
               <ShieldCheck className="text-[#8b5cf6]" /> 💸 Home Loan Tax Benefits (India 2026-27)
             </h2>
@@ -144,41 +144,63 @@ export default function MortgageClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🏠 Before You Take a Home Loan — Must-Know Tips</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#8b5cf6]">📋 Important Mortgage Terms</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>PMI (Private Mortgage Insurance):</strong> Required when your down payment is less than 20%. Adds $50–$200/month. Once you hit 20% equity, request removal immediately.</li>
-                <li><strong>APR vs Interest Rate:</strong> APR includes fees and closing costs — it&apos;s the true cost. A 6.5% rate could be 6.8% APR after fees.</li>
-                <li><strong>Escrow Account:</strong> Lenders may require an escrow account that holds funds for property taxes and insurance, increasing your monthly payment.</li>
-                <li><strong>Points:</strong> You can &quot;buy down&quot; your rate by paying points upfront. 1 point = 1% of loan amount = ~0.25% rate reduction. Worth it if you plan to stay 7+ years.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">🏠 Before You Take a Home Loan</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Must-know strategies to save money and avoid common pitfalls.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Important Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>PMI:</strong> Required when down payment is &lt;20%. Adds $50–$200/month. Request removal once you hit 20% equity.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>APR vs Rate:</strong> APR includes fees and closing costs — it&apos;s the true cost of the loan.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>Escrow:</strong> Lenders may require an account for property taxes and insurance, increasing monthly payment.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>Points:</strong> Pay upfront to lower your rate. 1 point = 1% of loan = ~0.25% rate drop. Good if staying 7+ years.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#8b5cf6]">⚡ Hidden Costs Nobody Mentions</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Closing costs:</strong> 2–5% of the home price (inspections, title insurance, origination fees). Budget $6K–$15K on a $300K home.</li>
-                <li><strong>Property tax increases:</strong> Your city can reassess property taxes annually. What&apos;s affordable today may not be in 5 years.</li>
-                <li><strong>HOA fees:</strong> Can range from $100 to $1,000+/month in condos. Not included in mortgage calculations but a real cost.</li>
-                <li><strong>Maintenance rule:</strong> Budget 1% of home value annually for maintenance ($3,000/year on a $300K home).</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <AlertTriangle size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Hidden Costs</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Closing costs:</strong> 2–5% of home price. Budget $6K–$15K on a $300K home.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Tax increases:</strong> Cities reassess property taxes. What&apos;s affordable today may not be tomorrow.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>HOA fees:</strong> Can range from $100 to $1,000+/month. Not in the mortgage but a real cost.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Maintenance rule:</strong> Budget 1% of home value annually ($3,000/yr on $300K home).</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#8b5cf6]">💡 Pro Tips for Smart Home Buyers</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ Follow the <strong>28/36 rule</strong>: housing costs should be ≤28% of gross income, total debt ≤36%.</li>
-                <li>✅ Get pre-approved (not just pre-qualified) — it gives you serious negotiating power.</li>
-                <li>✅ A <strong>15-year mortgage</strong> saves 50%+ in total interest vs 30-year, but monthly payments are ~40% higher.</li>
-                <li>✅ Even one extra payment per year on a 30-year mortgage can cut your loan by <strong>4–5 years</strong>.</li>
-                <li>✅ Don&apos;t drain your emergency fund for the down payment — keep 3–6 months of expenses liquid.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tips for Buyers</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span>Follow the <strong>28/36 rule</strong>: housing ≤28% of gross income, total debt ≤36%.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span>Get pre-approved (not just pre-qualified) for serious negotiating power.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span>A <strong>15-year mortgage</strong> saves 50%+ in interest vs 30-year, but payments are ~40% higher.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span>One extra payment per year on a 30-year loan can cut it by <strong>4–5 years</strong>.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-amber-500">✅</span><span>Don&apos;t drain your emergency fund for the down payment — keep 3–6 months liquid.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <SEOSection 

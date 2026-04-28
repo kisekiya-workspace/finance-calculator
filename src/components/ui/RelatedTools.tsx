@@ -24,36 +24,43 @@ export const RelatedTools: React.FC<RelatedToolsProps> = ({
   if (related.length === 0) return null;
 
   return (
-    <div className="mt-16 border-t border-[var(--border)] pt-12 sm:mt-24 sm:pt-16">
-      <h3 className="mb-8 text-center text-2xl font-extrabold text-[var(--text-primary)]">
-        Continue Your Workflow
-      </h3>
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {related.map((tool) => (
-          <Link
-            key={tool.id}
-            href={tool.href}
-            className="group flex items-center gap-5 rounded-[var(--radius-lg)] border border-[var(--border)] bg-white p-6 text-inherit transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-[0_12px_24px_-10px_rgba(0,0,0,0.08)]"
-          >
-            <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--bg-secondary)]"
-              style={{ color: tool.color }}
+    <section className="mt-16 border-t border-[var(--border)] bg-[#fafafa] py-16 sm:mt-20 sm:py-20">
+      <div className="mx-auto max-w-[1000px] px-6">
+        <h3 className="mb-10 text-center text-[1.8rem] font-black tracking-tight text-[var(--text-primary)]">
+          Explore Related Tools
+        </h3>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {related.map((tool) => (
+            <Link
+              key={tool.id}
+              href={tool.href}
+              className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-[0_12px_30px_-10px_rgba(0,0,0,0.08)]"
             >
-              <tool.icon size={24} />
-            </div>
-            <div className="flex-1">
-              <h4 className="mb-1 text-base font-bold text-[var(--text-primary)]">{tool.title}</h4>
-              <p className="line-clamp-2 text-[0.8125rem] leading-6 text-[var(--text-secondary)]">
-                {tool.desc}
-              </p>
-            </div>
-            <ChevronRight
-              className="translate-x-[-10px] text-[var(--text-tertiary)] opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-[var(--primary)] group-hover:opacity-100"
-              size={18}
-            />
-          </Link>
-        ))}
+              <div>
+                <div
+                  className="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                  style={{ backgroundColor: `${tool.color}15`, color: tool.color }}
+                >
+                  <tool.icon size={24} />
+                </div>
+                <h4 className="mb-2 text-[1.1rem] font-bold text-[var(--text-primary)] transition-colors duration-200 group-hover:text-[var(--primary)]">
+                  {tool.title}
+                </h4>
+                <p className="line-clamp-3 text-[0.875rem] leading-[1.6] text-[var(--text-secondary)]">
+                  {tool.desc}
+                </p>
+              </div>
+              <div className="mt-6 flex items-center text-[0.875rem] font-bold text-[var(--primary)] opacity-80 transition-opacity duration-200 group-hover:opacity-100">
+                <span>Try it out</span>
+                <ChevronRight
+                  className="ml-1.5 translate-x-0 transition-transform duration-300 group-hover:translate-x-1"
+                  size={16}
+                />
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };

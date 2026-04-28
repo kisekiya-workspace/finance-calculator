@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateCompoundInterest } from '@/lib/formulas';
-import { Info, Banknote, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Info, Banknote, ShieldCheck, AlertTriangle, BookOpen, TrendingUp, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -132,7 +132,7 @@ export default function FDClient() {
 
         {/* Tax & TDS Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#0284c7] bg-[#f0f9ff]">
+          <Card className="!p-8 bg-[#f0f9ff]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#0369a1] flex items-center gap-2">
               <ShieldCheck className="text-[#0284c7]" /> 💸 Tax & TDS on Fixed Deposits (2026-27)
             </h2>
@@ -158,40 +158,62 @@ export default function FDClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🏦 Fixed Deposit Tips — What Banks Won&apos;t Tell You</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">📋 Important FD Terms</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>TDS (Tax Deducted at Source):</strong> Banks deduct 10% TDS if your interest exceeds ₹40,000/year (₹50,000 for senior citizens). Submit Form 15G/15H if your total income is below taxable limit.</li>
-                <li><strong>Premature Withdrawal Penalty:</strong> Typically 0.5–1% rate reduction on the applicable rate. Some banks charge a flat penalty too.</li>
-                <li><strong>Cumulative vs Non-Cumulative:</strong> Cumulative FDs reinvest interest (better for wealth building). Non-cumulative pays interest monthly/quarterly (better for regular income).</li>
-                <li><strong>DICGC Insurance:</strong> Deposits up to ₹5 lakh per bank are insured by DICGC. Split large amounts across banks for full protection.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">🏦 Fixed Deposit Tips</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">What banks won&apos;t tell you about maximizing your FD returns.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Important FD Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-sky-500">•</span><span><strong>TDS:</strong> 10% TDS if interest &gt; ₹40k/year. Submit Form 15G/15H to avoid it.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-sky-500">•</span><span><strong>Penalty:</strong> 0.5–1% rate reduction on premature withdrawal.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-sky-500">•</span><span><strong>Cumulative:</strong> Reinvests interest. <strong>Non-cumulative:</strong> Pays out periodically.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-sky-500">•</span><span><strong>DICGC Insurance:</strong> Deposits up to ₹5 lakh per bank are insured.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">⚡ Smart FD Strategies</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>FD Laddering:</strong> Instead of one ₹10L FD, make 5 × ₹2L FDs with 1–5 year tenures. You get liquidity every year AND higher rates on longer tenures.</li>
-                <li><strong>Tax-Saver FD:</strong> 5-year lock-in FD gives Section 80C deduction up to ₹1.5 lakh. But interest is fully taxable — compare with ELSS mutual funds.</li>
-                <li><strong>Small Finance Banks:</strong> Offer 0.5–1.5% higher rates than SBI/HDFC. Still covered by DICGC insurance up to ₹5L.</li>
-                <li><strong>Senior Citizen Advantage:</strong> Most banks offer 0.25–0.5% extra rate for senior citizens. Some super senior citizen (80+) schemes offer even more.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                  <TrendingUp size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Smart Strategies</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-indigo-500">•</span><span><strong>FD Laddering:</strong> Instead of one ₹10L FD, make 5 × ₹2L FDs with 1–5 year tenures.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-indigo-500">•</span><span><strong>Tax-Saver FD:</strong> 5-year lock-in gives Section 80C deduction, but interest is taxable.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-indigo-500">•</span><span><strong>Small Finance Banks:</strong> Offer 0.5–1.5% higher rates, still DICGC insured.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-indigo-500">•</span><span><strong>Senior Citizens:</strong> 0.25–0.5% extra rate. Super seniors (80+) get even more.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#0369a1]">💡 Pro Tips</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ If your tax slab is 30%, your <strong>post-tax FD return</strong> at 7% is only ~4.9%. Compare with debt mutual funds which have indexation benefit.</li>
-                <li>✅ <strong>Never break an FD</strong> for small needs — take a loan against FD instead (costs only 1–2% above FD rate).</li>
-                <li>✅ Book FDs when rates are at their peak. RBI rate cut cycles mean FD rates will drop — lock in high rates for longer tenures.</li>
-                <li>✅ Check if your bank offers <strong>auto-sweep facility</strong> — it keeps money in savings but auto-converts to FD for better returns.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-teal-500">✅</span><span><strong>Calculate Post-Tax:</strong> A 7% FD in the 30% slab yields only ~4.9%.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-teal-500">✅</span><span><strong>Don&apos;t Break FDs:</strong> Take a loan against FD instead (costs ~1–2% above FD rate).</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-teal-500">✅</span><span><strong>Timing:</strong> Lock in high rates for longer tenures before RBI cuts rates.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-teal-500">✅</span><span><strong>Auto-sweep:</strong> Keeps money liquid but auto-converts to FD for better returns.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <SEOSection 

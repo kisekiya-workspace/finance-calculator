@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateSIP } from '@/lib/formulas';
-import { Info, TrendingUp, Sparkles, Target, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Info, TrendingUp, Sparkles, Target, AlertTriangle, ShieldCheck, BookOpen, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
@@ -208,7 +208,7 @@ export default function SIPClient() {
           )}
           {/* Tax Implications Section */}
           <div className="mx-auto mt-12 max-w-[900px]">
-            <Card className="!p-8 border-l-4 border-l-[#10b981] bg-[#f0fdf4]">
+            <Card className="!p-8 bg-[#f0fdf4]">
               <h2 className="mb-6 text-[1.4rem] font-bold text-[#065f46] flex items-center gap-2">
                 <ShieldCheck className="text-[#10b981]" /> 💸 Tax Implications on SIP Returns (2026-27)
               </h2>
@@ -235,41 +235,63 @@ export default function SIPClient() {
         </section>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">📈 SIP Investing — Tips They Don&apos;t Teach You</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">📋 Key Terms Every SIP Investor Must Know</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>NAV (Net Asset Value):</strong> The price of one unit of a mutual fund. Your SIP buys more units when NAV is low and fewer when it&apos;s high — that&apos;s Rupee Cost Averaging.</li>
-                <li><strong>Expense Ratio:</strong> The annual fee charged by the fund house (0.5–2.5%). Even a 0.5% difference compounds to lakhs over 20 years. Always compare.</li>
-                <li><strong>Exit Load:</strong> A fee (usually 1%) if you redeem within 1 year. After 1 year, most equity funds have zero exit load.</li>
-                <li><strong>XIRR vs CAGR:</strong> For SIPs, XIRR (Extended Internal Rate of Return) is the correct metric, not CAGR. XIRR accounts for multiple cash flows at different dates.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">📈 SIP Investing — Tips They Don&apos;t Teach You</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Master the art of wealth creation with these pro strategies.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Key SIP Terms</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>NAV (Net Asset Value):</strong> Price of one unit. You buy more units when market falls — this is Rupee Cost Averaging.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Expense Ratio:</strong> The annual fee (0.5–2.5%). Over 20 years, a 1% difference costs you lakhs.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Exit Load:</strong> A penalty (usually 1%) for redeeming within 1 year. Plan your withdrawals carefully.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>XIRR vs CAGR:</strong> For SIPs, XIRR is the true metric. It accounts for your monthly cash flows correctly.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">⚡ Common Mistakes That Cost Money</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Stopping SIP during market crashes:</strong> This is exactly when you should continue — you&apos;re buying units at a discount. The biggest SIP wealth is made in bear markets.</li>
-                <li><strong>Chasing last year&apos;s top performer:</strong> Past returns ≠ future returns. Choose based on consistency over 5–10 years, not 1-year rankings.</li>
-                <li><strong>Too many funds:</strong> 3–4 funds is optimal. More than 7 funds leads to &quot;diworsification&quot; — overlapping stocks reduce your effective returns.</li>
-                <li><strong>Ignoring step-up:</strong> If you don&apos;t increase your SIP by at least 10% annually, inflation erodes the real value of your contributions.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-600">
+                  <AlertTriangle size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Common Mistakes</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Stopping during crashes:</strong> Bear markets are when you accumulate the most units at a discount.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Chasing last year&apos;s winner:</strong> Past returns ≠ future returns. Look at 5–10 year consistency.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Over-diversifying:</strong> Having 10+ funds dilutes returns. 3–4 funds across categories is optimal.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-red-500">•</span><span><strong>Ignoring step-up:</strong> Increase your SIP by 10% yearly to beat inflation and accelerate wealth creation.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#2563eb]">💡 Pro Tips for Maximum Wealth Creation</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ Start SIP <strong>on the 1st or 5th</strong> of the month — historically, these dates have shown marginally better returns over 10+ years.</li>
-                <li>✅ Use <strong>Direct plans</strong> (not Regular) — they have 0.5–1% lower expense ratios. Over 20 years, this saves ₹5–15 lakh.</li>
-                <li>✅ <strong>₹500/month for 30 years at 12%</strong> = ₹17.6 lakh. Starting early beats investing more later.</li>
-                <li>✅ After reaching your goal, <strong>switch to STP</strong> (Systematic Transfer Plan) — gradually move from equity to debt to protect gains.</li>
-                <li>✅ Tax tip: Equity fund LTCG above ₹1.25 lakh/year is taxed at 12.5%. Harvest gains annually to stay below this limit.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Strategies</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Direct vs Regular:</strong> Use Direct plans to save 0.5–1% in distributor commissions.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Time &gt; Amount:</strong> ₹500/mo for 30 years beats ₹5000/mo for 10 years due to compounding.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Best Dates:</strong> The 1st or 5th of the month historically show slightly better long-term averages.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>The STP Exit:</strong> 3 years before your goal, systematically transfer funds from Equity to Debt.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Tax Harvesting:</strong> Book up to ₹1.25L of LTCG annually (tax-free) and reinvest it.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <RelatedTools currentToolId="sip-calculator" categoryId="finance" />

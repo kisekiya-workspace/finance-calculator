@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateSavingsGoal } from '@/lib/formulas';
-import { Info, Target, TrendingUp, Sparkles, ShieldCheck } from 'lucide-react';
+import { Info, Target, TrendingUp, Sparkles, ShieldCheck, BookOpen, AlertTriangle, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { calculatorPageStyles as styles } from '@/app/finance/compound-interest/page.styles';
@@ -103,7 +103,7 @@ export default function SavingsGoalClient() {
 
         {/* Tax & Goals Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#f59e0b] bg-[#fffbeb]">
+          <Card className="!p-8 bg-[#fffbeb]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#b45309] flex items-center gap-2">
               <ShieldCheck className="text-[#f59e0b]" /> 💸 Tax-Efficient Goal Planning (2026-27)
             </h2>
@@ -129,42 +129,64 @@ export default function SavingsGoalClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-        <Card className="!p-8">
-          <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">🎯 Savings Tips — Build Your Financial Safety Net</h2>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">🎯 Savings Tips</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Build your financial safety net with these essential rules.</p>
+          </div>
           
-          <div className="mb-8">
-            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">📋 Essential Savings Rules</h3>
-            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-              <li><strong>Emergency Fund First:</strong> Before any goal, build 3–6 months of expenses in a liquid fund. This prevents you from breaking other investments during emergencies.</li>
-              <li><strong>50/30/20 Rule:</strong> Allocate 50% of income to needs, 30% to wants, and 20% to savings. Adjust based on your situation, but never save less than 10%.</li>
-              <li><strong>Pay Yourself First:</strong> Set up auto-debit for savings on salary day. Don&apos;t save what&apos;s left after spending — spend what&apos;s left after saving.</li>
-              <li><strong>Sinking Fund:</strong> For predictable large expenses (car service, vacation, insurance premium), save small amounts monthly instead of paying a lump sum.</li>
-            </ul>
-          </div>
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Essential Savings Rules</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>Emergency Fund First:</strong> Before any goal, build 3–6 months of expenses in a liquid fund to prevent breaking other investments.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>50/30/20 Rule:</strong> Allocate 50% to needs, 30% to wants, 20% to savings. Never save less than 10%.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>Pay Yourself First:</strong> Auto-debit savings on salary day. Don&apos;t save what&apos;s left after spending.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-orange-500">•</span><span><strong>Sinking Fund:</strong> For predictable large expenses (car service, vacation), save small amounts monthly.</span></li>
+              </ul>
+            </div>
 
-          <div className="mb-8">
-            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">⚡ Goal-Based Investing Strategy</h3>
-            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-              <li><strong>&lt;3 years (Short-term):</strong> Use FDs, liquid funds, or short-term debt funds. Never use equity — too volatile.</li>
-              <li><strong>3–5 years (Medium-term):</strong> Balanced advantage funds or hybrid funds. Mix of equity and debt.</li>
-              <li><strong>5+ years (Long-term):</strong> Equity mutual funds or index funds. Higher risk but historically the best wealth creator.</li>
-              <li><strong>Child&apos;s education (15+ years):</strong> Start with 100% equity SIP, gradually shift to debt as the goal approaches (called &quot;glide path&quot;).</li>
-            </ul>
-          </div>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+                  <Target size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Goal-Based Strategy</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>&lt;3 years (Short):</strong> FDs, liquid funds, or short-term debt funds. Never use equity.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>3–5 years (Medium):</strong> Balanced advantage funds or hybrid funds.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>5+ years (Long):</strong> Equity mutual funds or index funds. Higher risk but better wealth creator.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>15+ years (Education):</strong> 100% equity SIP, gradually shift to debt as the goal approaches.</span></li>
+              </ul>
+            </div>
 
-          <div>
-            <h3 className="mb-3 text-[1.1rem] font-bold text-[#f59e0b]">💡 Pro Tips</h3>
-            <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-              <li>✅ <strong>Automate everything:</strong> Auto-debit SIPs, auto-sweep savings accounts, and automated bill payments. Discipline beats motivation.</li>
-              <li>✅ Review goals <strong>every 6 months</strong>. Life changes — a promotion, new baby, or job switch should trigger a savings recalculation.</li>
-              <li>✅ <strong>Don&apos;t keep more than ₹1–2 lakh in savings account.</strong> Everything above should be in at least a liquid mutual fund (6–7% vs 3.5%).</li>
-              <li>✅ For house down payment: Assume <strong>20% of property value + 7–8% registration costs</strong>. Most people underestimate the registration and stamp duty.</li>
-              <li>✅ Use separate bank accounts or funds for separate goals. Mixing them makes it impossible to track progress.</li>
-            </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Automate everything:</strong> Auto-debit SIPs, auto-sweep savings accounts, and automated bill payments.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Review goals <strong>every 6 months</strong>. Life changes should trigger a savings recalculation.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Use separate bank accounts or funds for separate goals to track progress effectively.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Don&apos;t keep more than ₹1–2 lakh in savings.</strong> Keep the rest in liquid mutual funds.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>For house down payment: Assume <strong>20% value + 7–8% registration costs</strong>.</span></li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </Card>
-      </section>
+        </section>
 
         <SEOSection 
           title="Savings Goal Calculator 2026: Plan for a House Down Payment or Milestone"

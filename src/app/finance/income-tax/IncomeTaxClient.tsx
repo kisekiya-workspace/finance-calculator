@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { calculateIncomeTax, Country, FilingStatus } from '@/lib/formulas';
-import { Wallet, Info, AlertTriangle, ShieldCheck, PieChart, Download } from 'lucide-react';
+import { Wallet, Info, AlertTriangle, ShieldCheck, PieChart, Download, BookOpen, Scale, Lightbulb } from 'lucide-react';
 import { Footer } from '@/components/layout/Footer';
 import { SEOSection } from '@/components/ui/SEOSection';
 import { RelatedTools } from '@/components/ui/RelatedTools';
@@ -257,7 +257,7 @@ export default function IncomeTaxClient() {
 
         {/* Tax Saving Decision Guide Section */}
         <div className="mx-auto mt-12 max-w-[900px]">
-          <Card className="!p-8 border-l-4 border-l-[#7c3aed] bg-[#f5f3ff]">
+          <Card className="!p-8 bg-[#f5f3ff]">
             <h2 className="mb-6 text-[1.4rem] font-bold text-[#4c1d95] flex items-center gap-2">
               <ShieldCheck className="text-[#7c3aed]" /> 💸 New vs Old Regime Decision Guide (2026-27)
             </h2>
@@ -283,42 +283,63 @@ export default function IncomeTaxClient() {
         </div>
 
         {/* Real-World Tips Section */}
-        <section className="mx-auto max-w-[900px] px-6 py-12">
-          <Card className="!p-8">
-            <h2 className="mb-6 text-[1.5rem] font-extrabold text-[var(--text-primary)]">💼 Income Tax Tips — Save More, Pay Less (Legally)</h2>
-            
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">📋 Key Tax Terms (India)</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Section 80C (₹1.5L limit):</strong> PPF, ELSS, NPS, life insurance, children&apos;s tuition, 5-year FD, home loan principal — all count.</li>
-                <li><strong>Section 80D (Medical Insurance):</strong> ₹25,000 for self/family + ₹50,000 for senior citizen parents = ₹75,000 additional deduction.</li>
-                <li><strong>HRA Exemption:</strong> If you pay rent, you can claim HRA exemption (min of actual HRA, rent paid - 10% salary, or 50%/40% of salary).</li>
-                <li><strong>Section 87A Rebate:</strong> Under new regime, income up to ₹12 lakh (₹12.75L with standard deduction) is effectively tax-free for FY 2025-26.</li>
-                <li><strong>New vs Old Regime:</strong> New regime has lower rates but no deductions. Old regime has higher rates but allows 80C, HRA, LTA, etc.</li>
+        <section className="mx-auto max-w-[900px] px-6 py-16">
+          <div className="mb-10 text-center">
+            <h2 className="text-[1.8rem] font-black text-[var(--text-primary)]">💼 Income Tax Tips</h2>
+            <p className="mt-3 text-[1rem] text-[var(--text-secondary)]">Save more and pay less (legally) with these pro strategies.</p>
+          </div>
+          
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+                  <BookOpen size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Key Terms (India)</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>Section 80C (₹1.5L):</strong> PPF, ELSS, NPS, life insurance, home loan principal.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>Section 80D:</strong> Medical Insurance — ₹25k for self/family + ₹50k for senior parents.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>HRA Exemption:</strong> Claim exemption on rent paid based on specific calculations.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-purple-500">•</span><span><strong>Section 87A:</strong> New regime income up to ₹12 lakh is effectively tax-free for FY 2025-26.</span></li>
               </ul>
             </div>
 
-            <div className="mb-8">
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">⚡ When to Choose New vs Old Regime</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li><strong>Choose New Regime if:</strong> Your total deductions (80C + 80D + HRA + LTA + home loan interest) are below ₹3.75 lakh.</li>
-                <li><strong>Choose Old Regime if:</strong> You have a home loan, pay rent (HRA), and maximize 80C + 80D + NPS. The deductions offset the higher slab rates.</li>
-                <li><strong>Salaried with no investments?</strong> New regime is almost always better — simpler and lower rates.</li>
-                <li><strong>Can switch every year:</strong> Salaried employees can choose differently each year. Self-employed can only switch once.</li>
+            <div className="rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                  <Scale size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">New vs Old Regime</h3>
+              </div>
+              <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Choose New if:</strong> Total deductions (80C, 80D, HRA, home loan) are below ₹3.75 lakh.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Choose Old if:</strong> You maximize 80C, pay rent, and have a home loan interest deduction.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Salaried with no investments?</strong> New regime is almost always better.</span></li>
+                <li className="flex gap-2"><span className="mt-1 shrink-0 text-blue-500">•</span><span><strong>Flexibility:</strong> Salaried can switch every year. Self-employed can only switch once.</span></li>
               </ul>
             </div>
 
-            <div>
-              <h3 className="mb-3 text-[1.1rem] font-bold text-[#7c3aed]">💡 Pro Tax-Saving Tips</h3>
-              <ul className="flex flex-col gap-2 text-[0.9rem] leading-[1.7] text-[var(--text-secondary)]">
-                <li>✅ <strong>NPS (Section 80CCD(1B)):</strong> Additional ₹50,000 deduction on top of 80C limit. Available in both old and new (employer contribution) regimes.</li>
-                <li>✅ <strong>Harvest LTCG annually:</strong> Sell and rebuy equity mutual funds to book gains below ₹1.25 lakh tax-free limit each year.</li>
-                <li>✅ <strong>Don&apos;t wait until March</strong> — invest in ELSS, PPF, and insurance by April to get 12 months of compounding.</li>
-                <li>✅ File returns on time (July 31). Late filing penalty is ₹5,000 (₹1,000 if income &lt; ₹5L). You also lose interest on refunds.</li>
-                <li>✅ Keep rent receipts, medical bills, and investment proofs organized. Digital copies are accepted for AY 2026-27.</li>
-              </ul>
+            <div className="col-span-1 rounded-2xl border border-[var(--border)] bg-white p-6 shadow-sm md:col-span-2">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                  <Lightbulb size={20} />
+                </div>
+                <h3 className="text-[1.1rem] font-bold text-[var(--text-primary)]">Pro Tax-Saving Tips</h3>
+              </div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>NPS (80CCD(1B)):</strong> Additional ₹50,000 deduction on top of 80C.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Harvest LTCG:</strong> Book gains below ₹1.25 lakh tax-free limit each year.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span><strong>Don&apos;t wait until March:</strong> Invest in ELSS and PPF by April for better compounding.</span></li>
+                </ul>
+                <ul className="flex flex-col gap-3 text-[0.9rem] leading-[1.6] text-[var(--text-secondary)]">
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>File returns on time (July 31). Late penalty is ₹5,000 and you lose interest on refunds.</span></li>
+                  <li className="flex gap-2"><span className="mt-1 shrink-0 text-emerald-500">✅</span><span>Keep rent receipts and medical bills organized. Digital copies are accepted.</span></li>
+                </ul>
+              </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <RelatedTools currentToolId="income-tax" categoryId="finance" />
