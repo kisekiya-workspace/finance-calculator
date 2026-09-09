@@ -452,6 +452,16 @@ export const TOOLS: Tool[] = [
     isTrending: true
   },
   {
+    id: 'split-image-in-3',
+    title: 'Split Image in 3',
+    desc: 'Crop a photo to 16:9 and split it into 3 equal vertical parts for X, Instagram, and carousels. Client-side PNG export.',
+    icon: Scissors,
+    href: '/design/split-image-in-3',
+    color: '#ea580c',
+    category: 'design',
+    isTrending: true
+  },
+  {
     id: 'color-converter',
     title: 'Color Format Suite',
     desc: 'Convert seamlessly between HEX, RGB, HSL and CMYK color codes with palette generation.',

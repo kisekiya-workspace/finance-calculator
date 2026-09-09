@@ -43,7 +43,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           type={type}
           className={cn(
-            "flex h-9 w-full rounded-md border border-border bg-background px-3 py-1 text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full rounded-[6px] bg-transparent px-3 py-1 text-sm font-normal ds-surface file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-[#8F8F8F] focus-visible:outline-[#005FCC] focus-visible:outline-1 disabled:cursor-not-allowed disabled:opacity-50",
             leftAddon && "pl-9",
             suffix && "pr-9",
             mono && "font-mono text-xs",
@@ -64,7 +64,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       return (
         <div className="space-y-1.5 w-full text-left">
           {label && (
-            <Label htmlFor={inputId} className="text-xs font-semibold text-foreground">
+            <Label htmlFor={inputId} className="text-sm font-normal text-foreground">
               {label}
             </Label>
           )}

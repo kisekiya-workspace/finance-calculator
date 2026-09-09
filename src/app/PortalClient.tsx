@@ -9,10 +9,8 @@ import {
   ShieldCheck,
   Lock,
   BookOpen,
-  Blocks,
   FileText,
   Command,
-  CheckCircle2,
   X,
   Filter,
 } from 'lucide-react';
@@ -84,7 +82,7 @@ function ToolCard({ tool }: { tool: Tool }) {
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-sm font-bold text-zinc-950 transition-colors group-hover:text-blue-600 truncate dark:text-zinc-50 dark:group-hover:text-blue-400">
+              <h3 className="truncate text-sm font-medium text-[#171717] group-hover:text-[#0072F5] dark:text-[#ededed]">
                 {tool.title}
               </h3>
               <ArrowRight
@@ -136,26 +134,22 @@ export default function PortalClient() {
   const isFiltering = search.trim().length > 0 || activeCategory !== 'all';
 
   return (
-    <div className="w-full min-w-0 overflow-x-hidden bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50">
-      {/* High-Impact Immediate Hero Section */}
-      <section className="bg-white pt-8 pb-6 text-center dark:bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Top Feature Pill */}
+    <div className="w-full min-w-0 overflow-x-hidden bg-[#fafafa] text-[#171717] dark:bg-[#0a0a0a] dark:text-[#ededed]">
+      <section className="bg-[#fafafa] pt-8 pb-6 text-center dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-[1200px] px-6">
           <div className="mb-3 inline-flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-0.5 text-xs font-semibold text-blue-700 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300">
-              <Blocks size={13} className="text-blue-600 dark:text-blue-400" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f2f2f2] px-3 py-0.5 text-xs font-normal text-[#4d4d4d] dark:bg-[#171717] dark:text-[#a1a1a1]">
+              <span className="size-2.5 rounded-full bg-[#0072F5]" />
               {TOOLS.length} reviewed browser-native utilities
             </span>
           </div>
 
-          {/* Clean 1-Line Headline */}
-          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl md:text-5xl lg:text-6xl dark:text-zinc-50">
-            Calculations, Code & <span className="text-blue-600">Document Utilities</span>
+          <h1 className="text-[32px] font-semibold leading-none tracking-[-1.28px] text-[#171717] sm:text-5xl sm:tracking-[-2.28px] dark:text-[#ededed]">
+            Calculations, Code & <span className="text-[#0072F5]">Document Utilities</span>
           </h1>
 
-          {/* Ultra-Prominent Search Bar */}
           <div className="mx-auto mt-6 max-w-3xl">
-            <div className="relative flex items-center rounded-2xl border-2 border-zinc-200 bg-white p-2 transition-all focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 dark:border-zinc-800 dark:bg-zinc-900">
+            <div className="relative flex items-center rounded-[12px] bg-white p-2 ds-surface focus-within:shadow-[0_0_0_2px_#fff,0_0_0_4px_#0072F5] dark:bg-[#111]">
               <Search size={22} className="ml-3 shrink-0 text-zinc-400" />
               <input
                 ref={searchInputRef}
@@ -193,18 +187,18 @@ export default function PortalClient() {
                   <button
                     key={tag.id}
                     onClick={() => setActiveCategory(tag.id)}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-semibold transition-all ${
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-normal ${
                       isActive
-                        ? 'border border-zinc-900 bg-zinc-900 text-white dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900'
-                        : 'border border-zinc-200 bg-zinc-50 text-zinc-600 hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-950 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-100'
+                        ? 'bg-[#171717] text-white dark:bg-[#ededed] dark:text-[#0a0a0a]'
+                        : 'bg-[#f2f2f2] text-[#4d4d4d] hover:bg-[#ebebeb] hover:text-[#171717] dark:bg-[#171717] dark:text-[#a1a1a1] dark:hover:bg-[#262626] dark:hover:text-[#ededed]'
                     }`}
                   >
                     <span>{tag.label}</span>
                     <span
-                      className={`rounded-full px-1.5 py-0.2 text-[10px] font-mono ${
+                      className={`rounded-full px-1.5 text-[10px] font-mono ${
                         isActive
-                          ? 'bg-white/20 text-white dark:bg-zinc-900/20 dark:text-zinc-900'
-                          : 'bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+                          ? 'bg-white/20 text-white dark:bg-black/15 dark:text-[#0a0a0a]'
+                          : 'bg-[#ebebeb] text-[#4d4d4d] dark:bg-[#262626] dark:text-[#a1a1a1]'
                       }`}
                     >
                       {count}
@@ -215,7 +209,7 @@ export default function PortalClient() {
 
               <Link
                 href="/resume-builder"
-                className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-semibold text-blue-700 transition-colors hover:bg-blue-100 dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#f2f2f2] px-3.5 py-1 text-xs font-normal text-[#0072F5] hover:bg-[#ebebeb] dark:bg-[#171717] dark:text-[#52aeff]"
               >
                 <FileText size={12} className="text-blue-600" />
                 <span>Resume Builder</span>
@@ -227,12 +221,12 @@ export default function PortalClient() {
 
       {/* Live Filter / Search Results Section (Shown immediately when searching or filtering) */}
       {isFiltering ? (
-        <section className="bg-white py-8 dark:bg-zinc-950">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex items-center justify-between border-b border-zinc-200/80 pb-3 dark:border-zinc-800">
+        <section className="bg-[#fafafa] py-8 dark:bg-[#0a0a0a]">
+          <div className="mx-auto max-w-[1200px] px-6">
+            <div className="mb-6 flex items-center justify-between pb-3">
               <div className="flex items-center gap-2">
                 <Filter size={16} className="text-blue-600" />
-                <h2 className="text-lg font-bold text-zinc-950 dark:text-zinc-50">
+                <h2 className="text-lg font-semibold text-[#171717] dark:text-[#ededed]">
                   {search
                     ? `Results for "${search}"`
                     : `${activeCategory.toUpperCase()} Utilities`}
@@ -247,7 +241,7 @@ export default function PortalClient() {
                     setSearch('');
                     setActiveCategory('all');
                   }}
-                  className="text-xs font-semibold text-blue-600 hover:underline"
+                  className="text-xs font-normal text-[#0072F5]"
                 >
                   Reset filters
                 </button>
@@ -255,8 +249,8 @@ export default function PortalClient() {
             </div>
 
             {filteredTools.length === 0 ? (
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-12 text-center dark:border-zinc-800 dark:bg-zinc-900">
-                <p className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">
+              <div className="rounded-[12px] bg-[#f2f2f2] p-12 text-center ds-surface dark:bg-[#111]">
+                <p className="text-sm font-medium text-[#171717] dark:text-[#ededed]">
                   No tools found matching your criteria.
                 </p>
                 <p className="mt-1 text-xs text-zinc-500">
@@ -285,14 +279,14 @@ export default function PortalClient() {
         </section>
       ) : (
         /* Workspace Suites Grid (Default View - Seamless right below Search) */
-        <section className="bg-white pt-2 pb-14 dark:bg-zinc-950">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
+        <section className="bg-[#fafafa] pt-2 pb-14 dark:bg-[#0a0a0a]">
+          <div className="mx-auto max-w-[1200px] px-6">
+            <div className="mb-6 flex flex-col gap-1 pb-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-600">
+                <p className="text-xs font-medium uppercase tracking-wider text-[#0072F5]">
                   Specialized Suites
                 </p>
-                <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl text-zinc-950 dark:text-zinc-50 mt-0.5">
+                <h2 className="mt-0.5 text-xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-2xl dark:text-[#ededed]">
                   Explore Specialized Workspaces
                 </h2>
               </div>
@@ -319,16 +313,16 @@ export default function PortalClient() {
                             {count} tools
                           </Badge>
                         </div>
-                        <h3 className="text-base font-bold text-zinc-950 transition-colors group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400">
+                        <h3 className="text-base font-semibold text-[#171717] group-hover:text-[#0072F5] dark:text-[#ededed]">
                           {cat.title}
                         </h3>
                         <p className="mt-1.5 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                           {cat.desc}
                         </p>
                       </div>
-                      <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center gap-1.5 text-xs font-semibold" style={{ color: cat.color }}>
+                      <div className="mt-4 flex items-center gap-1.5 pt-3 text-xs font-medium" style={{ color: cat.color }}>
                         <span>Open Workspace</span>
-                        <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+                        <ArrowRight size={13} />
                       </div>
                     </Card>
                   </Link>
@@ -337,24 +331,24 @@ export default function PortalClient() {
 
               {/* Resume Builder Feature Card */}
               <Link href="/resume-builder" className="group block">
-                <Card hoverable className="h-full p-5 flex flex-col justify-between border-blue-200 bg-blue-50/50 dark:border-blue-900/60 dark:bg-blue-950/20">
+                <Card hoverable className="flex h-full flex-col justify-between p-5">
                   <div>
                     <div className="flex items-start justify-between mb-3">
-                      <div className="flex size-10 items-center justify-center rounded-xl bg-blue-600 text-white">
+                      <div className="flex size-10 items-center justify-center rounded-[8px] bg-[#0072F5] text-white">
                         <FileText size={18} />
                       </div>
                       <Badge variant="info" size="sm">
                         Featured
                       </Badge>
                     </div>
-                    <h3 className="text-base font-bold text-zinc-950 transition-colors group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400">
+                    <h3 className="text-base font-semibold text-[#171717] group-hover:text-[#0072F5] dark:text-[#ededed]">
                       ATS Resume Builder
                     </h3>
                     <p className="mt-1.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
                       Build clean, ATS-compliant resumes with real-time vector PDF rendering and local draft autosave.
                     </p>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-blue-200/60 dark:border-blue-900/40 flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400">
+                  <div className="mt-4 flex items-center gap-1.5 pt-3 text-xs font-medium text-[#0072F5]">
                     <span>Create Resume</span>
                     <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
                   </div>
@@ -367,11 +361,11 @@ export default function PortalClient() {
 
       {/* Tools Directory Section (Full categorized listing) */}
       {!isFiltering && (
-        <section className="border-t border-zinc-200 bg-white py-14 sm:py-16 dark:border-zinc-800 dark:bg-zinc-950">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
+        <section className="bg-[#fafafa] py-14 sm:py-16 dark:bg-[#0a0a0a]">
+          <div className="mx-auto max-w-[1200px] px-6">
+            <div className="mb-8 flex flex-col gap-3 pb-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-2xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
+                <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#171717] dark:text-[#ededed]">
                   All Utilities Directory
                 </h2>
                 <p className="mt-1 text-xs text-zinc-500 sm:text-sm dark:text-zinc-400">
@@ -384,7 +378,7 @@ export default function PortalClient() {
                   <a
                     key={cat.id}
                     href={`#cat-${cat.id}`}
-                    className="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 transition-colors hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                    className="rounded-full bg-[#f2f2f2] px-3 py-1 text-xs font-normal text-[#4d4d4d] hover:bg-[#ebebeb] hover:text-[#171717] dark:bg-[#171717] dark:text-[#a1a1a1] dark:hover:text-[#ededed]"
                   >
                     {cat.title.replace(' Tools', '').replace(' Utilities', '')}
                   </a>
@@ -397,17 +391,17 @@ export default function PortalClient() {
               if (catTools.length === 0) return null;
               return (
                 <div key={cat.id} id={`cat-${cat.id}`} className="mb-12 scroll-mt-24 last:mb-0">
-                  <div className="mb-4 flex items-center justify-between border-b border-zinc-100 pb-2.5 dark:border-zinc-800">
+                  <div className="mb-4 flex items-center justify-between pb-2.5">
                     <div className="flex items-center gap-2.5">
                       <cat.icon size={18} style={{ color: cat.color }} className="shrink-0" />
-                      <h3 className="text-base font-bold text-zinc-950 dark:text-zinc-50">{cat.title}</h3>
+                      <h3 className="text-base font-semibold text-[#171717] dark:text-[#ededed]">{cat.title}</h3>
                       <Badge variant="mono" size="sm">
                         {catTools.length}
                       </Badge>
                     </div>
                     <Link
                       href={HUB_HREF[cat.id]}
-                      className="text-xs font-semibold text-blue-600 hover:underline"
+                      className="text-xs font-normal text-[#0072F5]"
                     >
                       View category →
                     </Link>
@@ -425,13 +419,13 @@ export default function PortalClient() {
       )}
 
       {/* Feature & Privacy Architecture Showcase */}
-      <section className="border-t border-zinc-200 bg-zinc-50/50 py-14 sm:py-16 dark:border-zinc-800 dark:bg-zinc-950/50">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
+      <section className="bg-[#fafafa] py-14 sm:py-16 dark:bg-[#0a0a0a]">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-6 lg:grid-cols-2 lg:items-center">
           <div>
             <Badge variant="outline" dot pulse size="sm" className="mb-3">
               Engineered for Precision
             </Badge>
-            <h2 className="mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl text-zinc-950 dark:text-zinc-50">
+            <h2 className="mb-4 text-2xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-3xl dark:text-[#ededed]">
               Local Tool Processing. <br />
               Clear Assumptions and Fast Results.
             </h2>
@@ -458,12 +452,12 @@ export default function PortalClient() {
                   desc: 'Published calculators explain their equations, assumptions, examples, and limitations.',
                 },
               ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-3.5 dark:border-zinc-800 dark:bg-zinc-900">
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/40">
+                <div key={title} className="flex items-start gap-3 rounded-[12px] bg-white p-3.5 ds-surface dark:bg-[#111]">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-[6px] bg-[#f2f2f2] text-[#0072F5] dark:bg-[#171717]">
                     <Icon size={18} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-zinc-950 dark:text-zinc-50">{title}</h4>
+                    <h4 className="text-sm font-medium text-[#171717] dark:text-[#ededed]">{title}</h4>
                     <p className="text-xs text-zinc-500 leading-relaxed mt-0.5 dark:text-zinc-400">{desc}</p>
                   </div>
                 </div>
@@ -472,8 +466,8 @@ export default function PortalClient() {
           </div>
 
           {/* Interactive Visual Card */}
-          <div className="relative rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 dark:border-zinc-800 dark:bg-zinc-900">
-            <div className="mb-5 flex items-center justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
+          <div className="relative rounded-[12px] bg-white p-6 ds-surface-elevated sm:p-8 dark:bg-[#111]">
+            <div className="mb-5 flex items-center justify-between pb-3">
               <div className="flex items-center gap-2">
                 <span className="size-2.5 rounded-full bg-red-500/80" />
                 <span className="size-2.5 rounded-full bg-amber-500/80" />
@@ -516,14 +510,14 @@ export default function PortalClient() {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-between rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 text-xs dark:border-emerald-900/60 dark:bg-emerald-950/20">
+            <div className="mt-6 flex items-center justify-between rounded-[12px] bg-[#f2f2f2] p-3.5 text-xs dark:bg-[#171717]">
               <div className="flex items-center gap-2.5">
-                <CheckCircle2 size={16} className="text-emerald-600" />
-                <span className="font-semibold text-emerald-950 dark:text-emerald-200">
+                <span className="size-2.5 rounded-full bg-[#45A557]" />
+                <span className="font-medium text-[#171717] dark:text-[#ededed]">
                   Verified Local Execution
                 </span>
               </div>
-              <span className="font-mono text-[11px] text-emerald-700 font-bold dark:text-emerald-300">
+              <span className="font-mono text-[11px] font-medium text-[#4d4d4d] dark:text-[#a1a1a1]">
                 0 Bytes Sent
               </span>
             </div>
@@ -532,18 +526,18 @@ export default function PortalClient() {
       </section>
 
       {/* Guides Section */}
-      <section className="border-t border-zinc-200 bg-white py-14 sm:py-16 dark:border-zinc-800 dark:bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 flex items-center justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
+      <section className="bg-[#fafafa] py-14 sm:py-16 dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-[1200px] px-6">
+          <div className="mb-8 flex items-center justify-between pb-3">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-blue-600">
+              <p className="text-xs font-medium uppercase tracking-wider text-[#0072F5]">
                 Knowledge Hub
               </p>
-              <h2 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50 mt-0.5">
+              <h2 className="mt-0.5 text-2xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-3xl dark:text-[#ededed]">
                 Guides & Technical Blueprints
               </h2>
             </div>
-            <Link href="/blog" className="text-xs font-semibold text-blue-600 hover:underline">
+            <Link href="/blog" className="text-xs font-normal text-[#0072F5]">
               View all articles →
             </Link>
           </div>
@@ -552,10 +546,10 @@ export default function PortalClient() {
             {BLOG_HUBS.map((hub) => (
               <Link key={hub.href} href={hub.href} className="group block">
                 <Card hoverable className="h-full p-5">
-                  <div className="flex size-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/40 mb-3.5">
+                  <div className="mb-3.5 flex size-9 items-center justify-center rounded-[8px] bg-[#f2f2f2] text-[#0072F5] dark:bg-[#171717]">
                     <BookOpen size={16} />
                   </div>
-                  <h3 className="text-sm font-bold text-zinc-950 transition-colors group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400">
+                  <h3 className="text-sm font-medium text-[#171717] group-hover:text-[#0072F5] dark:text-[#ededed]">
                     {hub.title}
                   </h3>
                   <p className="mt-1.5 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
@@ -569,10 +563,10 @@ export default function PortalClient() {
       </section>
 
       {/* Frequently Asked Questions (Shadcn Accordion) */}
-      <section className="border-t border-zinc-200 bg-zinc-50/50 py-14 sm:py-16 dark:border-zinc-800 dark:bg-zinc-950/50">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50">
+      <section className="bg-[#fafafa] py-14 sm:py-16 dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-3xl dark:text-[#ededed]">
               Frequently Asked Questions
             </h2>
             <p className="mt-1 text-xs text-zinc-500 sm:text-sm dark:text-zinc-400">
@@ -580,11 +574,11 @@ export default function PortalClient() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8 dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="rounded-[12px] bg-white p-6 ds-surface sm:p-8 dark:bg-[#111]">
             <Accordion type="single" collapsible className="w-full">
               {FAQS.map((faq, idx) => (
                 <AccordionItem key={faq.q} value={`item-${idx}`}>
-                  <AccordionTrigger className="text-sm font-bold text-zinc-950 hover:text-blue-600 dark:text-zinc-50">
+                  <AccordionTrigger className="text-sm font-medium text-[#171717] hover:text-[#0072F5] dark:text-[#ededed]">
                     {faq.q}
                   </AccordionTrigger>
                   <AccordionContent className="text-xs sm:text-sm text-zinc-600 leading-relaxed dark:text-zinc-400">
@@ -598,17 +592,17 @@ export default function PortalClient() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-14 sm:py-16 bg-white dark:bg-zinc-950">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-          <div className="rounded-3xl border border-zinc-200 bg-zinc-50/60 p-8 sm:p-12 dark:border-zinc-800 dark:bg-zinc-900">
-            <h2 className="text-2xl font-extrabold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50">
+      <section className="bg-[#fafafa] py-14 sm:py-16 dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <div className="rounded-[12px] bg-white p-8 ds-surface sm:p-12 dark:bg-[#111]">
+            <h2 className="text-2xl font-semibold tracking-[-0.04em] text-[#171717] sm:text-3xl dark:text-[#ededed]">
               Ready to Calculate, Convert or Build?
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-xs text-zinc-500 sm:text-sm leading-relaxed dark:text-zinc-400">
               Choose a tool and start solving immediately. No credit card, no sign-in required.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild size="default">
+              <Button asChild variant="brand" size="default">
                 <Link href="/finance/sip-calculator">
                   SIP Calculator
                 </Link>
@@ -622,7 +616,7 @@ export default function PortalClient() {
                 asChild
                 variant="outline"
                 size="default"
-                className="border-blue-200 bg-blue-50/70 text-blue-700 hover:bg-blue-100 font-semibold dark:border-blue-900/60 dark:bg-blue-950/40 dark:text-blue-300"
+                className="font-normal text-[#0072F5]"
               >
                 <Link href="/resume-builder">
                   ATS Resume Builder

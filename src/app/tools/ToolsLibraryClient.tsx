@@ -93,7 +93,7 @@ export default function ToolsLibraryClient() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 flex flex-col justify-between">
+    <div className="flex min-h-screen flex-col justify-between bg-[#fafafa] text-[#171717] dark:bg-[#0a0a0a] dark:text-[#ededed]">
       <div>
         {/* Skimmed Compact Hero Header */}
         <header className="bg-white pt-8 pb-6 text-center dark:bg-zinc-950">
@@ -104,7 +104,7 @@ export default function ToolsLibraryClient() {
               </Badge>
             </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-zinc-950 dark:text-zinc-50">
+            <h1 className="text-[32px] font-semibold leading-none tracking-[-1.28px] text-[#171717] sm:text-5xl sm:tracking-[-2.28px] dark:text-[#ededed]">
               Complete <span className="text-blue-600">Tool Directory</span>
             </h1>
             

@@ -2,7 +2,7 @@ import {
     Calculator, Image as ImageIcon, FileText, Settings2, Hash, ArrowRightLeft,
     Search, QrCode, Watch, AlignLeft, Palette, Cat, TrendingUp, DollarSign, Activity, Music,
     Calendar, Globe, Percent, FileCode, Link, ScanBarcode, IndianRupee, LucideIcon,
-    Clock, Square, Smile, Table, GitCompare, Youtube, Instagram, Share2, Shield
+    Clock, Square, Smile, Table, GitCompare, Youtube, Instagram, Share2, Shield, Scissors
 } from "lucide-react";
 
 export interface Tool {
@@ -29,6 +29,14 @@ export const TOOLS: Tool[] = [
         description: "Create stylish text for your Instagram bio.",
         href: "/tools/instagram-bio-generator",
         icon: Instagram,
+        category: "Social",
+        popular: true
+    },
+    {
+        title: "Split Image in 3",
+        description: "Crop a 16:9 photo into 3 equal parts for X and Instagram.",
+        href: "/design/split-image-in-3",
+        icon: Scissors,
         category: "Social",
         popular: true
     },

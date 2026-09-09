@@ -20,7 +20,7 @@ export default function FinanceClient() {
   );
 
   return (
-    <div className="min-h-screen bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50">
+    <div className="min-h-screen bg-[#fafafa] text-[#171717] dark:bg-[#0a0a0a] dark:text-[#ededed]">
       {/* Skimmed Compact Hero Section */}
       <section className="bg-white pt-8 pb-6 text-center dark:bg-zinc-950">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -30,7 +30,7 @@ export default function FinanceClient() {
             </Badge>
           </div>
           
-          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl md:text-5xl dark:text-zinc-50">
+          <h1 className="text-[32px] font-semibold leading-none tracking-[-1.28px] text-[#171717] sm:text-5xl sm:tracking-[-2.28px] dark:text-[#ededed]">
             Precision <span className="text-blue-600 dark:text-blue-400">Financial</span> Calculators
           </h1>
           

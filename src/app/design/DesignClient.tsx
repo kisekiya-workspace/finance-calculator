@@ -38,7 +38,7 @@ export default function DesignClient() {
   );
 
   return (
-    <div className="min-h-screen bg-white text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50">
+    <div className="min-h-screen bg-[#fafafa] text-[#171717] dark:bg-[#0a0a0a] dark:text-[#ededed]">
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: '/' },
@@ -47,15 +47,15 @@ export default function DesignClient() {
       />
 
       {/* Skimmed Compact Hero Section */}
-      <section className="bg-white pt-8 pb-6 text-center dark:bg-zinc-950">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#fafafa] pt-8 pb-6 text-center dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-[1200px] px-6">
           <div className="mb-3 inline-flex items-center gap-2">
             <Badge variant="outline" dot pulse size="sm" className="font-mono text-xs">
               Creative & Graphic Studio
             </Badge>
           </div>
           
-          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-950 sm:text-4xl md:text-5xl dark:text-zinc-50">
+          <h1 className="text-[32px] font-semibold leading-none tracking-[-1.28px] text-[#171717] sm:text-5xl sm:tracking-[-2.28px] dark:text-[#ededed]">
             Design & <span className="text-cyan-500">Creative</span> Studio
           </h1>
           
@@ -65,11 +65,11 @@ export default function DesignClient() {
 
           {/* Search Box */}
           <div className="mx-auto mt-5 max-w-xl">
-            <div className="relative flex items-center rounded-xl border border-zinc-300 bg-white p-2 transition-all focus-within:border-cyan-500 focus-within:ring-2 focus-within:ring-cyan-500/20 dark:border-zinc-700 dark:bg-zinc-900">
+            <div className="relative flex items-center rounded-[12px] bg-white p-2 ds-surface dark:bg-[#111]">
               <Search size={18} className="ml-3 shrink-0 text-zinc-400" />
               <input
                 type="search"
-                placeholder="Search creative tools (e.g. Drawesome, Dither, Shader, Color)..."
+                placeholder="Search creative tools (e.g. Split Image, Drawesome, Dither, Shader)..."
                 className="w-full border-none bg-transparent px-3 py-1 text-sm font-medium text-zinc-950 outline-none placeholder:text-zinc-400 dark:text-zinc-50"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -142,7 +142,7 @@ export default function DesignClient() {
           <div className="mt-14">
             <DirectAnswerBlock
               title="What is the Toolioz Design & Creative Studio?"
-              answer="Toolioz Design & Creative Studio is a suite of client-side web tools for digital artists, designers, and developers. It includes Drawesome vector drawing with 7 pressure-sensitive pens, ditherit interactive ASCII and dot art, GLSL shader editor, wallpaper generator, tap-to-reveal PNG creator, and color converter tools."
+              answer="Toolioz Design & Creative Studio is a suite of client-side web tools for digital artists, designers, and developers. It includes Drawesome vector drawing, ditherit ASCII and dot art, a GLSL shader editor, wallpaper generator, tap-to-reveal PNG creator, 16:9 split-into-3 image tool, and color converters."
               keyTakeaways={[
                 "100% Client-Side Privacy — Images, videos & SVG drawings never leave your device.",
                 "Vector & Raster Export — Download scalable SVG files, 4K PNGs, and WebM video recordings.",

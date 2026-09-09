@@ -15,169 +15,161 @@ import {
   Briefcase,
   Wrench,
   Search,
-  Command,
   Boxes,
 } from 'lucide-react';
 import { CATEGORIES as TOOL_CATEGORIES, PUBLISHER_READY_TOOLS as TOOLS } from '@/lib/tools';
-import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
-const MAIN_NAV = [
-  { name: 'Finance', href: '/finance', id: 'finance' },
-  { name: 'DevTools', href: '/devtools', id: 'devtools' },
-  { name: 'PDF Tools', href: '/pdftools', id: 'pdftools' },
-  { name: 'Guides', href: '/blog', id: 'guides', icon: BookOpen },
-  { name: 'How-To', href: '/how-to', id: 'how-to', icon: FileText },
-  { name: 'Top 5', href: '/top5', id: 'comparisons', icon: LayoutGrid },
+const PRIMARY_NAV = [
+  { name: 'Finance', href: '/finance' },
+  { name: 'DevTools', href: '/devtools' },
+  { name: 'Design', href: '/design' },
+  { name: 'PDF', href: '/pdftools' },
 ];
+
+const MORE_NAV = [
+  { name: 'Guides', href: '/blog', icon: BookOpen },
+  { name: 'How-To', href: '/how-to', icon: FileText },
+  { name: 'Top 5', href: '/top5', icon: LayoutGrid },
+  { name: 'Resume Builder', href: '/resume-builder', icon: Briefcase },
+];
+
+function navItemClass(active: boolean) {
+  return [
+    'shrink-0 rounded-[6px] px-3 py-2 text-sm whitespace-nowrap xl:px-3.5',
+    active
+      ? 'bg-[#ebebeb] text-[#171717] dark:bg-[#262626] dark:text-[#ededed]'
+      : 'text-[#4d4d4d] hover:bg-[#ebebeb] hover:text-[#171717] dark:text-[#a1a1a1] dark:hover:bg-[#262626] dark:hover:text-[#ededed]',
+  ].join(' ');
+}
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [scrolled, setScrolled] = useState(false);
   const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const pathname = usePathname();
 
-  const currentCategoryId = TOOL_CATEGORIES.find((category) =>
-    pathname === `/${category.id}` || pathname.startsWith(`/${category.id}/`)
+  const currentCategoryId = TOOL_CATEGORIES.find(
+    (category) => pathname === `/${category.id}` || pathname.startsWith(`/${category.id}/`),
   )?.id;
   const currentCategory = TOOL_CATEGORIES.find((category) => category.id === currentCategoryId);
   const categoryTools = TOOLS.filter((tool) => tool.category === currentCategoryId);
+  const moreActive = MORE_NAV.some(
+    (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+  );
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (id: string) => {
     if (closeTimeout) clearTimeout(closeTimeout);
-    setActiveDropdown('tools');
+    setActiveDropdown(id);
   };
 
   const handleMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setActiveDropdown(null);
-    }, 150);
+    const timeout = setTimeout(() => setActiveDropdown(null), 150);
     setCloseTimeout(timeout);
   };
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 15);
-    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       if (closeTimeout) clearTimeout(closeTimeout);
     };
   }, [closeTimeout]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
+    setActiveDropdown(null);
   }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <header
-      className={[
-        'sticky top-0 z-50 w-full border-b border-zinc-200/80 bg-white/90 backdrop-blur-md transition-all duration-200 dark:border-zinc-800/80 dark:bg-zinc-950/90',
-        scrolled ? 'h-16' : 'h-[72px]',
-      ].join(' ')}
+      className="sticky top-0 z-50 w-full bg-[#fafafa]/90 backdrop-blur-md dark:bg-[#0a0a0a]/90"
+      style={{ boxShadow: 'var(--header-border-bottom)' }}
     >
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="flex items-center gap-3 py-1 transition-opacity hover:opacity-90"
-          >
-            <Image
-              src="/tooliozLogo.svg"
-              alt="Toolioz logo"
-              width={40}
-              height={40}
-              className="h-9 w-9 shrink-0 rounded-lg object-contain"
-              priority
-            />
-            <span className="text-xl font-black tracking-tight text-zinc-950 dark:text-zinc-50">
-              Toolioz
-            </span>
-          </Link>
+      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center gap-4 px-4 sm:px-6">
+        <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2">
+          <Image
+            src="/tooliozLogo.svg"
+            alt="Toolioz logo"
+            width={32}
+            height={40}
+            className="h-8 w-8 shrink-0 object-contain"
+            priority
+          />
+          <span className="truncate text-base font-semibold tracking-tight text-[#171717] dark:text-[#ededed]">
+            Toolioz
+          </span>
+        </Link>
 
-          {/* Desktop Search / Quick Action Pill */}
-          <Link
-            href="/tools"
-            className="hidden md:flex items-center gap-2 rounded-full border border-zinc-200/80 bg-zinc-50/80 px-3.5 py-1.5 text-xs text-zinc-500 transition-colors hover:border-zinc-300 hover:bg-zinc-100 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
-          >
-            <Search size={13} className="shrink-0 text-zinc-400" />
-            <span>Search 60+ tools…</span>
-            <kbd className="pointer-events-none hidden h-4 select-none items-center gap-0.5 rounded border border-zinc-200 bg-white px-1.5 font-mono text-[10px] font-medium text-zinc-500 opacity-100 lg:inline-flex dark:border-zinc-700 dark:bg-zinc-800">
-              <Command size={10} /> K
-            </kbd>
-          </Link>
-        </div>
+        <Link
+          href="/tools"
+          className="hidden min-w-0 items-center gap-2 rounded-[6px] bg-[#f2f2f2] px-3.5 py-2 text-xs text-[#8f8f8f] hover:bg-[#ebebeb] hover:text-[#171717] xl:flex dark:bg-[#171717] dark:hover:bg-[#262626] dark:hover:text-[#ededed]"
+        >
+          <Search size={13} className="shrink-0" />
+          <span className="truncate">Search tools…</span>
+        </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 md:flex lg:gap-1.5">
-          {/* Tools Mega-Menu Dropdown */}
+        <nav className="ml-auto hidden min-w-0 items-center gap-1 lg:flex xl:gap-2">
           <div
-            className="relative flex h-full items-center"
-            onMouseEnter={handleMouseEnter}
+            className="relative"
+            onMouseEnter={() => handleMouseEnter('tools')}
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={[
-                'relative flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all cursor-pointer border',
-                currentCategoryId || pathname === '/tools'
-                  ? 'border-zinc-200 dark:border-zinc-700/80 bg-zinc-100 dark:bg-zinc-800/90 text-zinc-950 dark:text-zinc-50 font-bold after:absolute after:bottom-1 after:left-2.5 after:right-2.5 after:h-[2px] after:rounded-full after:bg-zinc-900 dark:after:bg-zinc-100'
-                  : 'border-transparent text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-50',
-              ].join(' ')}
+              type="button"
+              className={`flex items-center gap-1.5 ${navItemClass(Boolean(currentCategoryId) || pathname === '/tools')}`}
               aria-expanded={activeDropdown === 'tools'}
             >
-              <Wrench size={15} className="opacity-80" />
-              <span>Tools</span>
-              <ChevronDown
-                size={13}
-                className={activeDropdown === 'tools' ? 'rotate-180 transition-transform duration-200' : 'transition-transform duration-200'}
-              />
+              <Wrench size={14} />
+              Tools
+              <ChevronDown size={12} className={activeDropdown === 'tools' ? 'rotate-180' : ''} />
             </button>
 
             {activeDropdown === 'tools' && (
-              <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-[640px] rounded-2xl border border-zinc-200 bg-white p-5 text-zinc-950 animate-in fade-in-0 zoom-in-95 duration-150 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-50">
-                <div className="mb-4 flex items-center justify-between border-b border-zinc-100 pb-3 dark:border-zinc-800">
-                  <div className="flex items-center gap-2">
-                    <Boxes size={16} className="text-zinc-900 dark:text-zinc-100" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                      Explore Utility Suites
+              <div className="ds-menu absolute right-0 top-[calc(100%+8px)] z-50 w-[min(40rem,calc(100vw-1.5rem))] rounded-[12px] bg-white p-4 text-[#171717] dark:bg-[#111] dark:text-[#ededed]">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-2">
+                    <Boxes size={16} className="shrink-0 text-[#171717] dark:text-[#ededed]" />
+                    <span className="truncate text-xs font-medium uppercase tracking-wider text-[#8f8f8f]">
+                      Suites
                     </span>
                   </div>
-                  <Link
-                    href="/tools"
-                    className="flex items-center gap-1 text-xs font-semibold text-zinc-700 hover:text-zinc-950 hover:underline dark:text-zinc-300 dark:hover:text-zinc-100"
-                  >
-                    View directory ({TOOLS.length}) <ChevronRight size={13} />
+                  <Link href="/tools" className="shrink-0 text-xs text-[#0072F5]">
+                    Directory ({TOOLS.length})
                   </Link>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
                   {TOOL_CATEGORIES.map((category) => (
                     <Link
                       key={category.id}
                       href={`/${category.id}`}
                       className={[
-                        'flex items-start gap-3 rounded-xl border p-3 transition-all duration-150 hover:border-zinc-300 hover:bg-zinc-50 dark:hover:border-zinc-700 dark:hover:bg-zinc-800/60',
-                        currentCategoryId === category.id
-                          ? 'border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800/80'
-                          : 'border-transparent bg-transparent',
+                        'flex items-start gap-3 rounded-[8px] p-3 hover:bg-[#fafafa] dark:hover:bg-[#171717]',
+                        currentCategoryId === category.id ? 'bg-[#f2f2f2] dark:bg-[#171717]' : '',
                       ].join(' ')}
                     >
                       <div
-                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-semibold"
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] text-sm"
                         style={{ backgroundColor: `${category.color}15`, color: category.color }}
                       >
                         <category.icon size={17} />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm font-semibold text-zinc-950 dark:text-zinc-50">{category.title}</span>
-                          <span className="text-[11px] font-mono text-zinc-400">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="truncate text-sm font-medium text-[#171717] dark:text-[#ededed]">
+                            {category.title}
+                          </span>
+                          <span className="shrink-0 font-mono text-[11px] text-[#8f8f8f]">
                             {TOOLS.filter((t) => t.category === category.id).length}
                           </span>
                         </div>
-                        <p className="line-clamp-1 text-xs text-zinc-500 mt-0.5">{category.desc}</p>
+                        <p className="mt-0.5 line-clamp-1 text-xs text-[#8f8f8f]">{category.desc}</p>
                       </div>
                     </Link>
                   ))}
@@ -186,77 +178,90 @@ export const Navbar = () => {
             )}
           </div>
 
-          {MAIN_NAV.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+          {PRIMARY_NAV.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={[
-                  'relative rounded-lg px-3 py-1.5 text-sm font-medium transition-all border',
-                  isActive
-                    ? 'border-zinc-200 dark:border-zinc-700/80 bg-zinc-100 dark:bg-zinc-800/90 text-zinc-950 dark:text-zinc-50 font-bold after:absolute after:bottom-1 after:left-2.5 after:right-2.5 after:h-[2px] after:rounded-full after:bg-zinc-900 dark:after:bg-zinc-100'
-                    : 'border-transparent text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-800/80 dark:hover:text-zinc-50',
-                ].join(' ')}
-              >
+              <Link key={item.href} href={item.href} className={navItemClass(isActive)}>
                 {item.name}
               </Link>
             );
           })}
 
-          {/* Clean Styled Action Button & Theme Toggle */}
-          <div className="ml-2 pl-2 flex items-center gap-2 border-l border-zinc-200 dark:border-zinc-800">
-            <Button
-              asChild
-              size="sm"
-              variant="outline"
-              className="gap-1.5 border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300 text-zinc-800 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800 font-semibold"
+          <div
+            className="relative"
+            onMouseEnter={() => handleMouseEnter('more')}
+            onMouseLeave={handleMouseLeave}
+          >
+            <button
+              type="button"
+              className={`flex items-center gap-1.5 ${navItemClass(moreActive)}`}
+              aria-expanded={activeDropdown === 'more'}
             >
-              <Link href="/resume-builder">
-                <Briefcase size={14} className="text-zinc-600 dark:text-zinc-400" />
-                <span>Resume Builder</span>
-              </Link>
-            </Button>
-            <ThemeToggle />
+              More
+              <ChevronDown size={12} className={activeDropdown === 'more' ? 'rotate-180' : ''} />
+            </button>
+            {activeDropdown === 'more' && (
+              <div className="ds-menu absolute right-0 top-[calc(100%+8px)] z-50 w-52 rounded-[12px] bg-white p-2 dark:bg-[#111]">
+                {MORE_NAV.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`flex items-center gap-2 rounded-[6px] px-3 py-2 text-sm ${
+                        isActive
+                          ? 'bg-[#f2f2f2] text-[#171717] dark:bg-[#262626] dark:text-[#ededed]'
+                          : 'text-[#4d4d4d] hover:bg-[#fafafa] hover:text-[#171717] dark:text-[#a1a1a1] dark:hover:bg-[#171717] dark:hover:text-[#ededed]'
+                      }`}
+                    >
+                      <Icon size={14} className="shrink-0" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
+
+          <ThemeToggle className="ml-2" />
         </nav>
 
-        {/* Mobile Controls */}
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="ml-auto flex shrink-0 items-center gap-2 lg:hidden">
           <ThemeToggle />
-          <Link href="/tools" className="p-2 text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50">
-            <Search size={20} />
+          <Link
+            href="/tools"
+            className="flex size-9 items-center justify-center rounded-[6px] text-[#4d4d4d] hover:bg-[#ebebeb] hover:text-[#171717] dark:text-[#a1a1a1] dark:hover:bg-[#262626] dark:hover:text-[#ededed]"
+            aria-label="Search tools"
+          >
+            <Search size={18} />
           </Link>
           <button
-            className="flex size-9 items-center justify-center rounded-md border border-zinc-200 text-zinc-950 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-800 cursor-pointer"
+            type="button"
+            className="flex size-9 items-center justify-center rounded-[6px] text-[#171717] hover:bg-[#ebebeb] dark:text-[#ededed] dark:hover:bg-[#262626]"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       {isOpen && (
-        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 overflow-y-auto bg-white/95 p-6 backdrop-blur-xl md:hidden border-t border-zinc-200 dark:bg-zinc-950/95 dark:border-zinc-800">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full justify-center gap-2 border-zinc-200 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 font-semibold dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800"
-              >
-                <Link href="/resume-builder" onClick={() => setIsOpen(false)}>
-                  <Briefcase size={16} />
-                  <span>ATS Resume Builder</span>
-                </Link>
-              </Button>
-            </div>
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 overflow-y-auto bg-[#fafafa] p-4 lg:hidden dark:bg-[#0a0a0a]">
+          <div className="mx-auto flex max-w-lg flex-col gap-6 pb-10">
+            <Link
+              href="/resume-builder"
+              onClick={() => setIsOpen(false)}
+              className="flex h-12 items-center justify-center gap-2 rounded-[6px] bg-[#171717] text-sm text-white dark:bg-white dark:text-[#171717]"
+            >
+              <Briefcase size={16} />
+              ATS Resume Builder
+            </Link>
 
             <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
+              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#8f8f8f]">
                 Tool Categories
               </p>
               <div className="grid grid-cols-1 gap-2">
@@ -264,25 +269,22 @@ export const Navbar = () => {
                   <Link
                     key={category.id}
                     href={`/${category.id}`}
-                    className={[
-                      'flex items-center gap-3 rounded-xl border p-3 font-medium transition-colors',
-                      pathname === `/${category.id}`
-                        ? 'border-zinc-300 bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800/80 text-zinc-950 dark:text-zinc-50 font-semibold'
-                        : 'border-zinc-200 bg-white text-zinc-950 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:bg-zinc-800',
-                    ].join(' ')}
+                    className="flex items-center gap-3 rounded-[8px] bg-white p-3 ds-surface dark:bg-[#111]"
                     onClick={() => setIsOpen(false)}
                   >
                     <div
-                      className="flex size-8 items-center justify-center rounded-md"
+                      className="flex size-8 items-center justify-center rounded-[6px]"
                       style={{ backgroundColor: `${category.color}15`, color: category.color }}
                     >
                       <category.icon size={18} />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <span className="block text-sm font-semibold">{category.title}</span>
-                      <span className="block truncate text-xs text-zinc-500">{category.desc}</span>
+                    <div className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-[#171717] dark:text-[#ededed]">
+                        {category.title}
+                      </span>
+                      <span className="block truncate text-xs text-[#8f8f8f]">{category.desc}</span>
                     </div>
-                    <ChevronRight size={14} className="text-zinc-400" />
+                    <ChevronRight size={14} className="shrink-0 text-[#8f8f8f]" />
                   </Link>
                 ))}
               </div>
@@ -290,19 +292,19 @@ export const Navbar = () => {
 
             {currentCategoryId && categoryTools.length > 0 && (
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                  In this category ({currentCategory?.title})
+                <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#8f8f8f]">
+                  In {currentCategory?.title}
                 </p>
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-1">
                   {categoryTools.slice(0, 8).map((tool) => (
                     <Link
                       key={tool.id}
                       href={tool.href}
-                      className="flex items-center justify-between rounded-md p-2 text-sm text-zinc-600 hover:bg-zinc-100 hover:text-zinc-950 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+                      className="flex items-center justify-between rounded-[6px] p-2 text-sm text-[#4d4d4d] hover:bg-[#f2f2f2] hover:text-[#171717] dark:text-[#a1a1a1] dark:hover:bg-[#171717] dark:hover:text-[#ededed]"
                       onClick={() => setIsOpen(false)}
                     >
                       <span className="truncate">{tool.title}</span>
-                      <ChevronRight size={12} />
+                      <ChevronRight size={12} className="shrink-0" />
                     </Link>
                   ))}
                 </div>
@@ -310,25 +312,20 @@ export const Navbar = () => {
             )}
 
             <div>
-              <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400">
-                Resources & Articles
+              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-[#8f8f8f]">
+                More
               </p>
-              <div className="grid grid-cols-1 gap-1.5">
-                {[
-                  { label: 'All Guides & Articles', href: '/blog', icon: BookOpen },
-                  { label: 'Step-by-Step How-To', href: '/how-to', icon: FileText },
-                  { label: 'Tool Comparisons & Top 5', href: '/top5', icon: LayoutGrid },
-                  { label: 'All 60+ Tools Directory', href: '/tools', icon: Wrench },
-                ].map(({ label, href, icon: Icon }) => (
+              <div className="grid grid-cols-1 gap-2">
+                {MORE_NAV.map(({ name, href, icon: Icon }) => (
                   <Link
                     key={href}
                     href={href}
-                    className="flex items-center gap-3 rounded-xl border border-zinc-200 bg-white p-3 text-sm font-medium text-zinc-950 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-50 dark:hover:bg-zinc-800"
+                    className="flex items-center gap-3 rounded-[8px] bg-white p-3 text-sm text-[#171717] ds-surface dark:bg-[#111] dark:text-[#ededed]"
                     onClick={() => setIsOpen(false)}
                   >
-                    <Icon size={16} className="text-zinc-700 dark:text-zinc-300 shrink-0" />
-                    <span className="flex-1">{label}</span>
-                    <ChevronRight size={14} className="text-zinc-400" />
+                    <Icon size={16} className="shrink-0 text-[#4d4d4d] dark:text-[#a1a1a1]" />
+                    <span className="flex-1">{name}</span>
+                    <ChevronRight size={14} className="text-[#8f8f8f]" />
                   </Link>
                 ))}
               </div>

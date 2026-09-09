@@ -32,6 +32,7 @@
 - JSON Formatter & Validator: https://toolioz.com/devtools/json-formatter
 - JSON Web Token (JWT) Decoder: https://toolioz.com/devtools/jwt-decoder
 - X (Twitter) Tap-to-Reveal Hidden Image Generator: https://toolioz.com/devtools/x-hidden-image
+- Split Image in 3 (16:9 triptych): https://toolioz.com/design/split-image-in-3
 - Ditherit & Retro Canvas Studio: https://toolioz.com/devtools/ditherit
 - Drawesome Digital Canvas: https://toolioz.com/devtools/drawesome
 - Timestamp & Epoch Converter: https://toolioz.com/devtools/timestamp-converter

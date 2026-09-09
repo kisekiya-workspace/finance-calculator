@@ -64,8 +64,8 @@ export const Breadcrumbs = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <nav aria-label="Breadcrumb" className="border-b border-border/80 bg-muted/40 py-2.5 backdrop-blur-xs">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <nav aria-label="Breadcrumb" className="bg-[#fafafa] py-2.5 dark:bg-[#0a0a0a]">
+        <div className="mx-auto max-w-[1200px] px-6">
           <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground">
             {items.map((item, index) => {
               const isLast = index === items.length - 1;
@@ -75,7 +75,7 @@ export const Breadcrumbs = () => {
                 <li key={item.href} className="flex items-center gap-1.5">
                   {index > 0 && <ChevronRight size={12} className="text-muted-foreground/60 shrink-0" />}
                   {isLast ? (
-                    <span className="font-medium text-foreground truncate max-w-[240px] sm:max-w-none" aria-current="page">
+                    <span className="max-w-[240px] truncate font-medium text-[#171717] dark:text-[#ededed] sm:max-w-none" aria-current="page">
                       {item.name}
                     </span>
                   ) : (

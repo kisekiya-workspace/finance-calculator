@@ -7,34 +7,34 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 select-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[6px] text-sm font-normal leading-none transition-[background-color,color] duration-150 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 select-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-[var(--primary-hover)]",
+          "bg-[#0072F5] !text-white hover:bg-[#005FCC]",
         primary:
-          "bg-primary text-primary-foreground hover:bg-[var(--primary-hover)]",
+          "bg-[#0072F5] !text-white hover:bg-[#005FCC]",
         brand:
-          "bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800",
+          "bg-[#0072F5] !text-white hover:bg-[#005FCC]",
         destructive:
-          "bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500",
+          "bg-[#E5484D] text-white hover:bg-[#c9373c]",
         outline:
-          "border border-border bg-card text-card-foreground hover:border-[var(--border-strong)] hover:bg-accent hover:text-accent-foreground",
+          "bg-white text-[#171717] ds-surface hover:bg-[#f2f2f2] dark:bg-[#111] dark:text-[#ededed] dark:hover:bg-[#262626]",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-accent hover:text-accent-foreground",
-        ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
-        link: "text-blue-600 dark:text-blue-400 underline-offset-4 hover:underline",
+          "bg-[#f2f2f2] text-[#171717] hover:bg-[#ebebeb] dark:bg-[#171717] dark:text-[#ededed] dark:hover:bg-[#262626]",
+        ghost: "bg-transparent text-[#4D4D4D] hover:bg-[#EBEBEB] hover:text-[#171717] dark:text-[#A1A1A1] dark:hover:bg-[#262626] dark:hover:text-[#EDEDED]",
+        link: "text-[#0072F5] underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        xs: "h-7 gap-1 rounded px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-8 gap-1.5 rounded-md px-3 text-xs",
-        lg: "h-11 rounded-md px-6 text-base font-semibold",
-        icon: "size-9",
-        "icon-xs": "size-7 rounded [&_svg:not([class*='size-'])]:size-3",
-        "icon-sm": "size-8 rounded-md",
-        "icon-lg": "size-11 rounded-md",
+        default: "h-10 px-4 py-2",
+        xs: "h-7 gap-1 rounded-[6px] px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-8 gap-1.5 rounded-[6px] px-3 text-sm",
+        lg: "h-12 rounded-[6px] px-6 text-base",
+        icon: "size-10",
+        "icon-xs": "size-7 rounded-[6px] [&_svg:not([class*='size-'])]:size-3",
+        "icon-sm": "size-8 rounded-[6px]",
+        "icon-lg": "size-12 rounded-[6px]",
       },
     },
     defaultVariants: {

@@ -84,8 +84,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0d1117' },
+    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
 };
 
@@ -139,7 +139,7 @@ export default function RootLayout({
           <meta name="google-adsense-account" content={adsensePublisherId} />
         ) : null}
       </head>
-      <body className="min-h-screen bg-background font-sans text-foreground selection:bg-blue-600 selection:text-white">
+      <body className="min-h-screen bg-background font-sans text-foreground selection:bg-[#0072F5] selection:text-white">
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-VM8TJM1RER"
           strategy="afterInteractive"
