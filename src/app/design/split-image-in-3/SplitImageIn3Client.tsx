@@ -155,7 +155,12 @@ function zipFiles(files: { name: string; data: Uint8Array }[]): Blob {
   ev.setUint32(12, centralSize, true);
   ev.setUint32(16, offset, true);
 
-  return new Blob([...localParts, ...centralParts, end], { type: 'application/zip' });
+  return new Blob(
+    [...localParts, ...centralParts, end].map((part) =>
+      part.buffer.slice(part.byteOffset, part.byteOffset + part.byteLength),
+    ) as BlobPart[],
+    { type: 'application/zip' },
+  );
 }
 
 async function canvasPngBytes(canvas: HTMLCanvasElement): Promise<Uint8Array> {
